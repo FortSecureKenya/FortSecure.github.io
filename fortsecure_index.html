@@ -1,190 +1,669 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FortSecure Kenya | Your Safety, Our Mission</title>
-  <meta name="description" content="FortSecure Kenya provides expert security solutions including CCTV, cybersecurity, access control, and consulting. Your Safety, Our Mission." />
-  <meta name="keywords" content="FortSecure, Security, CCTV, Cybersecurity, Kenya, Access Control, Security Consulting" />
-  <meta property="og:title" content="FortSecure Kenya" />
-  <meta property="og:description" content="Your Safety, Our Mission — technology-driven protection for your business and home." />
-  <meta property="og:image" content="https://fortsecurekenya.github.io/FortSecure.github.io/images/fortsecure-logo.png" />
-  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #002B5B;
-      background-color: #fff;
-      scroll-behavior: smooth;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+      scroll-behavior:smooth;
     }
-    header {
-      background-color: #002B5B;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 10%;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+
+    body{
+      background:#ffffff;
+      color:#1b1b1b;
+      line-height:1.6;
     }
-    header img {
-      height: 50px;
+
+    a{
+      text-decoration:none;
     }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
     }
-    nav a:hover {
-      text-decoration: underline;
+
+    /* NAVBAR */
+
+    header{
+      background:#002B5B;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.15);
     }
-    .hero {
-      background: url('https://images.unsplash.com/photo-1594744803329-caf6fda181b3?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
-      height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      flex-direction: column;
-      padding: 0 20px;
+
+    .navbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 0;
     }
-    .hero h1 {
-      font-size: 3rem;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      color:#fff;
     }
-    .hero p {
-      max-width: 600px;
-      margin-top: 10px;
-      font-size: 1.2rem;
-      color: #e0e0e0;
+
+    .logo img{
+      width:72px;
+      height:72px;
+      object-fit:contain;
+      border-radius:12px;
+      filter:drop-shadow(0 0 8px rgba(0,123,255,0.35));
     }
-    .hero .btn {
-      margin-top: 20px;
-      background-color: #C0C0C0;
-      color: #002B5B;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
+
+    .logo span{
+      font-size:1.5rem;
+      font-weight:700;
+      letter-spacing:1px;
+      color:#ffffff;
     }
-    .section {
-      padding: 60px 10%;
-      text-align: center;
+
+    nav ul{
+      display:flex;
+      list-style:none;
+      gap:28px;
     }
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
+
+    nav ul li a{
+      color:#fff;
+      font-weight:500;
+      transition:0.3s;
     }
-    .card {
-      background-color: #f8f9fa;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    nav ul li a:hover{
+      color:#C0C0C0;
     }
-    .card h3 {
-      color: #002B5B;
+
+    /* HERO */
+
+    .hero{
+      background:
+      linear-gradient(rgba(0,43,91,0.82), rgba(0,43,91,0.85)),
+      url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop');
+
+      background-size:cover;
+      background-position:center;
+      min-height:95vh;
+
+      display:flex;
+      align-items:center;
+
+      color:white;
     }
-    .testimonials {
-      background-color: #f4f4f4;
-      padding: 50px 10%;
+
+    .hero-content{
+      max-width:700px;
     }
-    .testimonial {
-      font-style: italic;
-      margin: 20px auto;
-      max-width: 700px;
+
+    .hero h1{
+      font-size:3.5rem;
+      line-height:1.2;
+      margin-bottom:20px;
     }
-    footer {
-      background-color: #002B5B;
-      color: white;
-      text-align: center;
-      padding: 20px;
+
+    .hero p{
+      font-size:1.1rem;
+      margin-bottom:35px;
+      color:#f1f1f1;
     }
-    footer a {
-      color: #C0C0C0;
-      margin: 0 10px;
-      text-decoration: none;
+
+    .hero-buttons{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
     }
-    footer a:hover {
-      text-decoration: underline;
+
+    .btn{
+      padding:14px 28px;
+      border-radius:6px;
+      font-weight:600;
+      transition:0.3s;
+      display:inline-block;
     }
+
+    .btn-primary{
+      background:#ffffff;
+      color:#002B5B;
+    }
+
+    .btn-primary:hover{
+      background:#C0C0C0;
+      transform:translateY(-2px);
+    }
+
+    .btn-secondary{
+      border:2px solid #fff;
+      color:#fff;
+    }
+
+    .btn-secondary:hover{
+      background:#fff;
+      color:#002B5B;
+    }
+
+    /* SECTION */
+
+    .section{
+      padding:90px 0;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.5rem;
+      color:#002B5B;
+      margin-bottom:12px;
+    }
+
+    .section-title p{
+      color:#666;
+    }
+
+    /* SERVICES */
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:30px;
+    }
+
+    .service-card{
+      background:#fff;
+      border-radius:14px;
+      padding:35px 25px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:0.3s;
+      text-align:center;
+    }
+
+    .service-card:hover{
+      transform:translateY(-10px);
+    }
+
+    .service-card h3{
+      margin-bottom:15px;
+      color:#002B5B;
+      font-size:1.3rem;
+    }
+
+    .service-card p{
+      color:#555;
+    }
+
+    /* WHY US */
+
+    .why-us{
+      background:#f7f9fc;
+    }
+
+    .why-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .why-card{
+      background:#fff;
+      padding:30px;
+      border-left:5px solid #002B5B;
+      border-radius:10px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.06);
+      transition:0.3s;
+    }
+
+    .why-card:hover{
+      transform:translateY(-5px);
+    }
+
+    .why-card h3{
+      margin-bottom:10px;
+      color:#002B5B;
+    }
+
+    /* CTA */
+
+    .cta{
+      background:#002B5B;
+      color:#fff;
+      text-align:center;
+      padding:90px 20px;
+    }
+
+    .cta h2{
+      font-size:2.5rem;
+      margin-bottom:20px;
+    }
+
+    .cta p{
+      margin-bottom:30px;
+      font-size:1.05rem;
+    }
+
+    /* CONTACT */
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:40px;
+    }
+
+    .contact-box{
+      background:#fff;
+      padding:35px;
+      border-radius:12px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.07);
+    }
+
+    .contact-box h3{
+      color:#002B5B;
+      margin-bottom:20px;
+    }
+
+    .contact-box p{
+      margin-bottom:12px;
+    }
+
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      padding:14px;
+      margin-bottom:18px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      font-size:1rem;
+    }
+
+    .contact-form button{
+      width:100%;
+      border:none;
+      cursor:pointer;
+    }
+
+    /* FOOTER */
+
+    footer{
+      background:#001B38;
+      color:#fff;
+      padding:40px 0;
+      text-align:center;
+    }
+
+    footer img{
+      width:90px;
+      margin-bottom:15px;
+    }
+
+    footer p{
+      color:#ccc;
+    }
+
+    /* WHATSAPP FLOAT */
+
+    .whatsapp{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      background:#25D366;
+      color:#fff;
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.7rem;
+      box-shadow:0 4px 15px rgba(0,0,0,0.25);
+      z-index:999;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px){
+
+      nav{
+        display:none;
+      }
+
+      .hero{
+        text-align:center;
+      }
+
+      .hero-content{
+        margin:auto;
+      }
+
+      .hero h1{
+        font-size:2.5rem;
+      }
+
+      .hero-buttons{
+        justify-content:center;
+      }
+
+      .logo span{
+        font-size:1.2rem;
+      }
+
+      .logo img{
+        width:60px;
+        height:60px;
+      }
+    }
+
   </style>
 </head>
+
 <body>
+
+  <!-- HEADER -->
+
   <header>
-    <img src="images/fortsecure-logo.png" alt="FortSecure Logo" />
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
+
+    <div class="container navbar">
+
+      <div class="logo">
+        <img src="images/fortsecure-logo.png" alt="FortSecure Kenya Logo">
+        <span>FortSecure Kenya</span>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#why">Why Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
   </header>
 
-  <section class="hero" id="home">
-    <h1>Your Safety, Our Mission</h1>
-    <p>At FortSecure, we deliver technology-driven protection solutions for homes, businesses, and organizations across Kenya.</p>
-    <a href="#services"><button class="btn">Our Services</button></a>
+  <!-- HERO SECTION -->
+
+  <section class="hero">
+
+    <div class="container hero-content">
+
+      <h1>Professional Security Solutions Across Kenya</h1>
+
+      <p>
+        Your Safety, Our Mission. Reliable guarding, surveillance,
+        alarm response, and corporate security services tailored
+        for homes, businesses, institutions, and events.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="#contact" class="btn btn-primary">
+          Request a Quote
+        </a>
+
+        <a href="tel:+254700000000" class="btn btn-secondary">
+          Call Now
+        </a>
+
+        <a href="https://wa.me/254700000000" class="btn btn-secondary">
+          WhatsApp Us
+        </a>
+
+      </div>
+
+    </div>
+
   </section>
+
+  <!-- SERVICES -->
 
   <section class="section" id="services">
-    <h2>Our Core Services</h2>
-    <div class="services">
-      <div class="card">
-        <h3>CCTV Surveillance</h3>
-        <p>High-definition video monitoring systems to secure your premises 24/7.</p>
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Our Services</h2>
+
+        <p>
+          Professional protection solutions for every environment.
+        </p>
+
       </div>
-      <div class="card">
-        <h3>Cybersecurity</h3>
-        <p>Protecting your digital assets through expert risk assessment and defense systems.</p>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <h3>Manned Guarding</h3>
+          <p>
+            Professional trained security guards for homes,
+            offices, institutions, and commercial premises.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <h3>CCTV Surveillance</h3>
+          <p>
+            Advanced surveillance systems for 24/7 monitoring
+            and protection.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <h3>Alarm Response</h3>
+          <p>
+            Fast and efficient emergency response services
+            whenever needed.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <h3>Event Security</h3>
+          <p>
+            Comprehensive crowd management and event protection
+            services.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <h3>VIP Protection</h3>
+          <p>
+            Personalized close protection services for executives,
+            dignitaries, and high-profile individuals.
+          </p>
+        </div>
+
+        <div class="service-card">
+          <h3>Security Consultancy</h3>
+          <p>
+            Professional risk assessment and tailored security
+            advisory services.
+          </p>
+        </div>
+
       </div>
-      <div class="card">
-        <h3>Access Control</h3>
-        <p>Smart door and gate control solutions ensuring only authorized entry.</p>
-      </div>
-      <div class="card">
-        <h3>Security Consulting</h3>
-        <p>Comprehensive audits and guidance for integrated safety and peace of mind.</p>
-      </div>
+
     </div>
+
   </section>
 
-  <section class="section" id="about">
-    <h2>About FortSecure</h2>
-    <p>FortSecure Kenya is a trusted provider of integrated security solutions designed to meet the evolving needs of homes and businesses. We combine technology, expertise, and reliability to deliver unmatched protection. Whether physical or digital, your safety remains our mission.</p>
+  <!-- WHY US -->
+
+  <section class="section why-us" id="why">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Why Choose FortSecure?</h2>
+
+        <p>
+          Committed to professionalism, integrity, and rapid response.
+        </p>
+
+      </div>
+
+      <div class="why-grid">
+
+        <div class="why-card">
+          <h3>24/7 Availability</h3>
+          <p>
+            Round-the-clock security support and monitoring services.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <h3>Professional Personnel</h3>
+          <p>
+            Highly trained and disciplined security officers.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <h3>Rapid Response</h3>
+          <p>
+            Quick emergency response to incidents and alarm triggers.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <h3>Trusted Protection</h3>
+          <p>
+            Reliable and client-focused security solutions across Kenya.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
   </section>
 
-  <section class="testimonials" id="testimonials">
-    <h2>What Our Clients Say</h2>
-    <div class="testimonial">
-      “FortSecure transformed our business security — from access control to CCTV installation. Highly professional service.”<br>— <strong>J. Otieno, Thome Estate</strong>
+  <!-- CALL TO ACTION -->
+
+  <section class="cta">
+
+    <div class="container">
+
+      <h2>Need Professional Security Services?</h2>
+
+      <p>
+        Contact FortSecure Kenya today for a free consultation
+        and site assessment.
+      </p>
+
+      <a href="#contact" class="btn btn-primary">
+        Get Protected Today
+      </a>
+
     </div>
-    <div class="testimonial">
-      “Reliable and responsive! I feel safer knowing FortSecure monitors my home security systems.”<br>— <strong>S. Achieng, Business Owner</strong>
-    </div>
+
   </section>
+
+  <!-- CONTACT -->
 
   <section class="section" id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:FortSecure@gmail.com">FortSecure@gmail.com</a><br>
-       Phone: <a href="tel:+254724101392">0724 101 392</a><br>
-       WhatsApp: <a href="https://wa.me/254724101392" target="_blank">Chat with us</a></p>
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Contact Us</h2>
+
+        <p>
+          We are ready to secure your home, business, or event.
+        </p>
+
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-box">
+
+          <h3>Get In Touch</h3>
+
+          <p><strong>Phone:</strong> +254 700 000 000</p>
+
+          <p><strong>Email:</strong> info@fortsecure.co.ke</p>
+
+          <p><strong>Location:</strong> Nairobi, Kenya</p>
+
+          <p><strong>Hours:</strong> 24/7 Operations</p>
+
+        </div>
+
+        <div class="contact-box">
+
+          <form class="contact-form">
+
+            <input type="text" placeholder="Your Name" required>
+
+            <input type="email" placeholder="Your Email" required>
+
+            <textarea rows="5" placeholder="Your Message"></textarea>
+
+            <button class="btn btn-primary">
+              Send Message
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </section>
 
+  <!-- FOOTER -->
+
   <footer>
-    <p>© 2025 FortSecure Kenya — Your Safety, Our Mission</p>
-    <p>
-      <a href="#">Facebook</a> | 
-      <a href="#">LinkedIn</a> | 
-      <a href="#">Instagram</a>
-    </p>
+
+    <div class="container">
+
+      <img src="images/fortsecure-logo.png" alt="FortSecure Logo">
+
+      <h3>FortSecure Kenya</h3>
+
+      <p>Your Safety, Our Mission</p>
+
+      <br>
+
+      <p>
+        © 2026 FortSecure Kenya. All Rights Reserved.
+      </p>
+
+    </div>
+
   </footer>
+
+  <!-- WHATSAPP FLOAT -->
+
+  <a
+    href="https://wa.me/254700000000"
+    class="whatsapp"
+    target="_blank"
+  >
+    ☎
+  </a>
+
 </body>
 </html>
+<!          
