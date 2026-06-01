@@ -73,6 +73,10 @@
       color:#ffffff;
     }
 
+    nav{
+      display:flex;
+    }
+
     nav ul{
       display:flex;
       list-style:none;
@@ -87,6 +91,24 @@
 
     nav ul li a:hover{
       color:#C0C0C0;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 6px;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 2.5px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
     }
 
     /* HERO */
@@ -114,6 +136,18 @@
       font-size:3.5rem;
       line-height:1.2;
       margin-bottom:20px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero p{
@@ -206,6 +240,16 @@
 
     .service-card p{
       color:#555;
+    }
+
+    .service-card ul {
+      text-align: left;
+      color: #555;
+      list-style-position: inside;
+    }
+
+    .service-card ul li {
+      margin-bottom: 8px;
     }
 
     /* WHY US */
@@ -319,6 +363,77 @@
       display:block;
     }
 
+    /* FLOATING ACTION BUTTONS */
+    .fab-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 999;
+    }
+
+    .fab {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      transition: 0.3s ease;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+    }
+
+    .fab-call {
+      background: gold;
+      color: black;
+    }
+
+    .fab-call:hover {
+      background: #ffd700;
+    }
+
+    .fab-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .fab-whatsapp:hover {
+      background: #20ba5a;
+    }
+
+    .fab-email {
+      background: #002B5B;
+      color: gold;
+    }
+
+    .fab-email:hover {
+      background: #001a38;
+    }
+
+    /* TESTIMONIALS */
+    .testimonial-card {
+      border-left: 4px solid gold;
+      background: white;
+    }
+
+    .testimonial-card p {
+      margin-bottom: 15px;
+      color: #333;
+      font-style: italic;
+    }
+
+    .testimonial-card strong {
+      color: #002B5B;
+    }
+
     /* FOOTER */
 
     footer{
@@ -337,31 +452,39 @@
       color:#ccc;
     }
 
-    /* WHATSAPP FLOAT */
-
-    .whatsapp{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      background:#25D366;
-      color:#fff;
-      width:60px;
-      height:60px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:1.7rem;
-      box-shadow:0 4px 15px rgba(0,0,0,0.25);
-      z-index:999;
-    }
-
     /* MOBILE */
 
     @media(max-width:768px){
 
-      nav{
-        display:none;
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #002B5B;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        z-index: 999;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      nav ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
       }
 
       .hero{
@@ -388,6 +511,17 @@
         width:60px;
         height:60px;
       }
+
+      .fab {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+
     }
 
   </style>
@@ -406,11 +540,18 @@
         <span>FortSecure Kenya</span>
       </div>
 
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#why">Why Us</a></li>
+          <li><a href="#careers">Careers</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -577,6 +718,54 @@
 
   </section>
 
+  <!-- CAREERS SECTION -->
+
+  <section class="section" id="careers">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>Join Our Team</h2>
+
+        <p>We are always looking for disciplined and professional security personnel.</p>
+
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card">
+          <h3>📋 Requirements</h3>
+          <ul>
+            <li>KCSE Certificate or equivalent</li>
+            <li>Good physical fitness</li>
+            <li>Clean criminal record</li>
+            <li>Valid national ID</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <h3>💼 We Offer</h3>
+          <ul>
+            <li>Competitive salary packages</li>
+            <li>Professional training</li>
+            <li>Career advancement opportunities</li>
+            <li>Friendly work environment</li>
+          </ul>
+        </div>
+
+        <div class="service-card">
+          <h3>✉️ Apply Now</h3>
+          <p style="margin-bottom: 20px;">Send your CV and details to us</p>
+          <a href="https://wa.me/254724101392?text=Hi%20FortSecure%2C%20I%20want%20to%20apply%20for%20a%20security%20position" class="btn btn-primary">Apply via WhatsApp</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
   <!-- CALL TO ACTION -->
 
   <section class="cta">
@@ -593,6 +782,49 @@
       <a href="#contact" class="btn btn-primary">
         Get Protected Today
       </a>
+
+    </div>
+
+  </section>
+
+  <!-- TESTIMONIALS -->
+
+  <section class="section" id="testimonials" style="background: #f7f9fc;">
+
+    <div class="container">
+
+      <div class="section-title">
+
+        <h2>What Our Clients Say</h2>
+
+        <p>Trusted by homes, businesses, and institutions across Nairobi.</p>
+
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card testimonial-card">
+          <p>
+            "FortSecure provided excellent security for our office. Professional, responsive, and reliable. Highly recommended!"
+          </p>
+          <strong>— Tech Company Manager</strong>
+        </div>
+
+        <div class="service-card testimonial-card">
+          <p>
+            "We've been using FortSecure for 2 years. Their team is disciplined and trustworthy. Great service!"
+          </p>
+          <strong>— Residential Estate Owner</strong>
+        </div>
+
+        <div class="service-card testimonial-card">
+          <p>
+            "Best security provider in Nairobi. Fast response time and very professional. Worth every penny."
+          </p>
+          <strong>— Church Administrator</strong>
+        </div>
+
+      </div>
 
     </div>
 
@@ -678,15 +910,17 @@
 
   </footer>
 
-  <!-- WHATSAPP FLOAT -->
+  <!-- FLOATING ACTION BUTTONS -->
 
-  <a
-    href="https://wa.me/254724101392"
-    class="whatsapp"
-    target="_blank"
-  >
-    ☎
-  </a>
+  <div class="fab-container">
+
+    <a href="tel:+254724101392" class="fab fab-call" title="Call us">📞</a>
+
+    <a href="https://wa.me/254724101392" class="fab fab-whatsapp" target="_blank" title="WhatsApp">💬</a>
+
+    <a href="mailto:fortsecurekenya@gmail.com" class="fab fab-email" title="Email us">✉️</a>
+
+  </div>
 
   <!-- Form Submission Handler -->
   <script>
@@ -713,7 +947,8 @@
           contactForm.reset();
           setTimeout(() => {
             messageDiv.style.display = 'none';
-          }, 5000);
+            messageDiv.classList.remove('success', 'error');
+          }, 6000);
         } else {
           throw new Error('Form submission failed');
         }
@@ -722,6 +957,21 @@
         messageDiv.textContent = '✗ Error sending message. Please try again or contact us directly.';
         messageDiv.classList.add('error');
         messageDiv.classList.remove('success');
+      });
+    });
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.querySelector('nav');
+
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
       });
     });
   </script>
