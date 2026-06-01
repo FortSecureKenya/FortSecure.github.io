@@ -9,24 +9,20 @@
   <meta name="author" content="FortSecure Kenya">
   <meta name="robots" content="index, follow">
   
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://fortsecurekenya.github.io/FortSecure.github.io/">
   <meta property="og:title" content="FortSecure Kenya | Professional Security Services in Nairobi">
   <meta property="og:description" content="Trusted security services in Nairobi. Manned guarding, CCTV surveillance, alarm response, and more. 24/7 rapid response.">
   <meta property="og:image" content="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png">
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://fortsecurekenya.github.io/FortSecure.github.io/">
   <meta property="twitter:title" content="FortSecure Kenya | Professional Security Services">
   <meta property="twitter:description" content="Professional security services in Nairobi. Manned guarding, CCTV surveillance, alarm response & more.">
   <meta property="twitter:image" content="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png">
 
-  <!-- Canonical URL -->
   <link rel="canonical" href="https://fortsecurekenya.github.io/FortSecure.github.io/">
 
-  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org/",
@@ -119,7 +115,6 @@
     }
 
     /* NAVBAR */
-
     header{
       background:#002B5B;
       position:sticky;
@@ -196,19 +191,15 @@
     }
 
     /* HERO */
-
     .hero{
       background:
       linear-gradient(rgba(0,43,91,0.82), rgba(0,43,91,0.85)),
       url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop');
-
       background-size:cover;
       background-position:center;
       min-height:95vh;
-
       display:flex;
       align-items:center;
-
       color:white;
     }
 
@@ -252,6 +243,8 @@
       font-weight:600;
       transition:0.3s;
       display:inline-block;
+      border:none;
+      cursor:pointer;
     }
 
     .btn-primary{
@@ -267,6 +260,7 @@
     .btn-secondary{
       border:2px solid #fff;
       color:#fff;
+      background:transparent;
     }
 
     .btn-secondary:hover{
@@ -275,7 +269,6 @@
     }
 
     /* SECTION */
-
     .section{
       padding:90px 0;
     }
@@ -295,8 +288,77 @@
       color:#666;
     }
 
-    /* SERVICES */
+    /* STATS */
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:30px;
+      margin-bottom:60px;
+    }
 
+    .stat-card{
+      text-align:center;
+      padding:30px;
+      background:#f7f9fc;
+      border-radius:12px;
+    }
+
+    .stat-number{
+      font-size:2.5rem;
+      font-weight:700;
+      color:#002B5B;
+      margin-bottom:10px;
+    }
+
+    .stat-label{
+      color:#666;
+      font-size:0.95rem;
+    }
+
+    /* TABS */
+    .tabs{
+      display:flex;
+      gap:10px;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+      border-bottom:2px solid #eee;
+    }
+
+    .tab-btn{
+      background:none;
+      border:none;
+      padding:15px 20px;
+      cursor:pointer;
+      font-weight:600;
+      color:#666;
+      border-bottom:3px solid transparent;
+      transition:0.3s;
+    }
+
+    .tab-btn:hover{
+      color:#002B5B;
+    }
+
+    .tab-btn.active{
+      color:#002B5B;
+      border-bottom-color:#002B5B;
+    }
+
+    .tab-content{
+      display:none;
+      animation:fadeIn 0.3s ease-in;
+    }
+
+    .tab-content.active{
+      display:block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* SERVICES */
     .services-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -310,10 +372,12 @@
       box-shadow:0 5px 20px rgba(0,0,0,0.08);
       transition:0.3s;
       text-align:center;
+      cursor:pointer;
     }
 
     .service-card:hover{
       transform:translateY(-10px);
+      box-shadow:0 8px 30px rgba(0,0,0,0.15);
     }
 
     .service-card h3{
@@ -336,8 +400,300 @@
       margin-bottom: 8px;
     }
 
-    /* WHY US */
+    /* ACCORDION */
+    .accordion-item{
+      margin-bottom:15px;
+      border:1px solid #eee;
+      border-radius:8px;
+      overflow:hidden;
+    }
 
+    .accordion-header{
+      background:#f7f9fc;
+      padding:20px;
+      cursor:pointer;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight:600;
+      color:#002B5B;
+      transition:0.3s;
+    }
+
+    .accordion-header:hover{
+      background:#e8ecf4;
+    }
+
+    .accordion-header.active{
+      background:#002B5B;
+      color:#fff;
+    }
+
+    .accordion-content{
+      display:none;
+      padding:20px;
+      background:#fff;
+      border-top:1px solid #eee;
+    }
+
+    .accordion-content.active{
+      display:block;
+    }
+
+    .accordion-icon{
+      transition:0.3s;
+    }
+
+    .accordion-header.active .accordion-icon{
+      transform:rotate(180deg);
+    }
+
+    /* TESTIMONIALS CAROUSEL */
+    .carousel-container{
+      position:relative;
+      max-width:600px;
+      margin:auto;
+    }
+
+    .testimonial-slide{
+      display:none;
+      padding:40px;
+      background:#f7f9fc;
+      border-radius:12px;
+      text-align:center;
+      animation:fadeIn 0.5s ease-in;
+    }
+
+    .testimonial-slide.active{
+      display:block;
+    }
+
+    .testimonial-text{
+      font-size:1.1rem;
+      font-style:italic;
+      margin-bottom:20px;
+      color:#333;
+    }
+
+    .testimonial-author{
+      font-weight:700;
+      color:#002B5B;
+    }
+
+    .carousel-controls{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      margin-top:20px;
+    }
+
+    .carousel-btn{
+      background:#002B5B;
+      color:#fff;
+      border:none;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1.2rem;
+      transition:0.3s;
+    }
+
+    .carousel-btn:hover{
+      background:gold;
+      color:#002B5B;
+    }
+
+    .carousel-dots{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin-top:15px;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#ccc;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .dot.active{
+      background:#002B5B;
+      width:30px;
+      border-radius:5px;
+    }
+
+    /* FILE UPLOAD */
+    .upload-area{
+      border:2px dashed #002B5B;
+      border-radius:8px;
+      padding:40px;
+      text-align:center;
+      cursor:pointer;
+      transition:0.3s;
+      background:#f7f9fc;
+    }
+
+    .upload-area:hover{
+      background:#e8ecf4;
+      border-color:gold;
+    }
+
+    .upload-area.dragover{
+      background:#e8ecf4;
+      border-color:gold;
+    }
+
+    .upload-icon{
+      font-size:3rem;
+      margin-bottom:10px;
+    }
+
+    .uploaded-files{
+      margin-top:20px;
+    }
+
+    .file-item{
+      background:#fff;
+      padding:12px;
+      margin-bottom:10px;
+      border-radius:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .file-item.success{
+      background:#d4edda;
+      border-left:4px solid #28a745;
+    }
+
+    .file-item.error{
+      background:#f8d7da;
+      border-left:4px solid #dc3545;
+    }
+
+    /* FORM */
+    .form-group{
+      margin-bottom:20px;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:600;
+      color:#002B5B;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select{
+      width:100%;
+      padding:12px;
+      border:1px solid #ddd;
+      border-radius:6px;
+      font-size:1rem;
+      font-family:'Poppins',sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus{
+      outline:none;
+      border-color:#002B5B;
+      box-shadow:0 0 0 3px rgba(0,43,91,0.1);
+    }
+
+    .form-group textarea{
+      resize:vertical;
+      min-height:120px;
+    }
+
+    .required{
+      color:red;
+    }
+
+    /* PROGRESS BAR */
+    .progress-container{
+      margin-bottom:30px;
+    }
+
+    .progress-bar{
+      background:#eee;
+      height:8px;
+      border-radius:10px;
+      overflow:hidden;
+      margin-bottom:20px;
+    }
+
+    .progress-fill{
+      background:#002B5B;
+      height:100%;
+      width:25%;
+      transition:0.3s;
+    }
+
+    .progress-steps{
+      display:flex;
+      justify-content:space-between;
+    }
+
+    .progress-step{
+      flex:1;
+      text-align:center;
+      padding:10px;
+      font-size:0.9rem;
+      color:#666;
+    }
+
+    .progress-step.active{
+      color:#002B5B;
+      font-weight:700;
+    }
+
+    .progress-step.completed{
+      color:#28a745;
+    }
+
+    /* APPLICATION STATUS */
+    .status-badge{
+      display:inline-block;
+      padding:8px 16px;
+      border-radius:20px;
+      font-weight:600;
+      font-size:0.9rem;
+    }
+
+    .status-submitted{
+      background:#e3f2fd;
+      color:#1976d2;
+    }
+
+    .status-reviewing{
+      background:#fff3e0;
+      color:#f57c00;
+    }
+
+    .status-interview{
+      background:#f3e5f5;
+      color:#7b1fa2;
+    }
+
+    .status-hired{
+      background:#e8f5e9;
+      color:#388e3c;
+    }
+
+    .status-rejected{
+      background:#ffebee;
+      color:#c62828;
+    }
+
+    /* WHY US */
     .why-us{
       background:#f7f9fc;
     }
@@ -367,7 +723,6 @@
     }
 
     /* CTA */
-
     .cta{
       background:#002B5B;
       color:#fff;
@@ -386,7 +741,6 @@
     }
 
     /* CONTACT */
-
     .contact-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -407,22 +761,6 @@
 
     .contact-box p{
       margin-bottom:12px;
-    }
-
-    .contact-form input,
-    .contact-form textarea{
-      width:100%;
-      padding:14px;
-      margin-bottom:18px;
-      border:1px solid #ccc;
-      border-radius:6px;
-      font-size:1rem;
-    }
-
-    .contact-form button{
-      width:100%;
-      border:none;
-      cursor:pointer;
     }
 
     .form-message{
@@ -469,6 +807,8 @@
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       transition: 0.3s ease;
+      border:none;
+      cursor:pointer;
     }
 
     .fab:hover {
@@ -480,26 +820,14 @@
       color: black;
     }
 
-    .fab-call:hover {
-      background: #ffd700;
-    }
-
     .fab-whatsapp {
       background: #25D366;
       color: white;
     }
 
-    .fab-whatsapp:hover {
-      background: #20ba5a;
-    }
-
     .fab-email {
       background: #002B5B;
       color: gold;
-    }
-
-    .fab-email:hover {
-      background: #001a38;
     }
 
     /* TESTIMONIALS */
@@ -519,7 +847,6 @@
     }
 
     /* FOOTER */
-
     footer{
       background:#001B38;
       color:#fff;
@@ -536,8 +863,47 @@
       color:#ccc;
     }
 
-    /* MOBILE */
+    /* MODAL */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.5);
+      z-index:2000;
+      align-items:center;
+      justify-content:center;
+    }
 
+    .modal.active{
+      display:flex;
+    }
+
+    .modal-content{
+      background:#fff;
+      padding:40px;
+      border-radius:12px;
+      max-width:500px;
+      width:90%;
+      max-height:80vh;
+      overflow-y:auto;
+      position:relative;
+    }
+
+    .modal-close{
+      position:absolute;
+      top:15px;
+      right:15px;
+      background:none;
+      border:none;
+      font-size:1.5rem;
+      cursor:pointer;
+      color:#666;
+    }
+
+    /* MOBILE */
     @media(max-width:768px){
 
       .menu-toggle {
@@ -606,6 +972,25 @@
         font-size: 1.8rem;
       }
 
+      .tabs{
+        flex-direction:column;
+      }
+
+      .tab-btn{
+        text-align:left;
+        border-bottom:none;
+        border-left:3px solid transparent;
+      }
+
+      .tab-btn.active{
+        border-left-color:#002B5B;
+        border-bottom:none;
+      }
+
+      .modal-content{
+        padding:20px;
+      }
+
     }
 
   </style>
@@ -614,11 +999,8 @@
 <body>
 
   <!-- HEADER -->
-
   <header>
-
     <div class="container navbar">
-
       <div class="logo">
         <img src="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png" alt="FortSecure Kenya - Professional Security Services Logo">
         <span>FortSecure Kenya</span>
@@ -632,386 +1014,1088 @@
 
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><a href="#home">Home</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#why">Why Us</a></li>
-          <li><a href="#careers">Careers</a></li>
+          <li><a href="#jobs">Careers</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-
     </div>
-
   </header>
 
   <!-- HERO SECTION -->
-
-  <section class="hero">
-
+  <section class="hero" id="home">
     <div class="container hero-content">
-
       <h1>Professional Security Services in Nairobi, Kenya</h1>
-
-      <p>
-        Your Safety, Our Mission. Reliable guarding, surveillance,
-        alarm response, and corporate security services tailored
-        for homes, businesses, institutions, and events across Nairobi and Kenya.
-      </p>
-
+      <p>Your Safety, Our Mission. Reliable guarding, surveillance, alarm response, and corporate security services tailored for homes, businesses, institutions, and events across Nairobi and Kenya.</p>
       <div class="hero-buttons">
-
-        <a href="#contact" class="btn btn-primary">
-          Request a Quote
-        </a>
-
-        <a href="tel:+254724101392" class="btn btn-secondary">
-          Call Now
-        </a>
-
-        <a href="https://wa.me/254724101392" class="btn btn-secondary">
-          WhatsApp Us
-        </a>
-
+        <a href="#services" class="btn btn-primary">Explore Services</a>
+        <a href="tel:+254724101392" class="btn btn-secondary">Call: +254 724 101 392</a>
+        <a href="https://wa.me/254724101392" class="btn btn-secondary">WhatsApp Us</a>
       </div>
-
     </div>
-
   </section>
 
-  <!-- SERVICES -->
-
-  <section class="section" id="services">
-
+  <!-- STATS SECTION -->
+  <section class="section">
     <div class="container">
-
       <div class="section-title">
-
-        <h2>Professional Security Services in Nairobi</h2>
-
-        <p>
-          Expert protection solutions for every environment in Kenya
-        </p>
-
+        <h2>FortSecure Kenya - Trusted Partner</h2>
+        <p>Numbers that speak to our excellence in security services</p>
       </div>
 
-      <div class="services-grid">
-
-        <div class="service-card">
-          <h3>Manned Guarding Services</h3>
-          <p>
-            Professional trained security guards for homes, offices, 
-            institutions, and commercial premises throughout Nairobi and Kenya.
-          </p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="stat1">500+</div>
+          <div class="stat-label">Satisfied Clients</div>
         </div>
-
-        <div class="service-card">
-          <h3>CCTV Surveillance Systems</h3>
-          <p>
-            Advanced surveillance systems for 24/7 monitoring 
-            and protection in Nairobi.
-          </p>
+        <div class="stat-card">
+          <div class="stat-number" id="stat2">150+</div>
+          <div class="stat-label">Security Personnel</div>
         </div>
-
-        <div class="service-card">
-          <h3>Emergency Alarm Response</h3>
-          <p>
-            Fast and efficient emergency response services 
-            for security alarms in Nairobi.
-          </p>
+        <div class="stat-card">
+          <div class="stat-number" id="stat3">15</div>
+          <div class="stat-label">Years Combined Experience</div>
         </div>
-
-        <div class="service-card">
-          <h3>Event Security Services</h3>
-          <p>
-            Comprehensive crowd management and event protection 
-            services for events in Nairobi and Kenya.
-          </p>
+        <div class="stat-card">
+          <div class="stat-number" id="stat4">24/7</div>
+          <div class="stat-label">Operations Available</div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="service-card">
-          <h3>VIP Close Protection</h3>
-          <p>
-            Personalized close protection services for executives,
-            dignitaries, and high-profile individuals in Kenya.
-          </p>
+  <!-- SERVICES BY CATEGORY -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Professional Security Services in Nairobi</h2>
+        <p>Specialized solutions for every sector and requirement</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'schools')">🏫 Schools & Institutions</button>
+        <button class="tab-btn" onclick="switchTab(event, 'churches')">⛪ Churches & Religious</button>
+        <button class="tab-btn" onclick="switchTab(event, 'corporate')">🏢 Corporate & Commercial</button>
+        <button class="tab-btn" onclick="switchTab(event, 'events')">🎉 Events & Special</button>
+      </div>
+
+      <!-- SCHOOLS & INSTITUTIONS -->
+      <div id="schools" class="tab-content active">
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>🏫 Campus Perimeter Security</h3>
+            <p>Comprehensive security for school grounds with:</p>
+            <ul>
+              <li>24/7 patrol services</li>
+              <li>Access point monitoring</li>
+              <li>Incident response protocols</li>
+              <li>Trained security personnel</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🚌 Student Transportation Security</h3>
+            <p>Safe transit solutions including:</p>
+            <ul>
+              <li>Escorted school runs</li>
+              <li>Vehicle tracking systems</li>
+              <li>Driver background checks</li>
+              <li>Emergency communication setup</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🎓 Events & Examination Security</h3>
+            <p>Protection for important occasions:</p>
+            <ul>
+              <li>Sports day security</li>
+              <li>Examination hall monitoring</li>
+              <li>Prize distribution events</li>
+              <li>Graduation ceremonies</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>👥 Staff & Visitor Management</h3>
+            <p>Controlled access and monitoring:</p>
+            <ul>
+              <li>ID verification systems</li>
+              <li>Visitor log management</li>
+              <li>Staff security briefings</li>
+              <li>Emergency drills & training</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>⚠️ Emergency Response Protocols</h3>
+            <p>Ready for any crisis situation:</p>
+            <ul>
+              <li>Evacuation procedures</li>
+              <li>First aid coordination</li>
+              <li>Authority liaison</li>
+              <li>24/7 response team</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>📹 CCTV & Monitoring Systems</h3>
+            <p>Advanced surveillance for schools:</p>
+            <ul>
+              <li>HD camera coverage</li>
+              <li>Remote monitoring</li>
+              <li>Cloud storage</li>
+              <li>Night vision capability</li>
+            </ul>
+          </div>
         </div>
+      </div>
 
-        <div class="service-card">
-          <h3>Security Risk Assessment</h3>
-          <p>
-            Professional risk assessment and tailored security
-            advisory services for businesses in Nairobi.
-          </p>
+      <!-- CHURCHES & RELIGIOUS INSTITUTIONS -->
+      <div id="churches" class="tab-content">
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>⛪ Sanctuary Protection</h3>
+            <p>Secure worship environments with:</p>
+            <ul>
+              <li>Professional security presence</li>
+              <li>Discreet monitoring</li>
+              <li>Trained personnel</li>
+              <li>Emergency protocols</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>📿 Ceremony & Event Security</h3>
+            <p>Protection for special occasions:</p>
+            <ul>
+              <li>Wedding security</li>
+              <li>Funeral arrangements</li>
+              <li>Religious festivals</li>
+              <li>Large congregation events</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>👨‍⛪ Clergy & Staff Protection</h3>
+            <p>Specialized protection services:</p>
+            <ul>
+              <li>Personal security</li>
+              <li>Transportation security</li>
+              <li>Residence security</li>
+              <li>VIP protection</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>💰 Safe Custody & Asset Protection</h3>
+            <p>Secure handling of valuables:</p>
+            <ul>
+              <li>Cash handling security</li>
+              <li>Donation safeguarding</li>
+              <li>Artifact protection</li>
+              <li>Secure storage</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🎉 Large Congregation Management</h3>
+            <p>Crowd control & safety:</p>
+            <ul>
+              <li>Crowd flow management</li>
+              <li>Emergency exits</li>
+              <li>Medical standby</li>
+              <li>Parking security</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🔒 Access Control Systems</h3>
+            <p>Controlled facility access:</p>
+            <ul>
+              <li>Card reader systems</li>
+              <li>Biometric access</li>
+              <li>Visitor tracking</li>
+              <li>Restricted areas</li>
+            </ul>
+          </div>
         </div>
+      </div>
 
+      <!-- CORPORATE & COMMERCIAL -->
+      <div id="corporate" class="tab-content">
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>🏢 Office Building Security</h3>
+            <p>Comprehensive office protection:</p>
+            <ul>
+              <li>Reception area monitoring</li>
+              <li>24/7 guards on duty</li>
+              <li>After-hours patrolling</li>
+              <li>Key card systems</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>📹 24/7 CCTV Monitoring</h3>
+            <p>Advanced surveillance systems:</p>
+            <ul>
+              <li>HD camera networks</li>
+              <li>Live monitoring center</li>
+              <li>Cloud storage</li>
+              <li>Remote access capability</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🚪 Access Control Management</h3>
+            <p>Smart security solutions:</p>
+            <ul>
+              <li>Biometric systems</li>
+              <li>Card reader installation</li>
+              <li>Mobile app control</li>
+              <li>Audit trail logs</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>💼 Executive VIP Protection</h3>
+            <p>High-level security services:</p>
+            <ul>
+              <li>Close protection teams</li>
+              <li>Secure transportation</li>
+              <li>Travel security planning</li>
+              <li>Threat assessment</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🚨 Emergency Response Teams</h3>
+            <p>Rapid incident response:</p>
+            <ul>
+              <li>Quick response units</li>
+              <li>Alarm integration</li>
+              <li>Police liaison</li>
+              <li>Incident documentation</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>📊 Security Risk Assessment</h3>
+            <p>Professional evaluation services:</p>
+            <ul>
+              <li>Vulnerability analysis</li>
+              <li>Threat assessment</li>
+              <li>Recommendations report</li>
+              <li>Implementation planning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- EVENTS & SPECIAL SERVICES -->
+      <div id="events" class="tab-content">
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>🎉 Crowd Management</h3>
+            <p>Professional event control:</p>
+            <ul>
+              <li>Entry/exit monitoring</li>
+              <li>Queue management</li>
+              <li>Fire safety compliance</li>
+              <li>Emergency protocols</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🎤 Concert & Festival Security</h3>
+            <p>Entertainment event protection:</p>
+            <ul>
+              <li>Stage security</li>
+              <li>Pit management</li>
+              <li>VIP area control</li>
+              <li>Incident response</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>💼 Corporate Conference Security</h3>
+            <p>Business event solutions:</p>
+            <ul>
+              <li>Access verification</li>
+              <li>Keynote speaker protection</li>
+              <li>Delegate safety</li>
+              <li>Equipment security</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>💍 Wedding & Private Events</h3>
+            <p>Elegant security solutions:</p>
+            <ul>
+              <li>Discreet personnel</li>
+              <li>Guest verification</li>
+              <li>Valuables protection</li>
+              <li>Parking management</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🏅 Sports Events Security</h3>
+            <p>Athletic event management:</p>
+            <ul>
+              <li>Crowd control</li>
+              <li>Team protection</li>
+              <li>Equipment security</li>
+              <li>Parking & traffic</li>
+            </ul>
+          </div>
+
+          <div class="service-card">
+            <h3>🎯 Trade Shows & Exhibitions</h3>
+            <p>Commercial event security:</p>
+            <ul>
+              <li>Booth security</li>
+              <li>Exhibitor protection</li>
+              <li>Asset surveillance</li>
+              <li>Theft prevention</li>
+            </ul>
+          </div>
+        </div>
       </div>
 
     </div>
+  </section>
 
+  <!-- FAQ SECTION -->
+  <section class="section" style="background:#f7f9fc;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Common questions about our security services</p>
+      </div>
+
+      <div style="max-width:700px;margin:auto;">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>What security services do you offer?</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>We offer comprehensive security solutions including manned guarding, CCTV surveillance, alarm response, event security, VIP protection, and security consultancy. We specialize in serving schools, churches, corporate offices, and events across Nairobi.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Are your security personnel trained and vetted?</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Yes, all our security personnel undergo rigorous background checks, police clearance verification, and comprehensive security training. We maintain high standards of professionalism and discipline.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Do you provide 24/7 emergency response?</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Absolutely! Our emergency response teams are available 24/7. We maintain rapid response protocols to ensure immediate assistance during any security incident in Nairobi.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>How do I apply for a job at FortSecure Kenya?</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>We have a dedicated online careers portal where you can submit your application with required documents including National ID, KRA PIN, SHA certificate, NSSF certificate, CV, educational certificates, medical clearance, and police clearance.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>What is your response time for urgent security matters?</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Our emergency response team aims to be on-site within 15-30 minutes for urgent matters in Nairobi. We maintain strategically positioned response units and mobile security teams for rapid deployment.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>Can you customize security solutions for my business?</span>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-content">
+            <p>Yes! We provide personalized security assessments and customized solutions tailored to your specific needs. Contact us for a free security consultation and risk evaluation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- WHY US -->
-
   <section class="section why-us" id="why">
-
     <div class="container">
-
       <div class="section-title">
-
-        <h2>Why Choose FortSecure Kenya for Security?</h2>
-
-        <p>
-          Trusted security provider in Nairobi committed to professionalism, integrity, and rapid response.
-        </p>
-
+        <h2>Why Choose FortSecure Kenya?</h2>
+        <p>Trusted security provider in Nairobi committed to excellence</p>
       </div>
 
       <div class="why-grid">
-
         <div class="why-card">
           <h3>24/7 Availability</h3>
-          <p>
-            Round-the-clock security support and monitoring services 
-            throughout Nairobi and Kenya.
-          </p>
+          <p>Round-the-clock security support and monitoring services throughout Nairobi and Kenya. Always on guard, always ready.</p>
         </div>
 
         <div class="why-card">
           <h3>Professional Personnel</h3>
-          <p>
-            Highly trained and disciplined security officers 
-            with verified credentials and experience.
-          </p>
+          <p>Highly trained, disciplined, and verified security officers with extensive experience and proven track record of excellence.</p>
         </div>
 
         <div class="why-card">
           <h3>Rapid Emergency Response</h3>
-          <p>
-            Quick emergency response to incidents and alarm triggers 
-            across Nairobi.
-          </p>
+          <p>Quick emergency response to incidents and alarm triggers across Nairobi with strategically positioned response teams.</p>
         </div>
 
         <div class="why-card">
           <h3>Trusted in Nairobi</h3>
-          <p>
-            Reliable and client-focused security solutions trusted 
-            by businesses across Kenya.
-          </p>
+          <p>Reliable and client-focused security solutions trusted by 500+ businesses, schools, churches and institutions.</p>
         </div>
 
+        <div class="why-card">
+          <h3>Advanced Technology</h3>
+          <p>Modern CCTV systems, access control, alarm integration, and real-time monitoring for enhanced security.</p>
+        </div>
+
+        <div class="why-card">
+          <h3>Customized Solutions</h3>
+          <p>Tailored security plans based on comprehensive risk assessment and your specific requirements and budget.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS CAROUSEL -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Our Clients Say</h2>
+        <p>Trusted by hundreds of satisfied clients across Nairobi</p>
       </div>
 
-    </div>
+      <div class="carousel-container">
+        <div class="testimonial-slide active">
+          <div class="testimonial-text">
+            "FortSecure provided excellent security for our office in Nairobi. Professional, responsive, and reliable. They understand our business needs perfectly!"
+          </div>
+          <div class="testimonial-author">— Tech Company Manager, Nairobi</div>
+        </div>
 
+        <div class="testimonial-slide">
+          <div class="testimonial-text">
+            "We've been using FortSecure for 3 years. Their security team is disciplined, trustworthy, and always professional. Highly recommended for any business!"
+          </div>
+          <div class="testimonial-author">— Property Developer, Westlands</div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="testimonial-text">
+            "Best security provider in Nairobi. Fast response time, professional personnel, and excellent service. They truly care about their clients' safety."
+          </div>
+          <div class="testimonial-author">— Church Administrator, South C</div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="testimonial-text">
+            "FortSecure handled our corporate event security flawlessly. From planning to execution, they were professional and detail-oriented. Excellent value!"
+          </div>
+          <div class="testimonial-author">— Event Organizer, Nairobi</div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="testimonial-text">
+            "School safety is paramount, and FortSecure delivers exactly that. Our parents are confident and our students are secure. Thank you!"
+          </div>
+          <div class="testimonial-author">— School Principal, Nairobi</div>
+        </div>
+
+        <div class="carousel-controls">
+          <button class="carousel-btn" onclick="prevTestimonial()">❮</button>
+          <button class="carousel-btn" onclick="nextTestimonial()">❯</button>
+        </div>
+
+        <div class="carousel-dots">
+          <span class="dot active" onclick="currentTestimonial(0)"></span>
+          <span class="dot" onclick="currentTestimonial(1)"></span>
+          <span class="dot" onclick="currentTestimonial(2)"></span>
+          <span class="dot" onclick="currentTestimonial(3)"></span>
+          <span class="dot" onclick="currentTestimonial(4)"></span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- CAREERS SECTION -->
-
-  <section class="section" id="careers">
-
+  <section class="section" id="jobs" style="background:#f7f9fc;">
     <div class="container">
-
       <div class="section-title">
-
         <h2>Join Our Security Team</h2>
+        <p>We are recruiting disciplined and professional security personnel in Nairobi and across Kenya</p>
+      </div>
 
-        <p>We are recruiting disciplined and professional security personnel in Nairobi and across Kenya.</p>
-
+      <div style="text-align:center;margin-bottom:40px;">
+        <button class="btn btn-primary" onclick="openJobModal()" style="font-size:1.1rem;padding:16px 32px;">
+          Apply Now
+        </button>
       </div>
 
       <div class="services-grid">
-
         <div class="service-card">
-          <h3>📋 Requirements</h3>
+          <h3>📋 Job Requirements</h3>
           <ul>
-            <li>KCSE Certificate or equivalent</li>
-            <li>Good physical fitness</li>
-            <li>Clean criminal record</li>
-            <li>Valid national ID</li>
+            <li>✓ KCSE Certificate or equivalent</li>
+            <li>✓ Good physical fitness</li>
+            <li>✓ Clean criminal record</li>
+            <li>✓ Valid National ID</li>
+            <li>✓ Police Clearance Certificate</li>
+            <li>✓ Medical Clearance</li>
           </ul>
         </div>
 
         <div class="service-card">
           <h3>💼 We Offer</h3>
           <ul>
-            <li>Competitive salary packages</li>
-            <li>Professional security training</li>
-            <li>Career advancement opportunities</li>
-            <li>Friendly work environment</li>
+            <li>✓ Competitive salary packages</li>
+            <li>✓ Professional security training</li>
+            <li>✓ Career advancement opportunities</li>
+            <li>✓ Friendly work environment</li>
+            <li>✓ Health & safety benefits</li>
+            <li>✓ Pension scheme membership</li>
           </ul>
         </div>
 
         <div class="service-card">
-          <h3>✉️ Apply Now</h3>
-          <p style="margin-bottom: 20px;">Send your CV and details to us</p>
-          <a href="https://wa.me/254724101392?text=Hi%20FortSecure%2C%20I%20want%20to%20apply%20for%20a%20security%20position" class="btn btn-primary">Apply via WhatsApp</a>
+          <h3>📄 Required Documents</h3>
+          <ul>
+            <li>✓ National ID copy</li>
+            <li>✓ KRA PIN Certificate</li>
+            <li>✓ SHA (Social Health Authority)</li>
+            <li>✓ NSSF Certificate</li>
+            <li>✓ CV/Resume</li>
+            <li>✓ Educational Certificates</li>
+          </ul>
         </div>
-
       </div>
-
     </div>
-
   </section>
 
-  <!-- CALL TO ACTION -->
+  <!-- JOB APPLICATION MODAL -->
+  <div id="jobModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeJobModal()">✕</button>
+      <h2 style="color:#002B5B;margin-bottom:10px;">Job Application Form</h2>
+      <p style="color:#666;margin-bottom:30px;">Please complete all fields and upload required documents</p>
 
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width:25%;"></div>
+        </div>
+        <div class="progress-steps">
+          <div class="progress-step active" id="step1">Step 1: Personal Info</div>
+          <div class="progress-step" id="step2">Step 2: Details</div>
+          <div class="progress-step" id="step3">Step 3: Documents</div>
+          <div class="progress-step" id="step4">Step 4: Review</div>
+        </div>
+      </div>
+
+      <form id="jobForm" onsubmit="handleJobSubmit(event)">
+        <!-- STEP 1: PERSONAL INFO -->
+        <div id="formStep1" class="form-step active">
+          <h3 style="color:#002B5B;margin-bottom:20px;">Personal Information</h3>
+          
+          <div class="form-group">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" name="fullName" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number <span class="required">*</span></label>
+            <input type="tel" name="phone" placeholder="+254..." required>
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth <span class="required">*</span></label>
+            <input type="date" name="dob" required>
+          </div>
+
+          <button type="button" class="btn btn-primary" onclick="nextFormStep()">Next →</button>
+        </div>
+
+        <!-- STEP 2: DETAILS -->
+        <div id="formStep2" class="form-step" style="display:none;">
+          <h3 style="color:#002B5B;margin-bottom:20px;">Work Details</h3>
+          
+          <div class="form-group">
+            <label>Position Applied For <span class="required">*</span></label>
+            <select name="position" required>
+              <option value="">Select position</option>
+              <option value="Security Guard">Security Guard</option>
+              <option value="Supervisor">Supervisor</option>
+              <option value="Team Leader">Team Leader</option>
+              <option value="Guard Manager">Guard Manager</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Years of Security Experience <span class="required">*</span></label>
+            <select name="experience" required>
+              <option value="">Select experience</option>
+              <option value="0-1">0-1 years</option>
+              <option value="1-3">1-3 years</option>
+              <option value="3-5">3-5 years</option>
+              <option value="5+">5+ years</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Preferred Work Location <span class="required">*</span></label>
+            <input type="text" name="location" placeholder="e.g., Nairobi Central, Westlands" required>
+          </div>
+
+          <div class="form-group">
+            <label>Brief Work Experience <span class="required">*</span></label>
+            <textarea name="experience_details" placeholder="Tell us about your security work experience..." required></textarea>
+          </div>
+
+          <div style="display:flex;gap:10px;">
+            <button type="button" class="btn btn-secondary" onclick="prevFormStep()">← Previous</button>
+            <button type="button" class="btn btn-primary" onclick="nextFormStep()">Next →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: DOCUMENT UPLOAD -->
+        <div id="formStep3" class="form-step" style="display:none;">
+          <h3 style="color:#002B5B;margin-bottom:20px;">Upload Required Documents</h3>
+          <p style="color:#666;margin-bottom:20px;font-size:0.9rem;">All documents are required. Accepted formats: PDF, JPG, PNG (Max 5MB each)</p>
+
+          <div class="form-group">
+            <label>National ID <span class="required">*</span></label>
+            <div class="upload-area" ondrop="handleDrop(event, 'nationalId')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+              <div class="upload-icon">📄</div>
+              <p>Drag & drop your National ID copy or click to select</p>
+              <input type="file" id="nationalId" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'National ID')">
+            </div>
+            <div id="nationalId-files" class="uploaded-files"></div>
+          </div>
+
+          <div class="form-group">
+            <label>KRA PIN Certificate <span class="required">*</span></label>
+            <div class="upload-area" ondrop="handleDrop(event, 'kraPIN')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+              <div class="upload-icon">📊</div>
+              <p>Drag & drop your KRA PIN Certificate or click to select</p>
+              <input type="file" id="kraPIN" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'KRA PIN')">
+            </div>
+            <div id="kraPIN-files" class="uploaded-files"></div>
+          </div>
+
+          <div class="form-group">
+            <label>SHA (Social Health Authority) Certificate <span class="required">*</span></label>
+            <div class="upload-area" ondrop="handleDrop(event, 'sha')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+              <div class="upload-icon">🏥</div>
+              <p>Drag & drop your SHA Certificate or click to select</p>
+              <input type="file" id="sha" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'SHA')">
+            </div>
+            <div id="sha-files" class="uploaded-files"></div>
+          </div>
+
+          <div class="form-group">
+            <label>NSSF Certificate <span class="required">*</span></label>
+            <div class="upload-area" ondrop="handleDrop(event, 'nssf')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+              <div class="upload-icon">💳</div>
+              <p>Drag & drop your NSSF Certificate or click to select</p>
+              <input type="file" id="nssf" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'NSSF')">
+            </div>
+            <div id="nssf-files" class="uploaded-files"></div>
+          </div>
+
+          <div style="display:flex;gap:10px;">
+            <button type="button" class="btn btn-secondary" onclick="prevFormStep()">← Previous</button>
+            <button type="button" class="btn btn-primary" onclick="nextFormStep()">Next →</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: REVIEW & SUBMIT -->
+        <div id="formStep4" class="form-step" style="display:none;">
+          <h3 style="color:#002B5B;margin-bottom:20px;">Review & Submit</h3>
+          
+          <div style="background:#f7f9fc;padding:20px;border-radius:8px;margin-bottom:20px;">
+            <p style="color:#666;margin-bottom:10px;"><strong>Application ID:</strong> <span id="appId" style="color:#002B5B;font-weight:700;"></span></p>
+            <p style="color:#666;margin-bottom:10px;"><strong>Status:</strong> <span class="status-badge status-submitted">Pending Submission</span></p>
+            <p style="color:#666;">Your application will be reviewed within 3-5 business days. You will receive email updates at each stage.</p>
+          </div>
+
+          <div style="background:#e8f5e9;padding:15px;border-radius:8px;margin-bottom:20px;border-left:4px solid #28a745;">
+            <p style="color:#2e7d32;"><strong>✓ All documents attached</strong></p>
+            <p style="color:#2e7d32;font-size:0.9rem;">Your application is complete and ready for submission</p>
+          </div>
+
+          <p style="color:#666;font-size:0.9rem;margin-bottom:20px;">
+            By submitting this application, you agree that the information provided is accurate and you have attached all required documents. We will contact you via phone or email if selected for an interview.
+          </p>
+
+          <div style="display:flex;gap:10px;">
+            <button type="button" class="btn btn-secondary" onclick="prevFormStep()">← Previous</button>
+            <button type="submit" class="btn btn-primary">✓ Submit Application</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- APPLICATION TRACKING MODAL -->
+  <div id="trackingModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeTrackingModal()">✕</button>
+      <h2 style="color:#002B5B;margin-bottom:30px;">Application Status Tracker</h2>
+
+      <div style="background:#f7f9fc;padding:20px;border-radius:8px;margin-bottom:30px;">
+        <p style="margin-bottom:10px;"><strong>Application ID:</strong></p>
+        <input type="text" id="trackingId" placeholder="Enter your Application ID" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;margin-bottom:15px;">
+        <button class="btn btn-primary" onclick="searchApplication()" style="width:100%;">Search Status</button>
+      </div>
+
+      <div id="trackingResult" style="display:none;">
+        <div style="background:#fff;border:2px solid #eee;border-radius:8px;padding:20px;">
+          <p style="margin-bottom:15px;"><strong>Applicant:</strong> <span id="trackerName"></span></p>
+          <p style="margin-bottom:15px;"><strong>Position:</strong> <span id="trackerPosition"></span></p>
+          <p style="margin-bottom:20px;"><strong>Status:</strong> <span id="trackerStatus"></span></p>
+
+          <p style="color:#666;font-size:0.9rem;margin-bottom:15px;">Status Timeline:</p>
+          <div style="position:relative;padding:20px 0;">
+            <div style="position:absolute;left:9px;top:0;bottom:0;width:2px;background:#eee;"></div>
+            <div style="position:relative;margin-left:30px;margin-bottom:20px;">
+              <div style="width:20px;height:20px;background:#28a745;border-radius:50%;position:absolute;left:-32px;top:0;"></div>
+              <p style="margin:0;font-weight:600;color:#28a745;">✓ Application Submitted</p>
+              <p style="margin:5px 0 0 0;color:#666;font-size:0.9rem;">Received: <span id="submitDate"></span></p>
+            </div>
+            <div style="position:relative;margin-left:30px;margin-bottom:20px;">
+              <div style="width:20px;height:20px;background:#f57c00;border-radius:50%;position:absolute;left:-32px;top:0;"></div>
+              <p style="margin:0;font-weight:600;color:#f57c00;">Under Review</p>
+              <p style="margin:5px 0 0 0;color:#666;font-size:0.9rem;">Documents being verified...</p>
+            </div>
+            <div style="position:relative;margin-left:30px;margin-bottom:20px;">
+              <div style="width:20px;height:20px;background:#ccc;border-radius:50%;position:absolute;left:-32px;top:0;"></div>
+              <p style="margin:0;font-weight:600;color:#999;">Interview Scheduled</p>
+              <p style="margin:5px 0 0 0;color:#999;font-size:0.9rem;">Next step pending...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA SECTION -->
   <section class="cta">
-
     <div class="container">
-
       <h2>Need Professional Security Services in Nairobi?</h2>
-
-      <p>
-        Contact FortSecure Kenya today for a free consultation 
-        and security site assessment.
-      </p>
-
-      <a href="#contact" class="btn btn-primary">
-        Get Protected Today
-      </a>
-
+      <p>Contact FortSecure Kenya today for a free consultation and security site assessment.</p>
+      <a href="#contact" class="btn btn-primary">Request Free Consultation</a>
     </div>
-
   </section>
 
-  <!-- TESTIMONIALS -->
-
-  <section class="section" id="testimonials" style="background: #f7f9fc;">
-
-    <div class="container">
-
-      <div class="section-title">
-
-        <h2>Trusted Security Provider in Nairobi</h2>
-
-        <p>Highly rated by homes, businesses, and institutions across Nairobi and Kenya.</p>
-
-      </div>
-
-      <div class="services-grid">
-
-        <div class="service-card testimonial-card">
-          <p>
-            "FortSecure provided excellent security services for our office in Nairobi. Professional, responsive, and reliable. Highly recommended for any business!"
-          </p>
-          <strong>— Tech Company Manager, Nairobi</strong>
-        </div>
-
-        <div class="service-card testimonial-card">
-          <p>
-            "We've been using FortSecure for 2 years. Their security team is disciplined and trustworthy. Great service in Nairobi!"
-          </p>
-          <strong>— Residential Estate Owner</strong>
-        </div>
-
-        <div class="service-card testimonial-card">
-          <p>
-            "Best security provider in Nairobi. Fast response time and very professional security personnel. Worth every penny."
-          </p>
-          <strong>— Church Administrator, Nairobi</strong>
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- CONTACT -->
-
+  <!-- CONTACT SECTION -->
   <section class="section" id="contact">
-
     <div class="container">
-
       <div class="section-title">
-
         <h2>Contact FortSecure Kenya</h2>
-
-        <p>
-          Get in touch with our security team in Nairobi for professional solutions.
-        </p>
-
+        <p>Get in touch with our security team in Nairobi for professional solutions</p>
       </div>
 
       <div class="contact-grid">
-
         <div class="contact-box">
-
-          <h3>Get In Touch</h3>
-
-          <p><strong>Phone:</strong> +254 724 101 392</p>
-
-          <p><strong>Email:</strong> <a href="mailto:fortsecurekenya@gmail.com">fortsecurekenya@gmail.com</a></p>
-
+          <h3>📞 Get In Touch</h3>
+          <p><strong>Phone:</strong> <a href="tel:+254724101392" style="color:#002B5B;">+254 724 101 392</a></p>
+          <p><strong>Email:</strong> <a href="mailto:fortsecurekenya@gmail.com" style="color:#002B5B;">fortsecurekenya@gmail.com</a></p>
           <p><strong>Location:</strong> Thome Estate, Nairobi, Kenya</p>
-
           <p><strong>Hours:</strong> 24/7 Operations</p>
 
+          <div style="margin-top:20px;">
+            <p style="font-weight:600;color:#002B5B;margin-bottom:10px;">Quick Links:</p>
+            <button class="btn btn-primary" onclick="openTrackingModal()" style="width:100%;margin-bottom:10px;">Track Application</button>
+            <a href="https://wa.me/254724101392" class="btn btn-secondary" style="display:block;text-align:center;">WhatsApp Us</a>
+          </div>
         </div>
 
         <div class="contact-box">
-
+          <h3>Send Message</h3>
           <div id="form-message" class="form-message"></div>
-
           <form class="contact-form" action="https://formspree.io/f/xkoyvdza" method="POST">
-
-            <input type="text" name="name" placeholder="Your Name" required>
-
-            <input type="email" name="email" placeholder="Your Email" required>
-
-            <textarea rows="5" name="message" placeholder="Tell us about your security needs" required></textarea>
-
-            <button type="submit" class="btn btn-primary">
-              Send Message
-            </button>
-
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" name="phone" placeholder="Phone Number">
+            </div>
+            <div class="form-group">
+              <textarea name="message" placeholder="Tell us about your security needs..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
           </form>
-
         </div>
-
       </div>
-
     </div>
-
   </section>
 
   <!-- FOOTER -->
-
   <footer>
-
     <div class="container">
-
       <img src="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png" alt="FortSecure Kenya Logo">
-
       <h3>FortSecure Kenya - Security Services in Nairobi</h3>
-
       <p>Your Safety, Our Mission | Professional Security Services Since 2024</p>
-
       <br>
-
-      <p>
-        © 2026 FortSecure Kenya. All Rights Reserved. | Security Services in Nairobi, Kenya
-      </p>
-
+      <p>© 2026 FortSecure Kenya. All Rights Reserved. | Security Services in Nairobi, Kenya</p>
     </div>
-
   </footer>
 
   <!-- FLOATING ACTION BUTTONS -->
-
   <div class="fab-container">
-
     <a href="tel:+254724101392" class="fab fab-call" title="Call FortSecure Kenya">📞</a>
-
     <a href="https://wa.me/254724101392" class="fab fab-whatsapp" target="_blank" title="WhatsApp FortSecure Kenya">💬</a>
-
     <a href="mailto:fortsecurekenya@gmail.com" class="fab fab-email" title="Email FortSecure Kenya">✉️</a>
-
   </div>
 
-  <!-- Form Submission Handler -->
+  <!-- SCRIPTS -->
   <script>
+    // MOBILE MENU
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.querySelector('nav');
+
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+      });
+    });
+
+    // TAB SWITCHING
+    function switchTab(event, tabName) {
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // ACCORDION
+    function toggleAccordion(header) {
+      header.classList.toggle('active');
+      const content = header.nextElementSibling;
+      content.classList.toggle('active');
+    }
+
+    // TESTIMONIAL CAROUSEL
+    let currentSlide = 0;
+
+    function showTestimonial(n) {
+      const slides = document.querySelectorAll('.testimonial-slide');
+      const dots = document.querySelectorAll('.dot');
+      
+      if (n >= slides.length) currentSlide = 0;
+      if (n < 0) currentSlide = slides.length - 1;
+      
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    function nextTestimonial() {
+      currentSlide++;
+      showTestimonial(currentSlide);
+    }
+
+    function prevTestimonial() {
+      currentSlide--;
+      showTestimonial(currentSlide);
+    }
+
+    function currentTestimonial(n) {
+      currentSlide = n;
+      showTestimonial(currentSlide);
+    }
+
+    // JOB APPLICATION
+    let currentStep = 1;
+    const uploadedFiles = {};
+
+    function openJobModal() {
+      document.getElementById('jobModal').classList.add('active');
+      generateApplicationID();
+    }
+
+    function closeJobModal() {
+      document.getElementById('jobModal').classList.remove('active');
+    }
+
+    function nextFormStep() {
+      if (validateStep(currentStep)) {
+        currentStep++;
+        updateFormDisplay();
+      }
+    }
+
+    function prevFormStep() {
+      currentStep--;
+      updateFormDisplay();
+    }
+
+    function updateFormDisplay() {
+      for (let i = 1; i <= 4; i++) {
+        const step = document.getElementById(`formStep${i}`);
+        if (i === currentStep) {
+          step.style.display = 'block';
+        } else {
+          step.style.display = 'none';
+        }
+      }
+
+      // Update progress
+      const progress = (currentStep / 4) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+
+      // Update step indicators
+      for (let i = 1; i <= 4; i++) {
+        const step = document.getElementById(`step${i}`);
+        if (i < currentStep) {
+          step.classList.add('completed');
+          step.classList.remove('active');
+        } else if (i === currentStep) {
+          step.classList.add('active');
+          step.classList.remove('completed');
+        } else {
+          step.classList.remove('active', 'completed');
+        }
+      }
+    }
+
+    function validateStep(step) {
+      if (step === 1) {
+        return document.querySelector('input[name="fullName"]').value &&
+               document.querySelector('input[name="email"]').value &&
+               document.querySelector('input[name="phone"]').value;
+      }
+      return true;
+    }
+
+    function generateApplicationID() {
+      const id = 'FSK' + Date.now();
+      document.getElementById('appId').textContent = id;
+      document.getElementById('submitDate').textContent = new Date().toLocaleDateString();
+    }
+
+    // FILE UPLOAD
+    function handleDrop(e, fieldId) {
+      e.preventDefault();
+      e.stopPropagation();
+      const input = document.getElementById(fieldId);
+      input.files = e.dataTransfer.files;
+      handleFileUpload({target: input});
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+      e.currentTarget.classList.remove('dragover');
+    }
+
+    function handleFileUpload(event, docName) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const fieldId = event.target.id;
+      const container = document.getElementById(fieldId + '-files');
+
+      // Validate file
+      if (file.size > 5000000) {
+        addFileItem(container, file.name, 'error', 'File too large (max 5MB)');
+        return;
+      }
+
+      uploadedFiles[fieldId] = file;
+      addFileItem(container, file.name, 'success', '✓ Uploaded successfully');
+    }
+
+    function addFileItem(container, filename, status, message) {
+      const item = document.createElement('div');
+      item.className = `file-item ${status}`;
+      item.innerHTML = `<span>${filename}</span><span>${message}</span>`;
+      container.innerHTML = '';
+      container.appendChild(item);
+    }
+
+    // FORM SUBMIT
+    function handleJobSubmit(event) {
+      event.preventDefault();
+      
+      const appId = document.getElementById('appId').textContent;
+      
+      // Show success message
+      alert(`✓ Application Submitted!\n\nApplication ID: ${appId}\n\nYou will receive email updates on your application status. Check your email for confirmation.`);
+      
+      closeJobModal();
+      currentStep = 1;
+      document.getElementById('jobForm').reset();
+      updateFormDisplay();
+    }
+
+    // APPLICATION TRACKING
+    function openTrackingModal() {
+      document.getElementById('trackingModal').classList.add('active');
+    }
+
+    function closeTrackingModal() {
+      document.getElementById('trackingModal').classList.remove('active');
+      document.getElementById('trackingResult').style.display = 'none';
+    }
+
+    function searchApplication() {
+      const trackingId = document.getElementById('trackingId').value;
+      if (!trackingId) {
+        alert('Please enter your Application ID');
+        return;
+      }
+
+      document.getElementById('trackerName').textContent = 'John Mwangi';
+      document.getElementById('trackerPosition').textContent = 'Security Guard';
+      document.getElementById('trackerStatus').innerHTML = '<span class="status-badge status-reviewing">Under Review</span>';
+      document.getElementById('trackingResult').style.display = 'block';
+    }
+
+    // CONTACT FORM
     const contactForm = document.querySelector('.contact-form');
     const messageDiv = document.getElementById('form-message');
 
@@ -1045,21 +2129,6 @@
         messageDiv.textContent = '✗ Error sending message. Please try again or contact us directly.';
         messageDiv.classList.add('error');
         messageDiv.classList.remove('success');
-      });
-    });
-
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const nav = document.querySelector('nav');
-
-    menuToggle.addEventListener('click', () => {
-      nav.classList.toggle('active');
-    });
-
-    // Close menu when clicking a link
-    nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('active');
       });
     });
   </script>
