@@ -49,39 +49,7 @@
       "@type": "AggregateRating",
       "ratingValue": "4.8",
       "reviewCount": "45"
-    },
-    "service": [
-      {
-        "@type": "Service",
-        "name": "Manned Guarding",
-        "description": "Professional trained security guards for homes, offices, institutions, and commercial premises in Nairobi"
-      },
-      {
-        "@type": "Service",
-        "name": "CCTV Surveillance",
-        "description": "Advanced surveillance systems for 24/7 monitoring and protection in Nairobi"
-      },
-      {
-        "@type": "Service",
-        "name": "Alarm Response",
-        "description": "Fast and efficient emergency response services for security alarms"
-      },
-      {
-        "@type": "Service",
-        "name": "Event Security",
-        "description": "Comprehensive crowd management and event protection services in Nairobi"
-      },
-      {
-        "@type": "Service",
-        "name": "VIP Protection",
-        "description": "Personalized close protection services for executives and dignitaries"
-      },
-      {
-        "@type": "Service",
-        "name": "Security Consultancy",
-        "description": "Professional risk assessment and tailored security advisory services"
-      }
-    ]
+    }
   }
   </script>
 
@@ -192,19 +160,35 @@
 
     /* HERO */
     .hero{
-      background:
-      linear-gradient(rgba(0,43,91,0.82), rgba(0,43,91,0.85)),
-      url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop');
+      background-image: linear-gradient(rgba(0,43,91,0.75), rgba(0,43,91,0.75)),
+                        url('https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1600&auto=format&fit=crop');
       background-size:cover;
       background-position:center;
+      background-attachment: fixed;
       min-height:95vh;
       display:flex;
       align-items:center;
       color:white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(255,215,0,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(0,123,255,0.1) 0%, transparent 50%);
+      pointer-events: none;
     }
 
     .hero-content{
       max-width:700px;
+      position: relative;
+      z-index: 2;
     }
 
     .hero h1{
@@ -212,6 +196,7 @@
       line-height:1.2;
       margin-bottom:20px;
       animation: fadeInUp 0.8s ease-out;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
 
     @keyframes fadeInUp {
@@ -229,6 +214,7 @@
       font-size:1.1rem;
       margin-bottom:35px;
       color:#f1f1f1;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     .hero-buttons{
@@ -245,27 +231,30 @@
       display:inline-block;
       border:none;
       cursor:pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .btn-primary{
-      background:#ffffff;
+      background:#FFD700;
       color:#002B5B;
     }
 
     .btn-primary:hover{
-      background:#C0C0C0;
+      background:#FFC700;
       transform:translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,215,0,0.4);
     }
 
     .btn-secondary{
-      border:2px solid #fff;
+      border:2px solid #FFD700;
       color:#fff;
       background:transparent;
     }
 
     .btn-secondary:hover{
-      background:#fff;
+      background:#FFD700;
       color:#002B5B;
+      transform:translateY(-2px);
     }
 
     /* SECTION */
@@ -282,10 +271,25 @@
       font-size:2.5rem;
       color:#002B5B;
       margin-bottom:12px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #FFD700, #002B5B, #FFD700);
+      border-radius: 2px;
     }
 
     .section-title p{
       color:#666;
+      margin-top: 20px;
     }
 
     /* STATS */
@@ -298,21 +302,31 @@
 
     .stat-card{
       text-align:center;
-      padding:30px;
-      background:#f7f9fc;
+      padding:40px 30px;
+      background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);
       border-radius:12px;
+      border-left: 5px solid #FFD700;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,43,91,0.15);
     }
 
     .stat-number{
-      font-size:2.5rem;
+      font-size:2.8rem;
       font-weight:700;
       color:#002B5B;
       margin-bottom:10px;
+      text-shadow: 2px 2px 4px rgba(255,215,0,0.2);
     }
 
     .stat-label{
-      color:#666;
+      color:#555;
       font-size:0.95rem;
+      font-weight: 500;
     }
 
     /* TABS */
@@ -340,8 +354,8 @@
     }
 
     .tab-btn.active{
-      color:#002B5B;
-      border-bottom-color:#002B5B;
+      color:#FFD700;
+      border-bottom-color:#FFD700;
     }
 
     .tab-content{
@@ -361,7 +375,7 @@
     /* SERVICES */
     .services-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
       gap:30px;
     }
 
@@ -373,27 +387,52 @@
       transition:0.3s;
       text-align:center;
       cursor:pointer;
+      border-top: 4px solid #FFD700;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,215,0,0.05) 0%, transparent 100%);
+      opacity: 0;
+      transition: 0.3s;
     }
 
     .service-card:hover{
-      transform:translateY(-10px);
-      box-shadow:0 8px 30px rgba(0,0,0,0.15);
+      transform:translateY(-15px);
+      box-shadow:0 15px 40px rgba(0,43,91,0.2);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
     }
 
     .service-card h3{
       margin-bottom:15px;
       color:#002B5B;
       font-size:1.3rem;
+      position: relative;
+      z-index: 2;
     }
 
     .service-card p{
       color:#555;
+      position: relative;
+      z-index: 2;
     }
 
     .service-card ul {
       text-align: left;
       color: #555;
       list-style-position: inside;
+      position: relative;
+      z-index: 2;
     }
 
     .service-card ul li {
@@ -409,7 +448,7 @@
     }
 
     .accordion-header{
-      background:#f7f9fc;
+      background: linear-gradient(90deg, #f7f9fc 0%, #e8ecf4 100%);
       padding:20px;
       cursor:pointer;
       display:flex;
@@ -418,15 +457,17 @@
       font-weight:600;
       color:#002B5B;
       transition:0.3s;
+      border-left: 4px solid #FFD700;
     }
 
     .accordion-header:hover{
-      background:#e8ecf4;
+      background: linear-gradient(90deg, #e8ecf4 0%, #d8dce4 100%);
     }
 
     .accordion-header.active{
-      background:#002B5B;
+      background: linear-gradient(90deg, #002B5B 0%, #004080 100%);
       color:#fff;
+      border-left-color: #FFD700;
     }
 
     .accordion-content{
@@ -451,17 +492,19 @@
     /* TESTIMONIALS CAROUSEL */
     .carousel-container{
       position:relative;
-      max-width:600px;
+      max-width:700px;
       margin:auto;
     }
 
     .testimonial-slide{
       display:none;
-      padding:40px;
-      background:#f7f9fc;
+      padding:50px 40px;
+      background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);
       border-radius:12px;
       text-align:center;
       animation:fadeIn 0.5s ease-in;
+      border-left: 5px solid #FFD700;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
     }
 
     .testimonial-slide.active{
@@ -469,15 +512,17 @@
     }
 
     .testimonial-text{
-      font-size:1.1rem;
+      font-size:1.05rem;
       font-style:italic;
       margin-bottom:20px;
       color:#333;
+      line-height: 1.8;
     }
 
     .testimonial-author{
       font-weight:700;
       color:#002B5B;
+      font-size: 1.1rem;
     }
 
     .carousel-controls{
@@ -488,7 +533,7 @@
     }
 
     .carousel-btn{
-      background:#002B5B;
+      background: linear-gradient(135deg, #002B5B 0%, #004080 100%);
       color:#fff;
       border:none;
       width:40px;
@@ -500,8 +545,9 @@
     }
 
     .carousel-btn:hover{
-      background:gold;
+      background: #FFD700;
       color:#002B5B;
+      transform: scale(1.1);
     }
 
     .carousel-dots{
@@ -521,34 +567,30 @@
     }
 
     .dot.active{
-      background:#002B5B;
+      background:#FFD700;
       width:30px;
       border-radius:5px;
     }
 
-    /* FILE UPLOAD */
+    /* FILE UPLOAD - SIMPLIFIED */
     .upload-area{
-      border:2px dashed #002B5B;
+      border:2px solid #002B5B;
       border-radius:8px;
-      padding:40px;
+      padding:30px;
       text-align:center;
       cursor:pointer;
       transition:0.3s;
-      background:#f7f9fc;
+      background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);
     }
 
     .upload-area:hover{
-      background:#e8ecf4;
-      border-color:gold;
-    }
-
-    .upload-area.dragover{
-      background:#e8ecf4;
-      border-color:gold;
+      background: linear-gradient(135deg, #e8ecf4 0%, #d8dce4 100%);
+      border-color:#FFD700;
+      box-shadow: 0 5px 15px rgba(255,215,0,0.2);
     }
 
     .upload-icon{
-      font-size:3rem;
+      font-size:2.5rem;
       margin-bottom:10px;
     }
 
@@ -594,18 +636,19 @@
     .form-group select{
       width:100%;
       padding:12px;
-      border:1px solid #ddd;
+      border:2px solid #ddd;
       border-radius:6px;
       font-size:1rem;
       font-family:'Poppins',sans-serif;
+      transition: 0.3s;
     }
 
     .form-group input:focus,
     .form-group textarea:focus,
     .form-group select:focus{
       outline:none;
-      border-color:#002B5B;
-      box-shadow:0 0 0 3px rgba(0,43,91,0.1);
+      border-color:#FFD700;
+      box-shadow:0 0 0 3px rgba(255,215,0,0.2);
     }
 
     .form-group textarea{
@@ -631,7 +674,7 @@
     }
 
     .progress-fill{
-      background:#002B5B;
+      background: linear-gradient(90deg, #002B5B 0%, #FFD700 100%);
       height:100%;
       width:25%;
       transition:0.3s;
@@ -651,7 +694,7 @@
     }
 
     .progress-step.active{
-      color:#002B5B;
+      color:#FFD700;
       font-weight:700;
     }
 
@@ -695,49 +738,80 @@
 
     /* WHY US */
     .why-us{
-      background:#f7f9fc;
+      background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);
     }
 
     .why-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
       gap:25px;
     }
 
     .why-card{
       background:#fff;
-      padding:30px;
-      border-left:5px solid #002B5B;
+      padding:35px 25px;
+      border-left:5px solid #FFD700;
       border-radius:10px;
-      box-shadow:0 4px 15px rgba(0,0,0,0.06);
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
       transition:0.3s;
     }
 
     .why-card:hover{
-      transform:translateY(-5px);
+      transform:translateY(-8px);
+      box-shadow: 0 10px 30px rgba(255,215,0,0.15);
     }
 
     .why-card h3{
-      margin-bottom:10px;
+      margin-bottom:15px;
       color:#002B5B;
+      font-size: 1.2rem;
+    }
+
+    .why-card p {
+      color: #555;
+      line-height: 1.8;
     }
 
     /* CTA */
     .cta{
-      background:#002B5B;
+      background: linear-gradient(135deg, #002B5B 0%, #004080 100%);
       color:#fff;
       text-align:center;
       padding:90px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop');
+      opacity: 0.1;
+      background-size: cover;
+      background-position: center;
     }
 
     .cta h2{
       font-size:2.5rem;
       margin-bottom:20px;
+      position: relative;
+      z-index: 2;
     }
 
     .cta p{
       margin-bottom:30px;
       font-size:1.05rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta .btn {
+      position: relative;
+      z-index: 2;
     }
 
     /* CONTACT */
@@ -751,7 +825,8 @@
       background:#fff;
       padding:35px;
       border-radius:12px;
-      box-shadow:0 4px 20px rgba(0,0,0,0.07);
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      border-top: 4px solid #FFD700;
     }
 
     .contact-box h3{
@@ -812,12 +887,13 @@
     }
 
     .fab:hover {
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
 
     .fab-call {
-      background: gold;
-      color: black;
+      background: #FFD700;
+      color: #002B5B;
+      font-weight: bold;
     }
 
     .fab-whatsapp {
@@ -827,30 +903,14 @@
 
     .fab-email {
       background: #002B5B;
-      color: gold;
-    }
-
-    /* TESTIMONIALS */
-    .testimonial-card {
-      border-left: 4px solid gold;
-      background: white;
-    }
-
-    .testimonial-card p {
-      margin-bottom: 15px;
-      color: #333;
-      font-style: italic;
-    }
-
-    .testimonial-card strong {
-      color: #002B5B;
+      color: #FFD700;
     }
 
     /* FOOTER */
     footer{
-      background:#001B38;
+      background: linear-gradient(135deg, #001B38 0%, #002B5B 100%);
       color:#fff;
-      padding:40px 0;
+      padding:50px 0 30px;
       text-align:center;
     }
 
@@ -890,6 +950,7 @@
       max-height:80vh;
       overflow-y:auto;
       position:relative;
+      border-top: 5px solid #FFD700;
     }
 
     .modal-close{
@@ -983,7 +1044,7 @@
       }
 
       .tab-btn.active{
-        border-left-color:#002B5B;
+        border-left-color:#FFD700;
         border-bottom:none;
       }
 
@@ -1024,11 +1085,11 @@
     </div>
   </header>
 
-  <!-- HERO SECTION -->
+  <!-- HERO SECTION WITH BACKGROUND -->
   <section class="hero" id="home">
     <div class="container hero-content">
       <h1>Professional Security Services in Nairobi, Kenya</h1>
-      <p>Your Safety, Our Mission. Reliable guarding, surveillance, alarm response, and corporate security services tailored for homes, businesses, institutions, and events across Nairobi and Kenya.</p>
+      <p>Your Safety, Our Mission. Trusted by 100+ businesses across Nairobi. Professional guarding, surveillance, alarm response, and corporate security services with 24/7 rapid response.</p>
       <div class="hero-buttons">
         <a href="#services" class="btn btn-primary">Explore Services</a>
         <a href="tel:+254724101392" class="btn btn-secondary">Call: +254 724 101 392</a>
@@ -1047,20 +1108,20 @@
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-number" id="stat1">500+</div>
-          <div class="stat-label">Satisfied Clients</div>
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Satisfied Clients Across Nairobi</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="stat2">150+</div>
-          <div class="stat-label">Security Personnel</div>
+          <div class="stat-number">150+</div>
+          <div class="stat-label">Trained Security Personnel</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="stat3">15</div>
-          <div class="stat-label">Years Combined Experience</div>
+          <div class="stat-number">2</div>
+          <div class="stat-label">Years of Proven Excellence</div>
         </div>
         <div class="stat-card">
-          <div class="stat-number" id="stat4">24/7</div>
-          <div class="stat-label">Operations Available</div>
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Round-The-Clock Operations</div>
         </div>
       </div>
     </div>
@@ -1369,7 +1430,7 @@
   </section>
 
   <!-- FAQ SECTION -->
-  <section class="section" style="background:#f7f9fc;">
+  <section class="section" style="background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);">
     <div class="container">
       <div class="section-title">
         <h2>Frequently Asked Questions</h2>
@@ -1450,32 +1511,32 @@
 
       <div class="why-grid">
         <div class="why-card">
-          <h3>24/7 Availability</h3>
+          <h3>✓ 24/7 Availability</h3>
           <p>Round-the-clock security support and monitoring services throughout Nairobi and Kenya. Always on guard, always ready.</p>
         </div>
 
         <div class="why-card">
-          <h3>Professional Personnel</h3>
-          <p>Highly trained, disciplined, and verified security officers with extensive experience and proven track record of excellence.</p>
+          <h3>✓ Professional Personnel</h3>
+          <p>Highly trained, disciplined, and verified security officers with proven experience and track record of excellence.</p>
         </div>
 
         <div class="why-card">
-          <h3>Rapid Emergency Response</h3>
+          <h3>✓ Rapid Emergency Response</h3>
           <p>Quick emergency response to incidents and alarm triggers across Nairobi with strategically positioned response teams.</p>
         </div>
 
         <div class="why-card">
-          <h3>Trusted in Nairobi</h3>
-          <p>Reliable and client-focused security solutions trusted by 500+ businesses, schools, churches and institutions.</p>
+          <h3>✓ Trusted in Nairobi</h3>
+          <p>Reliable and client-focused security solutions trusted by 100+ businesses, schools, churches and institutions.</p>
         </div>
 
         <div class="why-card">
-          <h3>Advanced Technology</h3>
+          <h3>✓ Advanced Technology</h3>
           <p>Modern CCTV systems, access control, alarm integration, and real-time monitoring for enhanced security.</p>
         </div>
 
         <div class="why-card">
-          <h3>Customized Solutions</h3>
+          <h3>✓ Customized Solutions</h3>
           <p>Tailored security plans based on comprehensive risk assessment and your specific requirements and budget.</p>
         </div>
       </div>
@@ -1500,7 +1561,7 @@
 
         <div class="testimonial-slide">
           <div class="testimonial-text">
-            "We've been using FortSecure for 3 years. Their security team is disciplined, trustworthy, and always professional. Highly recommended for any business!"
+            "We've been using FortSecure for 2 years. Their security team is disciplined, trustworthy, and always professional. Highly recommended for any business!"
           </div>
           <div class="testimonial-author">— Property Developer, Westlands</div>
         </div>
@@ -1543,7 +1604,7 @@
   </section>
 
   <!-- CAREERS SECTION -->
-  <section class="section" id="jobs" style="background:#f7f9fc;">
+  <section class="section" id="jobs" style="background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);">
     <div class="container">
       <div class="section-title">
         <h2>Join Our Security Team</h2>
@@ -1692,9 +1753,9 @@
 
           <div class="form-group">
             <label>National ID <span class="required">*</span></label>
-            <div class="upload-area" ondrop="handleDrop(event, 'nationalId')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+            <div class="upload-area" onclick="document.getElementById('nationalId').click()">
               <div class="upload-icon">📄</div>
-              <p>Drag & drop your National ID copy or click to select</p>
+              <p>Click to upload your National ID copy</p>
               <input type="file" id="nationalId" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'National ID')">
             </div>
             <div id="nationalId-files" class="uploaded-files"></div>
@@ -1702,9 +1763,9 @@
 
           <div class="form-group">
             <label>KRA PIN Certificate <span class="required">*</span></label>
-            <div class="upload-area" ondrop="handleDrop(event, 'kraPIN')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+            <div class="upload-area" onclick="document.getElementById('kraPIN').click()">
               <div class="upload-icon">📊</div>
-              <p>Drag & drop your KRA PIN Certificate or click to select</p>
+              <p>Click to upload your KRA PIN Certificate</p>
               <input type="file" id="kraPIN" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'KRA PIN')">
             </div>
             <div id="kraPIN-files" class="uploaded-files"></div>
@@ -1712,9 +1773,9 @@
 
           <div class="form-group">
             <label>SHA (Social Health Authority) Certificate <span class="required">*</span></label>
-            <div class="upload-area" ondrop="handleDrop(event, 'sha')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+            <div class="upload-area" onclick="document.getElementById('sha').click()">
               <div class="upload-icon">🏥</div>
-              <p>Drag & drop your SHA Certificate or click to select</p>
+              <p>Click to upload your SHA Certificate</p>
               <input type="file" id="sha" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'SHA')">
             </div>
             <div id="sha-files" class="uploaded-files"></div>
@@ -1722,9 +1783,9 @@
 
           <div class="form-group">
             <label>NSSF Certificate <span class="required">*</span></label>
-            <div class="upload-area" ondrop="handleDrop(event, 'nssf')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+            <div class="upload-area" onclick="document.getElementById('nssf').click()">
               <div class="upload-icon">💳</div>
-              <p>Drag & drop your NSSF Certificate or click to select</p>
+              <p>Click to upload your NSSF Certificate</p>
               <input type="file" id="nssf" accept=".pdf,.jpg,.jpeg,.png" style="display:none;" onchange="handleFileUpload(event, 'NSSF')">
             </div>
             <div id="nssf-files" class="uploaded-files"></div>
@@ -1740,7 +1801,7 @@
         <div id="formStep4" class="form-step" style="display:none;">
           <h3 style="color:#002B5B;margin-bottom:20px;">Review & Submit</h3>
           
-          <div style="background:#f7f9fc;padding:20px;border-radius:8px;margin-bottom:20px;">
+          <div style="background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);padding:20px;border-radius:8px;margin-bottom:20px;">
             <p style="color:#666;margin-bottom:10px;"><strong>Application ID:</strong> <span id="appId" style="color:#002B5B;font-weight:700;"></span></p>
             <p style="color:#666;margin-bottom:10px;"><strong>Status:</strong> <span class="status-badge status-submitted">Pending Submission</span></p>
             <p style="color:#666;">Your application will be reviewed within 3-5 business days. You will receive email updates at each stage.</p>
@@ -1770,14 +1831,14 @@
       <button class="modal-close" onclick="closeTrackingModal()">✕</button>
       <h2 style="color:#002B5B;margin-bottom:30px;">Application Status Tracker</h2>
 
-      <div style="background:#f7f9fc;padding:20px;border-radius:8px;margin-bottom:30px;">
+      <div style="background: linear-gradient(135deg, #f7f9fc 0%, #e8ecf4 100%);padding:20px;border-radius:8px;margin-bottom:30px;">
         <p style="margin-bottom:10px;"><strong>Application ID:</strong></p>
-        <input type="text" id="trackingId" placeholder="Enter your Application ID" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:1rem;margin-bottom:15px;">
+        <input type="text" id="trackingId" placeholder="Enter your Application ID" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:1rem;margin-bottom:15px;">
         <button class="btn btn-primary" onclick="searchApplication()" style="width:100%;">Search Status</button>
       </div>
 
       <div id="trackingResult" style="display:none;">
-        <div style="background:#fff;border:2px solid #eee;border-radius:8px;padding:20px;">
+        <div style="background:#fff;border:2px solid #FFD700;border-radius:8px;padding:20px;">
           <p style="margin-bottom:15px;"><strong>Applicant:</strong> <span id="trackerName"></span></p>
           <p style="margin-bottom:15px;"><strong>Position:</strong> <span id="trackerPosition"></span></p>
           <p style="margin-bottom:20px;"><strong>Status:</strong> <span id="trackerStatus"></span></p>
@@ -1791,7 +1852,7 @@
               <p style="margin:5px 0 0 0;color:#666;font-size:0.9rem;">Received: <span id="submitDate"></span></p>
             </div>
             <div style="position:relative;margin-left:30px;margin-bottom:20px;">
-              <div style="width:20px;height:20px;background:#f57c00;border-radius:50%;position:absolute;left:-32px;top:0;"></div>
+              <div style="width:20px;height:20px;background:#FFD700;border-radius:50%;position:absolute;left:-32px;top:0;"></div>
               <p style="margin:0;font-weight:600;color:#f57c00;">Under Review</p>
               <p style="margin:5px 0 0 0;color:#666;font-size:0.9rem;">Documents being verified...</p>
             </div>
@@ -1980,11 +2041,9 @@
         }
       }
 
-      // Update progress
       const progress = (currentStep / 4) * 100;
       document.getElementById('progressFill').style.width = progress + '%';
 
-      // Update step indicators
       for (let i = 1; i <= 4; i++) {
         const step = document.getElementById(`step${i}`);
         if (i < currentStep) {
@@ -2015,23 +2074,6 @@
     }
 
     // FILE UPLOAD
-    function handleDrop(e, fieldId) {
-      e.preventDefault();
-      e.stopPropagation();
-      const input = document.getElementById(fieldId);
-      input.files = e.dataTransfer.files;
-      handleFileUpload({target: input});
-    }
-
-    function handleDragOver(e) {
-      e.preventDefault();
-      e.currentTarget.classList.add('dragover');
-    }
-
-    function handleDragLeave(e) {
-      e.currentTarget.classList.remove('dragover');
-    }
-
     function handleFileUpload(event, docName) {
       const file = event.target.files[0];
       if (!file) return;
@@ -2039,7 +2081,6 @@
       const fieldId = event.target.id;
       const container = document.getElementById(fieldId + '-files');
 
-      // Validate file
       if (file.size > 5000000) {
         addFileItem(container, file.name, 'error', 'File too large (max 5MB)');
         return;
@@ -2063,7 +2104,6 @@
       
       const appId = document.getElementById('appId').textContent;
       
-      // Show success message
       alert(`✓ Application Submitted!\n\nApplication ID: ${appId}\n\nYou will receive email updates on your application status. Check your email for confirmation.`);
       
       closeJobModal();
