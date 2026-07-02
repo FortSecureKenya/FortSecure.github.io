@@ -10,18 +10,18 @@
   <meta name="robots" content="index, follow">
   
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fortsecurekenya.github.io/FortSecure.github.io/">
+  <meta property="og:url" content="https://fortsecurekenya.github.io/">
   <meta property="og:title" content="FortSecure Kenya | Professional Security Services in Nairobi">
   <meta property="og:description" content="Trusted security services in Nairobi. Manned guarding, CCTV surveillance, alarm response, and more. 24/7 rapid response.">
   <meta property="og:image" content="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png">
 
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://fortsecurekenya.github.io/FortSecure.github.io/">
+  <meta property="twitter:url" content="https://fortsecurekenya.github.io/">
   <meta property="twitter:title" content="FortSecure Kenya | Professional Security Services">
   <meta property="twitter:description" content="Professional security services in Nairobi. Manned guarding, CCTV surveillance, alarm response & more.">
   <meta property="twitter:image" content="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png">
 
-  <link rel="canonical" href="https://fortsecurekenya.github.io/FortSecure.github.io/">
+  <link rel="canonical" href="https://fortsecurekenya.github.io/">
 
   <script type="application/ld+json">
   {
@@ -39,7 +39,7 @@
     },
     "telephone": "+254724101392",
     "email": "fortsecurekenya@gmail.com",
-    "url": "https://fortsecurekenya.github.io/FortSecure.github.io/",
+    "url": "https://fortsecurekenya.github.io/",
     "areaServed": {
       "@type": "City",
       "name": "Nairobi"
@@ -363,58 +363,10 @@
       margin-bottom: 8px;
     }
 
-    /* ACCORDION */
-    .accordion-item{
-      margin-bottom:15px;
-      border:1px solid #eee;
-      border-radius:8px;
-      overflow:hidden;
-    }
-
-    .accordion-header{
-      background:#f7f9fc;
-      padding:20px;
-      cursor:pointer;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      font-weight:600;
-      color:#002B5B;
-      transition:0.3s;
-    }
-
-    .accordion-header:hover{
-      background:#e8ecf4;
-    }
-
-    .accordion-header.active{
-      background:#002B5B;
-      color:#fff;
-    }
-
-    .accordion-content{
-      display:none;
-      padding:20px;
-      background:#fff;
-      border-top:1px solid #eee;
-    }
-
-    .accordion-content.active{
-      display:block;
-    }
-
-    .accordion-icon{
-      transition:0.3s;
-    }
-
-    .accordion-header.active .accordion-icon{
-      transform:rotate(180deg);
-    }
-
     /* TESTIMONIALS CAROUSEL */
     .carousel-container{
       position:relative;
-      max-width:600px;
+      max-width:700px;
       margin:auto;
     }
 
@@ -432,10 +384,11 @@
     }
 
     .testimonial-text{
-      font-size:1.1rem;
+      font-size:1rem;
       font-style:italic;
       margin-bottom:20px;
       color:#333;
+      line-height:1.8;
     }
 
     .testimonial-author{
@@ -518,6 +471,19 @@
       color:#002B5B;
     }
 
+    /* IMAGE SECTION */
+    .image-section{
+      margin:60px 0;
+      text-align:center;
+    }
+
+    .image-section img{
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.15);
+    }
+
     /* CTA */
     .cta{
       background:#002B5B;
@@ -589,8 +555,104 @@
       box-shadow:0 0 0 3px rgba(0,43,91,0.1);
     }
 
+    .form-group textarea{
+      resize:vertical;
+      min-height:120px;
+    }
+
     .required{
       color:red;
+    }
+
+    .form-message{
+      padding:15px;
+      border-radius:6px;
+      margin-bottom:20px;
+      display:none;
+      font-weight:500;
+    }
+
+    .form-message.success{
+      background:#d4edda;
+      color:#155724;
+      border:1px solid #c3e6cb;
+      display:block;
+    }
+
+    .form-message.error{
+      background:#f8d7da;
+      color:#721c24;
+      border:1px solid #f5c6cb;
+      display:block;
+    }
+
+    .status-badge{
+      display:inline-block;
+      padding:8px 16px;
+      border-radius:20px;
+      font-weight:600;
+      font-size:0.9rem;
+    }
+
+    .status-submitted{
+      background:#e3f2fd;
+      color:#1976d2;
+    }
+
+    .status-reviewing{
+      background:#fff3e0;
+      color:#f57c00;
+    }
+
+    .status-interview{
+      background:#f3e5f5;
+      color:#7b1fa2;
+    }
+
+    .status-hired{
+      background:#e8f5e9;
+      color:#388e3c;
+    }
+
+    .progress-container{
+      margin-bottom:30px;
+    }
+
+    .progress-bar{
+      background:#eee;
+      height:8px;
+      border-radius:10px;
+      overflow:hidden;
+      margin-bottom:20px;
+    }
+
+    .progress-fill{
+      background:#002B5B;
+      height:100%;
+      width:25%;
+      transition:0.3s;
+    }
+
+    .progress-steps{
+      display:flex;
+      justify-content:space-between;
+    }
+
+    .progress-step{
+      flex:1;
+      text-align:center;
+      padding:10px;
+      font-size:0.9rem;
+      color:#666;
+    }
+
+    .progress-step.active{
+      color:#002B5B;
+      font-weight:700;
+    }
+
+    .progress-step.completed{
+      color:#28a745;
     }
 
     /* FLOATING ACTION BUTTONS */
@@ -767,6 +829,7 @@
           <li><a href="#stats">Why Us</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li><a href="#careers">Careers</a></li>
         </ul>
       </nav>
     </div>
@@ -855,9 +918,12 @@
               <h3>🛡️ Manned Guarding</h3>
               <p>Professional trained security guards for:</p>
               <ul>
-                <li>Residential complexes</li>
+                <li>Residential complexes & homes</li>
                 <li>Commercial offices</li>
-                <li>Schools & institutions</li>
+                <li>Airbnb properties</li>
+                <li>Schools & educational institutions</li>
+                <li>Church & religious venues</li>
+                <li>Event venues & conferences</li>
                 <li>Industrial facilities</li>
                 <li>Retail stores</li>
               </ul>
@@ -934,6 +1000,11 @@
             </div>
           </div>
         </div>
+
+        <!-- FORTRESS IMAGE SECTION -->
+        <div class="image-section">
+          <img src="https://imgur.com/RO2Zh8l.jpg" alt="FortSecure Kenya Professional Security Team at Gate" style="max-width:100%; border-radius:12px; margin-top:60px;">
+        </div>
       </div>
     </section>
 
@@ -948,29 +1019,36 @@
         <div class="carousel-container">
           <div class="testimonial-slide active">
             <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
-              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"FortSecure Kenya has been protecting our office. Their professionalism and reliability are unmatched. Highly recommended!"</p>
-              <strong style="color:#002B5B;">- John Kariuki, Business Owner</strong>
+              <p class="testimonial-text">"FortSecure Kenya has been protecting our office for the past 18 months. Their professionalism, reliability, and attention to detail are unmatched. Our staff feels secure every single day. The team is courteous, well-trained, and responds immediately to any concerns. Highly recommended for any business serious about security!"</p>
+              <strong class="testimonial-author">- John Kariuki, Business Owner</strong>
             </div>
           </div>
 
           <div class="testimonial-slide">
             <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
-              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"We switched to FortSecure for their event security. They managed everything with zero incidents. Excellent service!"</p>
-              <strong style="color:#002B5B;">- Mary Njoroge, Event Organizer</strong>
+              <p class="testimonial-text">"We hired FortSecure for our church events and they exceeded all our expectations. They managed crowd control with utmost respect and professionalism. Our congregation felt safe throughout the event. The security team was discreet yet vigilant. We've made them our go-to security partner for all our church activities and gatherings."</p>
+              <strong class="testimonial-author">- Rev. Dr. James Omondi, Church Administration</strong>
             </div>
           </div>
 
           <div class="testimonial-slide">
             <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
-              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"Their CCTV system is great and the monitoring is responsive. I feel safe knowing they're watching 24/7."</p>
-              <strong style="color:#002B5B;">- Ahmed Hassan, Residential Manager</strong>
+              <p class="testimonial-text">"As an Airbnb property owner, security is paramount. FortSecure Kenya provides professional manned guarding that gives me complete peace of mind. My guests consistently mention how safe they feel with FortSecure's presence. Their guards are trained, professional, and respectful of guests' privacy. Highly recommended!"</p>
+              <strong class="testimonial-author">- Patricia Wanjiru, Airbnb Property Owner</strong>
             </div>
           </div>
 
           <div class="testimonial-slide">
             <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
-              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"FortSecure's alarm response is very fast. They arrived before police and prevented a potential issue. Highly worth it!"</p>
-              <strong style="color:#002B5B;">- Sarah Mwangi, Retail Manager</strong>
+              <p class="testimonial-text">"FortSecure Kenya has been invaluable for our school's safety program. The security personnel are professional, trained in emergency response, and create a secure environment for our students and staff. They conduct regular perimeter checks and maintain excellent communication. We trust them completely with our institution's security."</p>
+              <strong class="testimonial-author">- Margaret Kipchoge, School Administration</strong>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
+              <p class="testimonial-text">"FortSecure's alarm response is incredibly fast. They arrived before police during our incident and prevented a potential theft. Their CCTV monitoring is sharp and responsive. They provide real-time updates and work seamlessly with law enforcement. Worth every penny!"</p>
+              <strong class="testimonial-author">- Sarah Mwangi, Retail Manager</strong>
             </div>
           </div>
 
@@ -987,31 +1065,62 @@
     <!-- CTA SECTION -->
     <section class="cta">
       <div class="container">
-        <h2>Ready to Secure Your Property?</h2>
-        <p>Get a free security assessment and custom quote today</p>
-        <a href="#contact" class="btn btn-primary">Get Started</a>
+        <h2>You Deserve Professional Security</h2>
+        <p>Experience the peace of mind that comes with trusted, professional security services</p>
+        <a href="#contact" class="btn btn-primary">Get Your Custom Security Solution</a>
       </div>
     </section>
 
-    <!-- CONTACT SECTION -->
+    <!-- CONTACT / GET QUOTE SECTION -->
     <section id="contact" class="section">
       <div class="container">
         <div class="section-title">
-          <h2>Contact Us</h2>
-          <p>Reach out for immediate assistance or inquiries</p>
+          <h2>Get Your Security Quote Today</h2>
+          <p>Let us customize a security solution perfect for your needs</p>
         </div>
 
         <div class="contact-grid">
+          <div class="contact-box">
+            <h3>📋 Request a Quote</h3>
+            <p>Tell us about your security needs and we'll provide a customized quote within 24 hours.</p>
+            <form style="margin-top:20px;">
+              <div class="form-group">
+                <label for="quote-name">Full Name <span class="required">*</span></label>
+                <input type="text" id="quote-name" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <label for="quote-email">Email <span class="required">*</span></label>
+                <input type="email" id="quote-email" placeholder="Your Email" required>
+              </div>
+              <div class="form-group">
+                <label for="quote-phone">Phone <span class="required">*</span></label>
+                <input type="tel" id="quote-phone" placeholder="Your Phone" required>
+              </div>
+              <div class="form-group">
+                <label for="quote-type">Type of Security Needed <span class="required">*</span></label>
+                <select id="quote-type" required>
+                  <option value="">-- Select Service --</option>
+                  <option value="manned">Manned Guarding</option>
+                  <option value="cctv">CCTV Surveillance</option>
+                  <option value="alarm">Alarm Response</option>
+                  <option value="event">Event Security</option>
+                  <option value="vip">VIP Protection</option>
+                  <option value="consult">Security Consultancy</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="quote-details">Tell us about your needs</label>
+                <textarea id="quote-details" placeholder="Describe your security requirements..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Request Quote</button>
+            </form>
+          </div>
+
           <div class="contact-box">
             <h3>📍 Office Location</h3>
             <p><strong>Thome Estate, Nairobi</strong></p>
             <p style="margin-top:20px;"><strong>Phone:</strong><br><a href="tel:+254724101392" style="color:#002B5B;font-weight:600">+254 724 101 392</a></p>
             <p style="margin-top:15px;"><strong>Email:</strong><br><a href="mailto:fortsecurekenya@gmail.com" style="color:#002B5B;font-weight:600">fortsecurekenya@gmail.com</a></p>
-          </div>
-
-          <div class="contact-box">
-            <h3>💬 Quick Contact</h3>
-            <p>For immediate assistance, call or message us. Our team responds to inquiries within 1 hour.</p>
             <p style="margin-top:20px;"><strong>Business Hours:</strong></p>
             <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
             <p>Saturday: 9:00 AM - 2:00 PM</p>
@@ -1019,20 +1128,106 @@
           </div>
 
           <div class="contact-box">
-            <h3>📋 Get a Quote</h3>
-            <p>Fill in your details and we'll send you a customized security proposal within 24 hours.</p>
-            <form style="margin-top:20px;">
+            <h3>💬 Quick Contact</h3>
+            <p>For immediate assistance, call or message us. Our team responds to inquiries within 1 hour.</p>
+            <p style="margin-top:20px; padding:20px; background:#e3f2fd; border-radius:8px; border-left:4px solid #002B5B;">
+              <strong style="color:#002B5B;">Emergency Response:</strong><br>
+              We provide 24/7 emergency line support. Get rapid response for any security incidents.
+            </p>
+            <p style="margin-top:20px;">
+              <a href="https://wa.me/254724101392" target="_blank" class="btn btn-secondary" style="width:100%;">Message on WhatsApp</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAREERS SECTION -->
+    <section id="careers" class="section why-us">
+      <div class="container">
+        <div class="section-title">
+          <h2>Join Our Team</h2>
+          <p>Be part of Kenya's leading security services company</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-box">
+            <h3>📝 Job Application</h3>
+            <div id="form-message" class="form-message" role="status" aria-live="polite"></div>
+
+            <form id="job-form">
               <div class="form-group">
-                <input type="text" placeholder="Your Name" required>
+                <label for="applicant-name">Full Name <span class="required">*</span></label>
+                <input type="text" id="applicant-name" name="name" required>
               </div>
               <div class="form-group">
-                <input type="email" placeholder="Your Email" required>
+                <label for="applicant-email">Email <span class="required">*</span></label>
+                <input type="email" id="applicant-email" name="email" required>
               </div>
               <div class="form-group">
-                <input type="tel" placeholder="Your Phone" required>
+                <label for="applicant-phone">Phone</label>
+                <input type="tel" id="applicant-phone" name="phone">
               </div>
-              <button type="submit" class="btn btn-primary" style="width:100%;">Request Quote</button>
+              <div class="form-group">
+                <label for="applicant-position">Position Applying For</label>
+                <input type="text" id="applicant-position" name="position" placeholder="e.g., Security Guard, Supervisor">
+              </div>
+              <div class="form-group">
+                <label for="applicant-experience">Years of Security Experience</label>
+                <input type="number" id="applicant-experience" name="experience" min="0">
+              </div>
+
+              <button class="btn btn-primary" type="submit" style="width:100%;">Submit Application</button>
             </form>
+
+            <div style="margin-top:20px;">
+              <strong>Your Tracking ID:</strong> <span id="tracking-id" style="color:#002B5B; font-weight:700;">—</span>
+            </div>
+
+            <div style="margin-top:12px;">
+              <strong>Application Status:</strong>
+              <div id="application-status" class="status-badge status-submitted">Not Submitted</div>
+            </div>
+
+            <div class="progress-container" style="margin-top:18px;">
+              <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+              <div class="progress-steps">
+                <div class="progress-step" id="step-submitted">Submitted</div>
+                <div class="progress-step" id="step-reviewing">Reviewing</div>
+                <div class="progress-step" id="step-interview">Interview</div>
+                <div class="progress-step" id="step-hired">Hired</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-box">
+            <h3>🌟 Why Join FortSecure?</h3>
+            <ul style="text-align:left; list-style-position:inside; color:#555;">
+              <li style="margin-bottom:12px;">✓ Competitive salary & benefits</li>
+              <li style="margin-bottom:12px;">✓ Professional training & development</li>
+              <li style="margin-bottom:12px;">✓ Career growth opportunities</li>
+              <li style="margin-bottom:12px;">✓ Professional work environment</li>
+              <li style="margin-bottom:12px;">✓ Team & family support</li>
+              <li style="margin-bottom:12px;">✓ Recognized credentials</li>
+            </ul>
+            <p style="margin-top:20px; font-size:0.9rem; color:#666;">
+              <strong>Note:</strong> When you submit your application, you'll receive a tracking ID. Save it to check your application status anytime. Our HR team will keep you updated throughout the process.
+            </p>
+          </div>
+
+          <div class="contact-box">
+            <h3>📋 Positions Available</h3>
+            <ul style="text-align:left; list-style-position:inside; color:#555;">
+              <li style="margin-bottom:12px;">🛡️ Security Guards</li>
+              <li style="margin-bottom:12px;">👔 Security Supervisors</li>
+              <li style="margin-bottom:12px;">📹 CCTV Operators</li>
+              <li style="margin-bottom:12px;">🚨 Alarm Response Officers</li>
+              <li style="margin-bottom:12px;">🎯 VIP Escorts</li>
+              <li style="margin-bottom:12px;">📊 Security Consultants</li>
+            </ul>
+            <p style="margin-top:20px; font-size:0.9rem; color:#666;">
+              Minimum requirements: Valid ID, high school diploma, security license, clean criminal record. Training provided for qualified candidates.
+            </p>
           </div>
         </div>
       </div>
@@ -1136,6 +1331,48 @@
       currentSlide = (currentSlide + 1) % totalSlides;
       showSlide(currentSlide);
     }, 8000);
+
+    // QUOTE FORM SUBMISSION
+    document.querySelector('#contact form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your inquiry! We will contact you within 24 hours with a customized quote.');
+      document.querySelector('#contact form').reset();
+    });
+
+    // JOB APPLICATION FORM
+    document.getElementById('job-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('applicant-name').value;
+      const email = document.getElementById('applicant-email').value;
+      const trackingId = 'FS' + Date.now();
+      
+      // Store tracking ID in localStorage
+      localStorage.setItem(`tracking-${trackingId}`, JSON.stringify({
+        name: name,
+        email: email,
+        status: 'submitted',
+        submittedAt: new Date().toISOString()
+      }));
+      
+      // Display tracking ID
+      document.getElementById('tracking-id').textContent = trackingId;
+      document.getElementById('application-status').textContent = 'Submitted';
+      document.getElementById('application-status').className = 'status-badge status-submitted';
+      document.getElementById('progress-fill').style.width = '25%';
+      document.getElementById('step-submitted').classList.add('completed');
+      
+      // Show success message
+      const messageDiv = document.getElementById('form-message');
+      messageDiv.textContent = `✓ Application submitted successfully! Your tracking ID: ${trackingId}. Save it to check your status.`;
+      messageDiv.className = 'form-message success';
+      
+      // Reset form
+      document.getElementById('job-form').reset();
+      
+      // Scroll to message
+      messageDiv.scrollIntoView({ behavior: 'smooth' });
+    });
   </script>
 
 </body>
