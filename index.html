@@ -2,28 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FortSecure Kenya | Professional Security Services in Nairobi</title>
-  <meta name="description" content="FortSecure Kenya — professional security services in Nairobi: manned guarding, CCTV surveillance, alarm response, event security, VIP protection, and consultancy.">
+  <meta name="description" content="Professional security services in Nairobi, Kenya. Manned guarding, CCTV surveillance, alarm response, event security, VIP protection & security consultancy. 24/7 rapid response.">
+  <meta name="keywords" content="security services Nairobi, security guards Kenya, CCTV surveillance Nairobi, event security Kenya, private security Nairobi, alarm response services, manned guarding Kenya">
   <meta name="author" content="FortSecure Kenya">
   <meta name="robots" content="index, follow">
-
-  <!-- Open Graph / Twitter cards -->
+  
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fortsecurekenya.github.io/">
+  <meta property="og:url" content="https://fortsecurekenya.github.io/FortSecure.github.io/">
   <meta property="og:title" content="FortSecure Kenya | Professional Security Services in Nairobi">
   <meta property="og:description" content="Trusted security services in Nairobi. Manned guarding, CCTV surveillance, alarm response, and more. 24/7 rapid response.">
   <meta property="og:image" content="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png">
 
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://fortsecurekenya.github.io/">
+  <meta property="twitter:url" content="https://fortsecurekenya.github.io/FortSecure.github.io/">
   <meta property="twitter:title" content="FortSecure Kenya | Professional Security Services">
   <meta property="twitter:description" content="Professional security services in Nairobi. Manned guarding, CCTV surveillance, alarm response & more.">
   <meta property="twitter:image" content="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png">
 
-  <link rel="canonical" href="https://fortsecurekenya.github.io/">
+  <link rel="canonical" href="https://fortsecurekenya.github.io/FortSecure.github.io/">
 
-  <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org/",
@@ -40,7 +39,7 @@
     },
     "telephone": "+254724101392",
     "email": "fortsecurekenya@gmail.com",
-    "url": "https://fortsecurekenya.github.io/",
+    "url": "https://fortsecurekenya.github.io/FortSecure.github.io/",
     "areaServed": {
       "@type": "City",
       "name": "Nairobi"
@@ -49,21 +48,705 @@
   }
   </script>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon and theme -->
-  <link rel="icon" href="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png" type="image/png">
-  <meta name="theme-color" content="#002B5B">
+  <style>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/styles.css">
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+      scroll-behavior:smooth;
+    }
 
+    body{
+      background:#ffffff;
+      color:#1b1b1b;
+      line-height:1.6;
+    }
+
+    a{
+      text-decoration:none;
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    /* NAVBAR */
+    header{
+      background:#002B5B;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .navbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 0;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      color:#fff;
+    }
+
+    .logo img{
+      width:72px;
+      height:72px;
+      object-fit:contain;
+      border-radius:12px;
+      filter:drop-shadow(0 0 8px rgba(0,123,255,0.35));
+    }
+
+    .logo span{
+      font-size:1.5rem;
+      font-weight:700;
+      letter-spacing:1px;
+      color:#ffffff;
+    }
+
+    nav{
+      display:flex;
+    }
+
+    nav ul{
+      display:flex;
+      list-style:none;
+      gap:28px;
+    }
+
+    nav ul li a{
+      color:#fff;
+      font-weight:500;
+      transition:0.3s;
+    }
+
+    nav ul li a:hover{
+      color:#C0C0C0;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 6px;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 2.5px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* HERO */
+    .hero{
+      background:
+      linear-gradient(rgba(0,43,91,0.82), rgba(0,43,91,0.85)),
+      url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      min-height:95vh;
+      display:flex;
+      align-items:center;
+      color:white;
+    }
+
+    .hero-content{
+      max-width:700px;
+    }
+
+    .hero h1{
+      font-size:3.5rem;
+      line-height:1.2;
+      margin-bottom:20px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero p{
+      font-size:1.1rem;
+      margin-bottom:35px;
+      color:#f1f1f1;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:14px 28px;
+      border-radius:6px;
+      font-weight:600;
+      transition:0.3s;
+      display:inline-block;
+      border:none;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:#ffffff;
+      color:#002B5B;
+    }
+
+    .btn-primary:hover{
+      background:#C0C0C0;
+      transform:translateY(-2px);
+    }
+
+    .btn-secondary{
+      border:2px solid #fff;
+      color:#fff;
+      background:transparent;
+    }
+
+    .btn-secondary:hover{
+      background:#fff;
+      color:#002B5B;
+    }
+
+    /* SECTION */
+    .section{
+      padding:90px 0;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.5rem;
+      color:#002B5B;
+      margin-bottom:12px;
+    }
+
+    .section-title p{
+      color:#666;
+    }
+
+    /* STATS */
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:30px;
+      margin-bottom:60px;
+    }
+
+    .stat-card{
+      text-align:center;
+      padding:30px;
+      background:#f7f9fc;
+      border-radius:12px;
+    }
+
+    .stat-number{
+      font-size:2.5rem;
+      font-weight:700;
+      color:#002B5B;
+      margin-bottom:10px;
+    }
+
+    .stat-label{
+      color:#666;
+      font-size:0.95rem;
+    }
+
+    /* TABS */
+    .tabs{
+      display:flex;
+      gap:10px;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+      border-bottom:2px solid #eee;
+    }
+
+    .tab-btn{
+      background:none;
+      border:none;
+      padding:15px 20px;
+      cursor:pointer;
+      font-weight:600;
+      color:#666;
+      border-bottom:3px solid transparent;
+      transition:0.3s;
+    }
+
+    .tab-btn:hover{
+      color:#002B5B;
+    }
+
+    .tab-btn.active{
+      color:#002B5B;
+      border-bottom-color:#002B5B;
+    }
+
+    .tab-content{
+      display:none;
+      animation:fadeIn 0.3s ease-in;
+    }
+
+    .tab-content.active{
+      display:block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* SERVICES */
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:30px;
+    }
+
+    .service-card{
+      background:#fff;
+      border-radius:14px;
+      padding:35px 25px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:0.3s;
+      text-align:center;
+      cursor:pointer;
+    }
+
+    .service-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 8px 30px rgba(0,0,0,0.15);
+    }
+
+    .service-card h3{
+      margin-bottom:15px;
+      color:#002B5B;
+      font-size:1.3rem;
+    }
+
+    .service-card p{
+      color:#555;
+    }
+
+    .service-card ul {
+      text-align: left;
+      color: #555;
+      list-style-position: inside;
+    }
+
+    .service-card ul li {
+      margin-bottom: 8px;
+    }
+
+    /* ACCORDION */
+    .accordion-item{
+      margin-bottom:15px;
+      border:1px solid #eee;
+      border-radius:8px;
+      overflow:hidden;
+    }
+
+    .accordion-header{
+      background:#f7f9fc;
+      padding:20px;
+      cursor:pointer;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-weight:600;
+      color:#002B5B;
+      transition:0.3s;
+    }
+
+    .accordion-header:hover{
+      background:#e8ecf4;
+    }
+
+    .accordion-header.active{
+      background:#002B5B;
+      color:#fff;
+    }
+
+    .accordion-content{
+      display:none;
+      padding:20px;
+      background:#fff;
+      border-top:1px solid #eee;
+    }
+
+    .accordion-content.active{
+      display:block;
+    }
+
+    .accordion-icon{
+      transition:0.3s;
+    }
+
+    .accordion-header.active .accordion-icon{
+      transform:rotate(180deg);
+    }
+
+    /* TESTIMONIALS CAROUSEL */
+    .carousel-container{
+      position:relative;
+      max-width:600px;
+      margin:auto;
+    }
+
+    .testimonial-slide{
+      display:none;
+      padding:40px;
+      background:#f7f9fc;
+      border-radius:12px;
+      text-align:center;
+      animation:fadeIn 0.5s ease-in;
+    }
+
+    .testimonial-slide.active{
+      display:block;
+    }
+
+    .testimonial-text{
+      font-size:1.1rem;
+      font-style:italic;
+      margin-bottom:20px;
+      color:#333;
+    }
+
+    .testimonial-author{
+      font-weight:700;
+      color:#002B5B;
+    }
+
+    .carousel-controls{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      margin-top:20px;
+    }
+
+    .carousel-btn{
+      background:#002B5B;
+      color:#fff;
+      border:none;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1.2rem;
+      transition:0.3s;
+    }
+
+    .carousel-btn:hover{
+      background:gold;
+      color:#002B5B;
+    }
+
+    .carousel-dots{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin-top:15px;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:#ccc;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .dot.active{
+      background:#002B5B;
+      width:30px;
+      border-radius:5px;
+    }
+
+    /* WHY US */
+    .why-us{
+      background:#f7f9fc;
+    }
+
+    .why-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .why-card{
+      background:#fff;
+      padding:30px;
+      border-left:5px solid #002B5B;
+      border-radius:10px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.06);
+      transition:0.3s;
+    }
+
+    .why-card:hover{
+      transform:translateY(-5px);
+    }
+
+    .why-card h3{
+      margin-bottom:10px;
+      color:#002B5B;
+    }
+
+    /* CTA */
+    .cta{
+      background:#002B5B;
+      color:#fff;
+      text-align:center;
+      padding:90px 20px;
+    }
+
+    .cta h2{
+      font-size:2.5rem;
+      margin-bottom:20px;
+    }
+
+    .cta p{
+      margin-bottom:30px;
+      font-size:1.05rem;
+    }
+
+    /* CONTACT */
+    .contact-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:40px;
+    }
+
+    .contact-box{
+      background:#fff;
+      padding:35px;
+      border-radius:12px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.07);
+    }
+
+    .contact-box h3{
+      color:#002B5B;
+      margin-bottom:20px;
+    }
+
+    .contact-box p{
+      margin-bottom:12px;
+    }
+
+    .form-group{
+      margin-bottom:20px;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:600;
+      color:#002B5B;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select{
+      width:100%;
+      padding:12px;
+      border:1px solid #ddd;
+      border-radius:6px;
+      font-size:1rem;
+      font-family:'Poppins',sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus{
+      outline:none;
+      border-color:#002B5B;
+      box-shadow:0 0 0 3px rgba(0,43,91,0.1);
+    }
+
+    .required{
+      color:red;
+    }
+
+    /* FLOATING ACTION BUTTONS */
+    .fab-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 999;
+    }
+
+    .fab {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      transition: 0.3s ease;
+      border:none;
+      cursor:pointer;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+    }
+
+    .fab-call {
+      background: gold;
+      color: black;
+    }
+
+    .fab-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+
+    .fab-email {
+      background: #002B5B;
+      color: gold;
+    }
+
+    /* FOOTER */
+    footer{
+      background:#001B38;
+      color:#fff;
+      padding:40px 0;
+      text-align:center;
+    }
+
+    footer img{
+      width:90px;
+      margin-bottom:15px;
+    }
+
+    footer p{
+      color:#ccc;
+    }
+
+    /* MOBILE */
+    @media(max-width:768px){
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #002B5B;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        z-index: 999;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      nav ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .hero{
+        text-align:center;
+      }
+
+      .hero-content{
+        margin:auto;
+      }
+
+      .hero h1{
+        font-size:2.5rem;
+      }
+
+      .hero-buttons{
+        justify-content:center;
+      }
+
+      .logo span{
+        font-size:1.2rem;
+      }
+
+      .logo img{
+        width:60px;
+        height:60px;
+      }
+
+      .fab {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+
+      .tabs{
+        flex-direction:column;
+      }
+
+      .tab-btn{
+        text-align:left;
+        border-bottom:none;
+        border-left:3px solid transparent;
+      }
+
+      .tab-btn.active{
+        border-left-color:#002B5B;
+        border-bottom:none;
+      }
+
+    }
+
+  </style>
 </head>
+
 <body>
-  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <a class="skip-link" href="#services" style="position:absolute;top:-100px;left:0;background:#002B5B;color:#fff;padding:8px;border-radius:0 0 4px 0;z-index:10000">Skip to content</a>
 
   <header>
     <div class="container navbar">
@@ -81,8 +764,8 @@
       <nav id="primary-nav" role="navigation" aria-label="Primary navigation">
         <ul>
           <li><a href="#services">Services</a></li>
-          <li><a href="#why-us">Why Us</a></li>
-          <li><a href="#careers">Careers</a></li>
+          <li><a href="#stats">Why Us</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -96,97 +779,260 @@
         <p>Reliable manned guarding, CCTV, alarm response, event security and VIP protection — 24/7 rapid response.</p>
         <div class="hero-buttons">
           <a class="btn btn-primary" href="#contact">Get a Quote</a>
-          <a class="btn btn-secondary" href="#careers">Apply for a Job</a>
+          <a class="btn btn-secondary" href="tel:+254724101392">Call Now</a>
         </div>
       </div>
     </section>
 
-    <section id="careers" class="section">
+    <!-- STATS SECTION -->
+    <section id="stats" class="section why-us">
       <div class="container">
         <div class="section-title">
-          <h2>Join Our Team</h2>
-          <p>Submit your application below. After submitting you'll receive a tracking ID — save it so you can check progress. HR will update the status using the admin interface.</p>
+          <h2>Why Choose FortSecure Kenya?</h2>
+          <p>Trusted by businesses and individuals across Nairobi</p>
         </div>
 
-        <div class="contact-grid">
-          <div class="contact-box">
-            <h3>Job Application</h3>
-            <div id="form-message" class="form-message" role="status" aria-live="polite"></div>
-
-            <form id="job-form">
-              <div class="form-group">
-                <label for="applicant-name">Full name <span class="required">*</span></label>
-                <input type="text" id="applicant-name" name="name" required>
-              </div>
-              <div class="form-group">
-                <label for="applicant-email">Email <span class="required">*</span></label>
-                <input type="email" id="applicant-email" name="email" required>
-              </div>
-              <div class="form-group">
-                <label for="applicant-phone">Phone</label>
-                <input type="tel" id="applicant-phone" name="phone">
-              </div>
-              <div class="form-group">
-                <label for="applicant-position">Position applying for</label>
-                <input type="text" id="applicant-position" name="position">
-              </div>
-              <div class="form-group">
-                <label for="applicant-resume">Resume / CV (PDF)</label>
-                <input type="file" id="applicant-resume" name="resume" accept="application/pdf">
-              </div>
-
-              <button class="btn btn-primary" type="submit">Submit application</button>
-            </form>
-
-            <div style="margin-top:20px;">
-              <strong>Your tracking ID:</strong> <span id="tracking-id">—</span>
-            </div>
-
-            <div style="margin-top:12px;">
-              <strong>Application status:</strong>
-              <div id="application-status" class="status-badge status-submitted">Not submitted</div>
-            </div>
-
-            <div class="progress-container" style="margin-top:18px;">
-              <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-              <div class="progress-steps">
-                <div class="progress-step" id="step-submitted">Submitted</div>
-                <div class="progress-step" id="step-reviewing">Reviewing</div>
-                <div class="progress-step" id="step-interview">Interview</div>
-                <div class="progress-step" id="step-hired">Final</div>
-              </div>
-            </div>
-
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Satisfied Clients</div>
           </div>
-
-          <div class="contact-box">
-            <h3>How it works</h3>
-            <p>When you submit the form it will be sent to our Formspree inbox (please replace the Formspree endpoint in script.js). We also generate a tracking ID and save it in your browser. HR will update status manually in a JSON file.</p>
-            <p><strong>Privacy:</strong> Your data will be sent to Formspree. The tracking ID is stored locally in your browser so you can check progress; the repository file contains only mapping information.</p>
+          <div class="stat-card">
+            <div class="stat-number">2+</div>
+            <div class="stat-label">Years of Quality Services</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Rapid Response</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Professional Team</div>
           </div>
         </div>
 
+        <div class="why-grid">
+          <div class="why-card">
+            <h3>🎯 Trained Professionals</h3>
+            <p>Our security guards are thoroughly vetted, trained, and certified to international standards.</p>
+          </div>
+          <div class="why-card">
+            <h3>🔒 Advanced Technology</h3>
+            <p>State-of-the-art CCTV systems, alarm systems, and real-time monitoring capabilities.</p>
+          </div>
+          <div class="why-card">
+            <h3>⚡ Fast Response</h3>
+            <p>Strategic locations across Nairobi ensure rapid emergency response within minutes.</p>
+          </div>
+          <div class="why-card">
+            <h3>📋 Transparent Pricing</h3>
+            <p>Clear, competitive quotes with no hidden charges. Customized packages for every budget.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="section why-us">
+    <!-- SERVICES SECTION -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Our Services</h2>
+          <p>Comprehensive security solutions for all your needs</p>
+        </div>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="manned">Manned Guarding</button>
+          <button class="tab-btn" data-tab="cctv">CCTV Surveillance</button>
+          <button class="tab-btn" data-tab="alarm">Alarm Response</button>
+          <button class="tab-btn" data-tab="event">Event Security</button>
+          <button class="tab-btn" data-tab="vip">VIP Protection</button>
+          <button class="tab-btn" data-tab="consult">Consultancy</button>
+        </div>
+
+        <div class="services-grid">
+          <div class="tab-content active" id="tab-manned">
+            <div class="service-card">
+              <h3>🛡️ Manned Guarding</h3>
+              <p>Professional trained security guards for:</p>
+              <ul>
+                <li>Residential complexes</li>
+                <li>Commercial offices</li>
+                <li>Schools & institutions</li>
+                <li>Industrial facilities</li>
+                <li>Retail stores</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-cctv">
+            <div class="service-card">
+              <h3>📹 CCTV Surveillance</h3>
+              <p>24/7 monitoring with:</p>
+              <ul>
+                <li>HD & 4K camera systems</li>
+                <li>Remote access & cloud storage</li>
+                <li>Motion detection alerts</li>
+                <li>Professional installation</li>
+                <li>Maintenance & support</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-alarm">
+            <div class="service-card">
+              <h3>🚨 Alarm Response</h3>
+              <p>Rapid response services:</p>
+              <ul>
+                <li>Intrusion alarm systems</li>
+                <li>Real-time alert notifications</li>
+                <li>Immediate dispatch</li>
+                <li>Police coordination</li>
+                <li>24/7 monitoring center</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-event">
+            <div class="service-card">
+              <h3>🎪 Event Security</h3>
+              <p>Comprehensive event protection:</p>
+              <ul>
+                <li>Crowd management</li>
+                <li>VIP escort services</li>
+                <li>Venue securing</li>
+                <li>Access control</li>
+                <li>Emergency coordination</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-vip">
+            <div class="service-card">
+              <h3>👔 VIP Protection</h3>
+              <p>Close protection services:</p>
+              <ul>
+                <li>Executive protection</li>
+                <li>Dignitary escorts</li>
+                <li>Personal safety planning</li>
+                <li>Discreet professionals</li>
+                <li>Travel security</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-consult">
+            <div class="service-card">
+              <h3>📊 Security Consultancy</h3>
+              <p>Expert advisory services:</p>
+              <ul>
+                <li>Risk assessment</li>
+                <li>Security audits</li>
+                <li>Customized solutions</li>
+                <li>Staff training</li>
+                <li>Compliance advisory</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="section why-us">
+      <div class="container">
+        <div class="section-title">
+          <h2>What Our Clients Say</h2>
+          <p>Trusted by our satisfied customers in Nairobi</p>
+        </div>
+
+        <div class="carousel-container">
+          <div class="testimonial-slide active">
+            <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
+              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"FortSecure Kenya has been protecting our office. Their professionalism and reliability are unmatched. Highly recommended!"</p>
+              <strong style="color:#002B5B;">- John Kariuki, Business Owner</strong>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
+              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"We switched to FortSecure for their event security. They managed everything with zero incidents. Excellent service!"</p>
+              <strong style="color:#002B5B;">- Mary Njoroge, Event Organizer</strong>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
+              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"Their CCTV system is great and the monitoring is responsive. I feel safe knowing they're watching 24/7."</p>
+              <strong style="color:#002B5B;">- Ahmed Hassan, Residential Manager</strong>
+            </div>
+          </div>
+
+          <div class="testimonial-slide">
+            <div style="padding:40px;background:#f7f9fc;border-radius:12px;">
+              <p style="font-size:1.1rem;font-style:italic;margin-bottom:20px;color:#333;">"FortSecure's alarm response is very fast. They arrived before police and prevented a potential issue. Highly worth it!"</p>
+              <strong style="color:#002B5B;">- Sarah Mwangi, Retail Manager</strong>
+            </div>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="prev-btn">❮</button>
+            <button class="carousel-btn" id="next-btn">❯</button>
+          </div>
+
+          <div class="carousel-dots" id="dots-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta">
+      <div class="container">
+        <h2>Ready to Secure Your Property?</h2>
+        <p>Get a free security assessment and custom quote today</p>
+        <a href="#contact" class="btn btn-primary">Get Started</a>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section">
       <div class="container">
         <div class="section-title">
           <h2>Contact Us</h2>
-          <p>Call or email us for immediate assistance.</p>
+          <p>Reach out for immediate assistance or inquiries</p>
         </div>
 
         <div class="contact-grid">
           <div class="contact-box">
-            <h3>Office</h3>
-            <p>Thome Estate, Nairobi</p>
-            <p>Phone: <a href="tel:+254724101392">+254 724 101 392</a></p>
-            <p>Email: <a href="mailto:fortsecurekenya@gmail.com">fortsecurekenya@gmail.com</a></p>
+            <h3>📍 Office Location</h3>
+            <p><strong>Thome Estate, Nairobi</strong></p>
+            <p style="margin-top:20px;"><strong>Phone:</strong><br><a href="tel:+254724101392" style="color:#002B5B;font-weight:600">+254 724 101 392</a></p>
+            <p style="margin-top:15px;"><strong>Email:</strong><br><a href="mailto:fortsecurekenya@gmail.com" style="color:#002B5B;font-weight:600">fortsecurekenya@gmail.com</a></p>
           </div>
 
           <div class="contact-box">
-            <h3>Get a Quote</h3>
-            <p>Fill the form above or call us anytime.</p>
+            <h3>💬 Quick Contact</h3>
+            <p>For immediate assistance, call or message us. Our team responds to inquiries within 1 hour.</p>
+            <p style="margin-top:20px;"><strong>Business Hours:</strong></p>
+            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+            <p>Saturday: 9:00 AM - 2:00 PM</p>
+            <p>Sunday & Public Holidays: Emergency line available</p>
+          </div>
+
+          <div class="contact-box">
+            <h3>📋 Get a Quote</h3>
+            <p>Fill in your details and we'll send you a customized security proposal within 24 hours.</p>
+            <form style="margin-top:20px;">
+              <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <input type="email" placeholder="Your Email" required>
+              </div>
+              <div class="form-group">
+                <input type="tel" placeholder="Your Phone" required>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Request Quote</button>
+            </form>
           </div>
         </div>
       </div>
@@ -194,13 +1040,103 @@
 
   </main>
 
+  <!-- FLOATING ACTION BUTTONS -->
+  <div class="fab-container">
+    <a href="tel:+254724101392" class="fab fab-call" title="Call us">📞</a>
+    <a href="https://wa.me/254724101392" target="_blank" class="fab fab-whatsapp" title="WhatsApp us">💬</a>
+    <a href="mailto:fortsecurekenya@gmail.com" class="fab fab-email" title="Email us">✉️</a>
+  </div>
+
   <footer>
     <div class="container">
       <img src="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png" alt="FortSecure logo">
-      <p>&copy; FortSecure Kenya — All rights reserved.</p>
+      <p>&copy; 2024 FortSecure Kenya — Professional Security Services. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="/script.js" defer></script>
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('primary-nav');
+    
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', nav.classList.contains('active'));
+    });
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('#primary-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // TAB FUNCTIONALITY
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.getAttribute('data-tab');
+        
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        btn.classList.add('active');
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+      });
+    });
+
+    // CAROUSEL FUNCTIONALITY
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const totalSlides = slides.length;
+
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[index].classList.add('active');
+      updateDots();
+    }
+
+    function updateDots() {
+      const dotsContainer = document.getElementById('dots-container');
+      if (dotsContainer.children.length === 0) {
+        for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement('div');
+          dot.className = `dot ${i === currentSlide ? 'active' : ''}`;
+          dot.addEventListener('click', () => {
+            currentSlide = i;
+            showSlide(i);
+          });
+          dotsContainer.appendChild(dot);
+        }
+      } else {
+        document.querySelectorAll('.dot').forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentSlide);
+        });
+      }
+    }
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(currentSlide);
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    });
+
+    // Initialize dots
+    updateDots();
+
+    // Auto-rotate slides every 8 seconds
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      showSlide(currentSlide);
+    }, 8000);
+  </script>
+
 </body>
 </html>
