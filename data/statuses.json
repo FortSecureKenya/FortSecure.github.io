@@ -1,0 +1,1 @@
+{"note":"This file maps tracking IDs to statuses. Only tracking IDs (no personal data) should be stored here. Admins update this file via the admin interface. Example: {\n  \"FS-ksj3...\": \"reviewing\"\n}\n","path_placeholder":true}

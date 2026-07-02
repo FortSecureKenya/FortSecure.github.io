@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FortSecure Admin — Application Status</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>body{padding:20px}table{width:100%;border-collapse:collapse}th,td{padding:8px;border:1px solid #eee;text-align:left}#token{width:100%}</style>
+</head>
+<body>
+  <h1>FortSecure — Admin: Application Statuses</h1>
+  <p><strong>Warning:</strong> This admin page uses your GitHub Personal Access Token (PAT) to update the repository file data/statuses.json. Provide a token with 'repo' scope. The token is only used in your browser session and not stored on the server. For production use a proper backend.</p>
+
+  <div style="max-width:800px">
+    <label for="token">GitHub Personal Access Token (repo scope)</label>
+    <input id="token" type="password" placeholder="ghp_xxx" />
+    <p>Owner: <input id="owner" value="FortSecureKenya" /> Repo: <input id="repo" value="FortSecure.github.io" /> Path: <input id="path" value="data/statuses.json" /></p>
+    <button id="load">Load statuses</button>
+    <button id="commit" disabled>Commit changes</button>
+
+    <div id="status-message" style="margin-top:12px"></div>
+
+    <div id="list" style="margin-top:18px"></div>
+  </div>
+
+  <script src="/admin.js" defer></script>
+</body>
+</html>

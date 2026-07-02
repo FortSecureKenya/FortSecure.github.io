@@ -61,9 +61,6 @@
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css">
 
-  <!-- Firebase SDK (placeholders) -->
-  <!-- Replace the firebaseConfig below with your project's config in script.js -->
-
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -108,7 +105,7 @@
       <div class="container">
         <div class="section-title">
           <h2>Join Our Team</h2>
-          <p>Submit your application below. After submitting you'll receive a tracking ID and real-time status updates on this page.</p>
+          <p>Submit your application below. After submitting you'll receive a tracking ID — save it so you can check progress. HR will update the status using the admin interface.</p>
         </div>
 
         <div class="contact-grid">
@@ -164,8 +161,8 @@
 
           <div class="contact-box">
             <h3>How it works</h3>
-            <p>After you submit the form we store your application in our secure database and generate a tracking ID for you. Keep this page open or paste the tracking ID to check progress. When our HR team updates the status you will see the change in real-time.</p>
-            <p><strong>Privacy:</strong> Your data is stored securely. We only use it to process your application.</p>
+            <p>When you submit the form it will be sent to our Formspree inbox (please replace the Formspree endpoint in script.js). We also generate a tracking ID and save it in your browser. HR will update statuses using the admin interface which writes to a small statuses file in the repository — applicants viewing this page will see status changes within ~10 seconds.</p>
+            <p><strong>Privacy:</strong> Your data will be sent to Formspree. The tracking ID is stored locally in your browser so you can check progress; the repository file contains only mapping of tracking IDs to status (no personal data).</p>
           </div>
         </div>
 
