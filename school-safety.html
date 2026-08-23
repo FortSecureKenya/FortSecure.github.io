@@ -362,4 +362,379 @@ td{color:#505962}
  <img src="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png" alt="FortSecure Kenya logo">
  <h3>FortSecure Kenya | SchoolSafe™</h3>
  <p>Learner Safety & Parent Communication</p>
- <p class="muted">MVP demonstration • School-controlled learner information • Future in
+ <p class="muted">MVP demonstration • School-controlled learner information • Future integrations subject to deployment and provider approval</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'fortsecure_schoolsafe_learners_v1';
+const LOG_KEY = 'fortsecure_schoolsafe_activity_v1';
+
+let learners = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+let logs = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+let selectedId = null;
+
+const $ = id => document.getElementById(id);
+
+const time = dt =>
+  new Intl.DateTimeFormat('en-KE', {
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit'
+  }).format(new Date(dt));
+
+const dateTime = dt =>
+  new Intl.DateTimeFormat('en-KE', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  }).format(new Date(dt));
+
+const esc = s =>
+  String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#039;'
+  }[c]));
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(learners));
+  localStorage.setItem(LOG_KEY, JSON.stringify(logs));
+}
+
+function toast(msg) {
+  const t = $('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function notice(id, msg, type = 'success') {
+  const n = $(id);
+  if (!n) return;
+  n.textContent = msg;
+  n.className = 'notice ' + type;
+}
+
+function getSelected() {
+  return learners.find(x => x.id === selectedId);
+}
+
+function addLog(learner, event, status) {
+  logs.unshift({
+    time: new Date().toISOString(),
+    admission: learner.admission,
+    name: learner.name,
+    event,
+    status
+  });
+
+  save();
+  renderLogs();
+}
+
+function registerLearner() {
+  const data = {
+    admission: $('admission').value.trim().toUpperCase(),
+    name: $('learner').value.trim(),
+    grade: $('grade').value.trim(),
+    parent: $('parent').value.trim(),
+    phone: $('phone').value.trim(),
+    preference: $('preference').value
+  };
+
+  if (Object.values(data).some(v => !v)) {
+    notice(
+      'formNotice',
+      'Please complete all required learner fields.',
+      'error'
+    );
+    return;
+  }
+
+  if (learners.some(l => l.admission === data.admission)) {
+    notice(
+      'formNotice',
+      `Admission number ${data.admission} already exists.`,
+      'error'
+    );
+    return;
+  }
+
+  const learner = {
+    ...data,
+    id: Date.now().toString(),
+    arrived: false,
+    departed: false,
+    relayed: false
+  };
+
+  learners.unshift(learner);
+
+  save();
+  addLog(learner, 'Registration', 'Registered ✓');
+
+  selectedId = learner.id;
+
+  renderLearners();
+  selectLearner(learner.id);
+
+  notice(
+    'formNotice',
+    `${learner.name} registered successfully under ${learner.admission}.`
+  );
+
+  toast('Learner registered');
+}
+
+function renderLearners() {
+  const list = $('learnerList');
+
+  if (!list) return;
+
+  if (!learners.length) {
+    list.innerHTML =
+      '<div class="log-empty">No learners registered. Use the form or load the demo learner.</div>';
+    return;
+  }
+
+  list.innerHTML = learners.map(l => {
+    const selected = l.id === selectedId;
+
+    return `
+      <div class="learner-card ${selected ? 'selected' : ''}" data-id="${esc(l.id)}">
+        <div class="learner-top">
+          <div class="learner-name">${esc(l.name)}</div>
+          <div class="admission">${esc(l.admission)}</div>
+        </div>
+
+        <div class="meta">
+          ${esc(l.grade)} • Parent: ${esc(l.parent)}
+        </div>
+
+        <div class="status-row">
+          <span class="badge badge-green">✓ Registered</span>
+
+          ${
+            l.arrived
+              ? '<span class="badge badge-blue">✓ Present</span>'
+              : '<span class="badge badge-grey">Awaiting arrival</span>'
+          }
+
+          ${
+            l.departed
+              ? '<span class="badge badge-green">✓ Departed</span>'
+              : '<span class="badge badge-grey">Departure locked</span>'
+          }
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.learner-card').forEach(card => {
+    card.onclick = () => selectLearner(card.dataset.id);
+  });
+}
+
+function selectLearner(id) {
+  selectedId = id;
+
+  const l = getSelected();
+
+  if (!l) return;
+
+  $('selectedDetail').innerHTML = `
+    <div class="detail-row">
+      <span>Learner</span>
+      <strong>${esc(l.name)}</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Admission</span>
+      <strong>${esc(l.admission)}</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Parent</span>
+      <strong>${esc(l.parent)}</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Phone</span>
+      <strong>${esc(l.phone)}</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Status</span>
+      <strong>
+        ${
+          l.departed
+            ? 'Departed'
+            : l.arrived
+            ? 'Present'
+            : 'Registered'
+        }
+      </strong>
+    </div>
+
+    ${
+      l.arrivalTime
+        ? `
+          <div class="detail-row">
+            <span>Arrival</span>
+            <strong>${dateTime(l.arrivalTime)}</strong>
+          </div>
+        `
+        : ''
+    }
+  `;
+
+  $('arrivalBtn').disabled = l.arrived || l.departed;
+  $('departureBtn').disabled = !l.arrived || l.departed;
+
+  $('arrivalBtn').textContent =
+    l.arrived ? '✓ Learner Arrived' : '✓ Simulate Arrival';
+
+  $('departureBtn').textContent =
+    l.departed
+      ? '✓ Departure Recorded'
+      : '🔐 Simulate Biometric Departure';
+
+  $('whatsappBtn').disabled = !l.departed;
+  $('smsBtn').disabled = !l.departed;
+  $('relayBtn').disabled = !l.departed;
+
+  renderLearners();
+}
+
+function renderLogs() {
+  const body = $('activityBody');
+
+  if (!body) return;
+
+  if (!logs.length) {
+    body.innerHTML =
+      '<tr><td colspan="5" class="log-empty">No activity recorded yet.</td></tr>';
+    return;
+  }
+
+  body.innerHTML = logs.map(x => `
+    <tr>
+      <td>${esc(time(x.time))}</td>
+      <td><strong>${esc(x.admission)}</strong></td>
+      <td>${esc(x.name)}</td>
+      <td>${esc(x.event)}</td>
+      <td>
+        <span class="badge badge-green">${esc(x.status)}</span>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function loadDemo() {
+  let learner = learners.find(l => l.admission === 'GS-0241');
+
+  if (!learner) {
+    learner = {
+      id: 'demo-gs-0241',
+      admission: 'GS-0241',
+      name: 'Brian Otieno',
+      grade: 'Grade 5',
+      parent: 'Mary Otieno',
+      phone: '+254700000000',
+      preference: 'WhatsApp + SMS',
+      arrived: false,
+      departed: false,
+      relayed: false
+    };
+
+    learners.unshift(learner);
+
+    save();
+    addLog(learner, 'Registration', 'Registered ✓');
+  }
+
+  $('admission').value = learner.admission;
+  $('learner').value = learner.name;
+  $('grade').value = learner.grade;
+  $('parent').value = learner.parent;
+  $('phone').value = learner.phone;
+  $('preference').value = learner.preference;
+
+  selectLearner(learner.id);
+
+  notice(
+    'formNotice',
+    'Fictional demo learner loaded.'
+  );
+
+  toast('Demo learner loaded');
+}
+
+$('registerBtn').addEventListener('click', registerLearner);
+$('demoBtn').addEventListener('click', loadDemo);
+
+$('arrivalBtn').addEventListener('click', () => {
+  const l = getSelected();
+
+  if (!l) return;
+
+  l.arrived = true;
+  l.arrivalTime = new Date().toISOString();
+
+  save();
+  addLog(l, 'Arrival', 'Present ✓');
+  selectLearner(l.id);
+
+  notice(
+    'arrivalNotice',
+    `${l.name} checked in at ${time(l.arrivalTime)}.`
+  );
+
+  toast('Arrival recorded');
+});
+
+$('departureBtn').addEventListener('click', () => {
+  const l = getSelected();
+
+  if (!l || !l.arrived) return;
+
+  l.departed = true;
+  l.departureTime = new Date().toISOString();
+
+  save();
+  addLog(l, 'Departure', 'Recorded ✓');
+  selectLearner(l.id);
+
+  notice(
+    'departureNotice',
+    `✓ Learner verified. Departure recorded at ${time(l.departureTime)}.`
+  );
+
+  toast('Departure verified');
+});
+
+$('clearLogBtn').addEventListener('click', () => {
+  logs = [];
+  save();
+  renderLogs();
+  toast('Activity log cleared');
+});
+
+$('menuToggle').addEventListener('click', () => {
+  $('nav').classList.toggle('active');
+});
+
+renderLearners();
+renderLogs();
+
+if (learners.length) {
+  selectLearner(learners[0].id);
+}
+</script>
+
+</body>
+</html>
