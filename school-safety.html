@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FortSecure SchoolSafe™ | Learner Safety & Parent Communication</title>
+<meta name="description" content="FortSecure SchoolSafe™ — learner safety, arrival and departure accountability, and parent communication for schools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth}
+body{background:#fff;color:#1b1b1b;line-height:1.6}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+.container{width:92%;max-width:1200px;margin:auto}
+header{background:#002B5B;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+.logo{display:flex;align-items:center;gap:12px;color:#fff}
+.logo img{width:58px;height:58px;object-fit:contain;border-radius:10px;filter:drop-shadow(0 0 8px rgba(0,123,255,.35))}
+.logo-text{font-weight:700;letter-spacing:.7px;font-size:1.25rem}
+.logo-text small{display:block;color:#d8e5f3;font-size:.68rem;font-weight:500;letter-spacing:1.2px}
+nav ul{display:flex;list-style:none;gap:24px}
+nav a{color:#fff;font-size:.92rem;font-weight:500}
+nav a:hover{color:gold}
+.menu-toggle{display:none;background:none;border:0;cursor:pointer}
+.menu-toggle span{display:block;width:25px;height:2.5px;background:#fff;margin:5px;border-radius:2px}
+.hero{background:linear-gradient(110deg,rgba(0,43,91,.98),rgba(0,43,91,.88)),linear-gradient(45deg,#002B5B,#123);color:#fff;padding:72px 0 64px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:42px;align-items:center}
+.eyebrow{display:inline-flex;background:rgba(255,215,0,.13);border:1px solid rgba(255,215,0,.4);color:#ffe58a;padding:7px 13px;border-radius:20px;font-size:.78rem;font-weight:600;margin-bottom:18px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.7rem);line-height:1.15;margin-bottom:18px}
+.hero h1 span{color:#ffd700}
+.hero p{color:#e8eef5;max-width:700px;margin-bottom:28px;font-size:1.02rem}
+.btn{padding:12px 20px;border-radius:7px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;transition:.25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:#fff;color:#002B5B}
+.btn-gold{background:gold;color:#002B5B}
+.btn-blue{background:#002B5B;color:#fff}
+.btn-outline{border:2px solid #002B5B;background:#fff;color:#002B5B}
+.btn-muted{background:#eef1f5;color:#68717c;cursor:not-allowed}
+.btn-success{background:#218838;color:#fff}
+.btn-whatsapp{background:#25D366;color:#fff}
+.btn-sms{background:#002B5B;color:#fff}
+.hero-card{background:#fff;color:#1b1b1b;border-radius:16px;padding:25px;box-shadow:0 14px 45px rgba(0,0,0,.22)}
+.hero-card h3{color:#002B5B;margin-bottom:15px}
+.mini-status{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #eee;font-size:.88rem}
+.mini-status:last-child{border-bottom:0}
+.check{width:25px;height:25px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#e8f5e9;color:#218838;font-weight:700}
+.section{padding:65px 0}
+.section.alt{background:#f7f9fc}
+.section-title{text-align:center;margin-bottom:38px}
+.section-title h2{font-size:2.1rem;color:#002B5B;margin-bottom:8px}
+.section-title p{color:#666}
+.workflow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:35px}
+.step{position:relative;text-align:center;padding:16px 8px;background:#f4f6f8;border-radius:10px;color:#727b85;font-size:.8rem;font-weight:600}
+.step .num{width:30px;height:30px;border-radius:50%;margin:0 auto 7px;background:#dfe4e9;display:flex;align-items:center;justify-content:center}
+.step.active{background:#eaf2fa;color:#002B5B}
+.step.active .num{background:#002B5B;color:#fff}
+.step.done{background:#e8f5e9;color:#218838}
+.step.done .num{background:#218838;color:#fff}
+.panel{background:#fff;border-radius:14px;padding:25px;box-shadow:0 5px 20px rgba(0,0,0,.07);border:1px solid #edf0f3}
+.panel h3{color:#002B5B;margin-bottom:17px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-bottom:3px}
+.field label{display:block;color:#002B5B;font-weight:600;font-size:.82rem;margin-bottom:6px}
+.field input,.field select{width:100%;padding:11px 12px;border:1px solid #d9dee5;border-radius:7px;background:#fff}
+.field input:focus,.field select:focus{outline:none;border-color:#002B5B;box-shadow:0 0 0 3px rgba(0,43,91,.08)}
+.full{grid-column:1/-1}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}
+.note{padding:12px 14px;border-radius:8px;background:#f7f9fc;color:#5e6670;font-size:.78rem;margin-top:15px}
+.note strong{color:#002B5B}
+.notice{display:none;padding:12px 14px;border-radius:8px;margin:12px 0;font-size:.84rem}
+.notice.success{display:block;background:#e8f5e9;color:#1b5e20;border:1px solid #c8e6c9}
+.notice.error{display:block;background:#ffebee;color:#b71c1c;border:1px solid #ffcdd2}
+.learner-list{display:grid;gap:12px;max-height:420px;overflow:auto}
+.learner-card{border:1px solid #e1e5e9;border-radius:10px;padding:15px;cursor:pointer;transition:.2s}
+.learner-card:hover,.learner-card.selected{border-color:#002B5B;box-shadow:0 3px 12px rgba(0,43,91,.1)}
+.learner-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.learner-name{font-weight:700;color:#002B5B}
+.admission{font-size:.72rem;background:#eef3f8;color:#002B5B;padding:4px 8px;border-radius:15px;font-weight:700}
+.meta{font-size:.78rem;color:#666;margin-top:5px}
+.status-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.badge{padding:4px 8px;border-radius:14px;font-size:.68rem;font-weight:700}
+.badge-green{background:#e8f5e9;color:#218838}
+.badge-blue{background:#e3f2fd;color:#1565c0}
+.badge-grey{background:#eef0f2;color:#68717c}
+.badge-gold{background:#fff8dc;color:#8a6d00}
+.selected-detail{background:#f7f9fc;border-radius:10px;padding:18px;margin-bottom:15px}
+.detail-row{display:flex;justify-content:space-between;gap:15px;padding:7px 0;border-bottom:1px solid #e5e8ec;font-size:.83rem}
+.detail-row:last-child{border-bottom:0}
+.detail-row span:first-child{color:#68717c}
+.detail-row strong{color:#002B5B;text-align:right}
+.notification{border-left:5px solid #002B5B;background:#f7f9fc;padding:18px;border-radius:8px;white-space:pre-line;font-size:.9rem}
+.notification small{display:block;color:#69727c;margin-bottom:9px;font-weight:600}
+.relay{background:#002B5B;color:#fff;border-radius:14px;padding:28px}
+.relay h3{color:#fff;margin-bottom:7px}
+.relay p{color:#dce6ef;font-size:.85rem;margin-bottom:18px}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:17px 0}
+.check-item{background:rgba(255,255,255,.08);padding:9px 11px;border-radius:7px;font-size:.78rem}
+.check-item.done{color:#b9f3c1}
+.log-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #e6e9ed;font-size:.76rem}
+th{background:#f7f9fc;color:#002B5B;font-weight:700}
+td{color:#505962}
+.log-empty{text-align:center;padding:25px;color:#777}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feature{background:#fff;border-radius:12px;padding:24px;box-shadow:0 4px 15px rgba(0,0,0,.06);border-left:5px solid #002B5B}
+.feature h3{color:#002B5B;font-size:1.05rem;margin-bottom:7px}
+.feature p{font-size:.83rem;color:#666}
+.future{background:#f7f9fc;border-radius:14px;padding:25px}
+.future-flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:18px}
+.future-flow div{background:#fff;border:1px solid #e2e6ea;border-radius:8px;padding:12px 7px;text-align:center;font-size:.7rem;font-weight:600;color:#002B5B}
+.footer{background:#001B38;color:#fff;text-align:center;padding:42px 0}
+.footer img{width:75px;margin-bottom:10px}
+.footer p{color:#c7d0da;font-size:.82rem}
+.footer .muted{margin-top:12px;font-size:.72rem;color:#93a2b1}
+.toast{position:fixed;right:18px;bottom:18px;background:#002B5B;color:#fff;padding:13px 17px;border-radius:8px;box-shadow:0 5px 20px rgba(0,0,0,.2);transform:translateY(100px);opacity:0;transition:.3s;z-index:2000;font-size:.82rem}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:850px){
+ .hero-grid,.grid-2{grid-template-columns:1fr}
+ .workflow{grid-template-columns:repeat(5,1fr)}
+ .feature-grid{grid-template-columns:1fr}
+ .future-flow{grid-template-columns:repeat(3,1fr)}
+ nav{display:none;position:absolute;top:82px;left:0;right:0;background:#002B5B;padding:15px 6%;box-shadow:0 5px 12px rgba(0,0,0,.15)}
+ nav.active{display:block}
+ nav ul{flex-direction:column;gap:0}
+ nav li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+ .menu-toggle{display:block}
+}
+@media(max-width:560px){
+ .container{width:94%}
+ .hero{padding:48px 0}
+ .logo-text{font-size:1rem}
+ .logo-text small{font-size:.58rem}
+ .logo img{width:48px;height:48px}
+ .form-grid{grid-template-columns:1fr}
+ .full{grid-column:auto}
+ .workflow{gap:4px}
+ .step{padding:10px 3px;font-size:.62rem}
+ .step .num{width:25px;height:25px}
+ .section{padding:48px 0}
+ .section-title h2{font-size:1.65rem}
+ .checklist{grid-template-columns:1fr}
+ .future-flow{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="container navbar">
+  <a href="index.html" class="logo" aria-label="Back to FortSecure Kenya">
+   <img src="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png" alt="FortSecure Kenya logo">
+   <div class="logo-text">FortSecure Kenya<small>SchoolSafe™</small></div>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+   <span></span><span></span><span></span>
+  </button>
+  <nav id="nav">
+   <ul>
+    <li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#activity">Activity Log</a></li>
+    <li><a href="#vision">Future Vision</a></li>
+    <li><a href="index.html">FortSecure Kenya</a></li>
+   </ul>
+  </nav>
+ </div>
+</header>
+
+<main>
+<section class="hero">
+ <div class="container hero-grid">
+  <div>
+   <div class="eyebrow">FORTSECURE SCHOOLSAFE™ • MVP DEMONSTRATION</div>
+   <h1>Secure the learner. <span>Simplify communication.</span></h1>
+   <p>Learner Safety & Parent Communication — combining school security, movement accountability and parent notification in one simple workflow.</p>
+   <div class="actions">
+    <a class="btn btn-primary" href="#dashboard">Launch Demo</a>
+    <a class="btn btn-gold" href="#vision">Explore the Vision</a>
+   </div>
+  </div>
+  <div class="hero-card">
+   <h3>SchoolSafe™ workflow</h3>
+   <div class="mini-status"><span class="check">✓</span><span>Registered learner identified by admission number</span></div>
+   <div class="mini-status"><span class="check">✓</span><span>Arrival recorded at the school gate</span></div>
+   <div class="mini-status"><span class="check">✓</span><span>Departure verified</span></div>
+   <div class="mini-status"><span class="check">✓</span><span>Authorised parent contact retrieved</span></div>
+   <div class="mini-status"><span class="check">✓</span><span>Communication and activity record completed</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="dashboard">
+ <div class="container">
+  <div class="section-title">
+   <h2>SchoolSafe™ Demonstration Console</h2>
+   <p>A browser-based MVP — no backend or live messaging API required.</p>
+  </div>
+
+  <div class="workflow" id="workflow">
+   <div class="step active" data-step="1"><div class="num">1</div>Register</div>
+   <div class="step" data-step="2"><div class="num">2</div>Arrival</div>
+   <div class="step" data-step="3"><div class="num">3</div>Departure</div>
+   <div class="step" data-step="4"><div class="num">4</div>Notify</div>
+   <div class="step" data-step="5"><div class="num">5</div>Complete</div>
+  </div>
+
+  <div class="grid-2">
+   <div class="panel">
+    <h3>1. School & Learner Registration</h3>
+    <div class="form-grid">
+     <div class="field full"><label for="schoolName">School Name</label><input id="schoolName" value="Demo Preparatory School"></div>
+     <div class="field"><label for="admission">Admission Number *</label><input id="admission" placeholder="e.g. GS-0241"></div>
+     <div class="field"><label for="learner">Learner Full Name *</label><input id="learner" placeholder="e.g. Brian Otieno"></div>
+     <div class="field"><label for="grade">Class / Grade *</label><input id="grade" placeholder="e.g. Grade 5"></div>
+     <div class="field"><label for="parent">Parent / Guardian *</label><input id="parent" placeholder="e.g. Mary Otieno"></div>
+     <div class="field"><label for="phone">Authorised Phone *</label><input id="phone" type="tel" placeholder="+2547XXXXXXXX"></div>
+     <div class="field"><label for="preference">Notification Preference</label>
+      <select id="preference"><option>WhatsApp + SMS</option><option>WhatsApp</option><option>SMS</option></select>
+     </div>
+    </div>
+    <div id="formNotice" class="notice"></div>
+    <div class="actions">
+     <button class="btn btn-blue" id="registerBtn">Register Learner</button>
+     <button class="btn btn-outline" id="demoBtn">Load Demo Learner</button>
+    </div>
+    <div class="note"><strong>School-controlled data:</strong> the school manages authorised learner, admission and parent records. FortSecure provides the security, communication and accountability technology layer.</div>
+   </div>
+
+   <div class="panel">
+    <h3>Registered Learners</h3>
+    <div id="learnerList" class="learner-list"></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section alt">
+ <div class="container">
+  <div class="grid-2">
+   <div class="panel">
+    <h3>2. Arrival Verification</h3>
+    <div id="selectedDetail" class="selected-detail">
+     <div class="detail-row"><span>Selected learner</span><strong>None selected</strong></div>
+     <div class="detail-row"><span>Status</span><strong>Register or select a learner</strong></div>
+    </div>
+    <div id="arrivalNotice" class="notice"></div>
+    <button class="btn btn-blue" id="arrivalBtn" disabled>✓ Simulate Arrival</button>
+    <div class="note">Arrival creates an exact timestamp. Departure remains locked until the learner has arrived today.</div>
+   </div>
+
+   <div class="panel">
+    <h3>3. Departure Control</h3>
+    <div id="departureStatus" class="selected-detail">
+     <div class="detail-row"><span>Departure eligibility</span><strong>Not checked in</strong></div>
+     <div class="detail-row"><span>Verification</span><strong>Locked</strong></div>
+    </div>
+    <div id="departureNotice" class="notice"></div>
+    <button class="btn btn-muted" id="departureBtn" disabled>🔐 Simulate Biometric Departure</button>
+    <div class="note"><strong>Future biometric concept:</strong> a production scanner can identify the learner, confirm registration and arrival, then record departure and trigger the authorised communication workflow.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="notify">
+ <div class="container">
+  <div class="section-title">
+   <h2>4. Parent Notification</h2>
+   <p>The message is generated from the learner's authorised record after verified departure.</p>
+  </div>
+  <div class="grid-2">
+   <div class="panel">
+    <h3>Generated Notification</h3>
+    <div id="notificationBox" class="notification"><small>WAITING FOR VERIFIED DEPARTURE</small>Complete arrival and simulated biometric departure to generate the parent notification.</div>
+    <div id="contactNotice" class="notice"></div>
+    <div class="actions">
+     <button class="btn btn-whatsapp" id="whatsappBtn" disabled>📱 Open WhatsApp</button>
+     <button class="btn btn-sms" id="smsBtn" disabled>💬 Open SMS</button>
+    </div>
+    <div class="note">This MVP prepares the message only. Production deployment can integrate approved WhatsApp Business and SMS providers.</div>
+   </div>
+
+   <div class="relay">
+    <h3>Automatic Relay Demonstration</h3>
+    <p>Show a school administrator how the repetitive end-of-day calling workflow can be replaced by a structured communication process.</p>
+    <button class="btn btn-gold" id="relayBtn" disabled>Simulate Automatic Relay</button>
+    <div class="checklist" id="checklist">
+     <div class="check-item">○ Learner registered</div>
+     <div class="check-item">○ Learner arrived</div>
+     <div class="check-item">○ Learner verified</div>
+     <div class="check-item">○ Departure recorded</div>
+     <div class="check-item">○ Parent identified</div>
+     <div class="check-item">○ WhatsApp notification relayed</div>
+     <div class="check-item">○ SMS notification relayed</div>
+     <div class="check-item">○ Activity logged</div>
+    </div>
+    <div id="relayResult"></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section alt" id="activity">
+ <div class="container">
+  <div class="section-title">
+   <h2>Activity & Accountability Log</h2>
+   <p>A simple record of who arrived, who departed and what communication action was prepared.</p>
+  </div>
+  <div class="panel log-wrap">
+   <table>
+    <thead><tr><th>Time</th><th>Admission No.</th><th>Learner</th><th>Event</th><th>Status</th></tr></thead>
+    <tbody id="activityBody"><tr><td colspan="5" class="log-empty">No activity recorded yet.</td></tr></tbody>
+   </table>
+   <div class="actions">
+    <button class="btn btn-outline" id="clearLogBtn">Clear Demo Activity</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="vision">
+ <div class="container">
+  <div class="section-title">
+   <h2>More Than Guards. A More Complete Security Solution.</h2>
+   <p>FortSecure Kenya can combine physical protection with communication and accountability technology.</p>
+  </div>
+  <div class="feature-grid">
+   <div class="feature"><h3>🛡️ Physical School Security</h3><p>Manned guarding, gate security, visitor control, learner movement monitoring and premises protection.</p></div>
+   <div class="feature"><h3>📲 SchoolSafe™ Technology</h3><p>Learner registration, arrival tracking, departure verification, parent notification and activity records.</p></div>
+   <div class="feature"><h3>🔐 Future Biometric Integration</h3><p>Fingerprint or other authorised biometric verification can become the departure trigger in a production system.</p></div>
+  </div>
+  <div class="future" style="margin-top:24px">
+   <h3 style="color:#002B5B">Future biometric workflow</h3>
+   <div class="future-flow">
+    <div>1. Fingerprint / biometric scan</div>
+    <div>2. Identify learner</div>
+    <div>3. Validate registration & arrival</div>
+    <div>4. Record departure</div>
+    <div>5. Retrieve authorised contact</div>
+    <div>6. Trigger communication</div>
+   </div>
+   <div class="note">Production deployment can integrate approved SMS and WhatsApp Business messaging/API providers. This MVP does not claim that live production API messaging is already operational.</div>
+  </div>
+ </div>
+</section>
+
+<section class="section alt">
+ <div class="container">
+  <div class="panel" style="text-align:center">
+   <h3 style="font-size:1.35rem">FortSecure SchoolSafe™</h3>
+   <p style="max-width:760px;margin:0 auto 18px;color:#666">The guard protects the physical environment. SchoolSafe™ supports <strong>Identification → Movement → Communication → Accountability.</strong> Together, they create a more complete school security solution.</p>
+   <a class="btn btn-blue" href="index.html">← Return to FortSecure Kenya</a>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer class="footer">
+ <img src="https://i.ibb.co/8g4GNHdD/Fort-Secure-logo.png" alt="FortSecure Kenya logo">
+ <h3>FortSecure Kenya | SchoolSafe™</h3>
+ <p>Learner Safety & Parent Communication</p>
+ <p class="muted">MVP demonstration • School-controlled learner information • Future in
