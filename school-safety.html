@@ -716,6 +716,55 @@ $('departureBtn').addEventListener('click', () => {
 
   toast('Departure verified');
 });
+ function makeMessage(l) {
+  const school = $('schoolName').value.trim() || 'Your School Name';
+  const mins = l.estimatedMinutes || 20;
+
+  const departure = new Date(l.departureTime);
+
+  return `${school}
+
+Dear ${l.parent}, your child ${l.name} has left school at ${time(departure)} and is expected to arrive home in approximately ${mins} minutes.
+
+Thank you.
+
+FortSecure SchoolSafe™`;
+}
+
+$('whatsappBtn').addEventListener('click', () => {
+  const l = getSelected();
+
+  if (!l || !l.departed) return;
+
+  let digits = l.phone.replace(/\D/g, '');
+
+  if (digits.startsWith('0')) {
+    digits = '254' + digits.substring(1);
+  }
+
+  const msg = encodeURIComponent(makeMessage(l));
+
+  window.open(
+    `https://wa.me/${digits}?text=${msg}`,
+    '_blank'
+  );
+
+  addLog(l, 'WhatsApp', 'Prepared ✓');
+  toast('WhatsApp message prepared');
+});
+
+$('smsBtn').addEventListener('click', () => {
+  const l = getSelected();
+
+  if (!l || !l.departed) return;
+
+  const body = encodeURIComponent(makeMessage(l));
+
+  window.location.href = `sms:${l.phone}?body=${body}`;
+
+  addLog(l, 'SMS', 'Prepared ✓');
+  toast('SMS message prepared');
+});
 
 $('clearLogBtn').addEventListener('click', () => {
   logs = [];
