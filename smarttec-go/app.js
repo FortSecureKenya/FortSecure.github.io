@@ -1118,7 +1118,6 @@ function renderDashboard(content) {
     (sum, p) => sum + getStockValue(p.id),
     0
   );
-
   const retailValue = state.products.reduce(
     (sum, p) => sum + getRetailValue(p.id),
     0
@@ -1126,4 +1125,409 @@ function renderDashboard(content) {
 
   const today = todayISO();
 
-  con
+  const todaySales = state.sales
+    .filter(s => s.date === today)
+    .reduce(
+      (sum, s) =>
+        sum + Number(s.quantity) * Number(s.price),
+      0
+    );
+
+  const reorderItems =
+    state.products.filter(
+      p => getCurrentStock(p.id) <= p.reorderLevel
+    ).length;
+
+  const outOfStock =
+    state.products.filter(
+      p => getCurrentStock(p.id) <= 0
+    ).length;
+
+  const expiring =
+    state.products.filter(p => {
+
+      const e = getExpiryInfo(p);
+
+      return (
+        e.days !== null &&
+        e.days <= 14
+      );
+
+    }).length;
+
+  const varianceItems =
+    state.counts.filter(
+      c => Number(c.variance) !== 0
+    ).length;
+
+
+  content.innerHTML = `
+
+    <div class="kpi-grid">
+
+      ${kpi(
+        "Total SKUs",
+        formatNumber(totalSKUs),
+        "Products in master",
+        ""
+      )}
+
+      ${kpi(
+        "Stock Cost Value",
+        money(stockCost),
+        "Current inventory cost",
+        ""
+      )}
+
+      ${kpi(
+        "Retail Value",
+        money(retailValue),
+        "Potential selling value",
+        "success"
+      )}
+
+      ${kpi(
+        "Today's Sales",
+        money(todaySales),
+        "Recorded sales today",
+        ""
+      )}
+
+      ${kpi(
+        "Reorder Items",
+        formatNumber(reorderItems),
+        "At or below reorder level",
+        "warning"
+      )}
+
+      ${kpi(
+        "Out of Stock",
+        formatNumber(outOfStock),
+        "Items requiring attention",
+        "danger"
+      )}
+
+      ${kpi(
+        "Expiring Soon",
+        formatNumber(expiring),
+        "Within 14 days",
+        "warning"
+      )}
+
+      ${kpi(
+        "Stock Variances",
+        formatNumber(varianceItems),
+        "Unresolved count differences",
+        "danger"
+      )}
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Stock Requiring Attention</h3>
+            <p>Items approaching reorder level</p>
+          </div>
+
+          <button
+            class="btn btn-secondary"
+            onclick="navigate('reorder')"
+          >
+            View Reorder
+          </button>
+
+        </div>
+
+        <div class="card-body">
+
+          ${renderAttentionTable()}
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Expiry Monitor</h3>
+            <p>Products requiring attention</p>
+          </div>
+
+          <button
+            class="btn btn-secondary"
+            onclick="navigate('expiry')"
+          >
+            View All
+          </button>
+
+        </div>
+
+        <div class="card-body">
+
+          ${renderExpiryMini()}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div style="height:17px"></div>
+
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Recent Activity</h3>
+            <p>Latest recorded system actions</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          ${renderRecentAudit(6)}
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Quick Actions</h3>
+            <p>Common operational activities</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          <div class="grid-2">
+
+            ${
+              canAccess("receiving")
+                ? `
+                  <button
+                    class="btn btn-primary"
+                    onclick="navigate('receiving')"
+                  >
+                    ⇩ Receive Stock
+                  </button>
+                `
+                : ""
+            }
+
+            ${
+              canAccess("sales")
+                ? `
+                  <button
+                    class="btn btn-gold"
+                    onclick="navigate('sales')"
+                  >
+                    ⇧ Record Sale
+                  </button>
+                `
+                : ""
+            }
+
+            ${
+              canAccess("count")
+                ? `
+                  <button
+                    class="btn btn-secondary"
+                    onclick="navigate('count')"
+                  >
+                    ☷ Stock Count
+                  </button>
+                `
+                : ""
+            }
+
+            ${
+              canAccess("reports")
+                ? `
+                  <button
+                    class="btn btn-secondary"
+                    onclick="navigate('reports')"
+                  >
+                    ▤ Reports
+                  </button>
+                `
+                : ""
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function kpi(label, value, note, type) {
+
+  return `
+    <div class="kpi ${type || ""}">
+      <div class="kpi-label">${label}</div>
+      <div class="kpi-value">${value}</div>
+      <div class="kpi-note">${note}</div>
+    </div>
+  `;
+
+}
+
+
+function renderAttentionTable() {
+
+  const items = state.products
+    .filter(
+      p => getCurrentStock(p.id) <= p.reorderLevel
+    )
+    .slice(0, 6);
+
+  if (!items.length) {
+
+    return `
+      <div class="empty-state">
+        <div class="empty-state-icon">✓</div>
+        <strong>Stock levels are healthy</strong>
+        <p>No products currently require reorder.</p>
+      </div>
+    `;
+
+  }
+
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Stock</th>
+            <th>Reorder Level</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${items.map(p => {
+
+            const qty = getCurrentStock(p.id);
+            const status = getStockStatus(p);
+
+            return `
+              <tr>
+                <td>
+                  <strong>${escapeHTML(p.name)}</strong>
+                </td>
+
+                <td>${qty}</td>
+
+                <td>${p.reorderLevel}</td>
+
+                <td>
+                  <span class="status ${status.className}">
+                    ${status.label}
+                  </span>
+                </td>
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
+      </table>
+    </div>
+  `;
+
+}
+
+
+function renderExpiryMini() {
+
+  const items = state.products
+    .filter(p => {
+
+      const e = getExpiryInfo(p);
+
+      return (
+        e.days !== null &&
+        e.days <= 14
+      );
+
+    })
+    .slice(0, 5);
+
+  if (!items.length) {
+
+    return `
+      <div class="empty-state">
+        <div class="empty-state-icon">✓</div>
+        <strong>No immediate expiry concerns</strong>
+        <p>No products expire within 14 days.</p>
+      </div>
+    `;
+
+  }
+
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Expiry</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${items.map(p => {
+
+            const e = getExpiryInfo(p);
+
+            return `
+              <tr>
+                <td>${escapeHTML(p.name)}</td>
+                <td>${formatDate(p.expiryDate)}</td>
+                <td>
+                  <span class="status ${e.className}">
+                    ${e.label}
+                  </span>
+                </td>
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
+      </table>
+    </div>
+  `;
+
+}
