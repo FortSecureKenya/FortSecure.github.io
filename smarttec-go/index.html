@@ -1,1 +1,547 @@
-smarttec-go/index.html
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#002B5B"><meta
+name="description"
+content="SMARTTEC GO™ — Inventory Control, Visibility and Accountability. A FortSecure Kenya solution."
+
+«»
+
+  <title>SMARTTEC GO™ | Inventory Control | FortSecure Kenya</title>  <link rel="stylesheet" href="styles.css">
+</head><body><!-- =========================================================
+     DEMO LOGIN
+========================================================= --><section id="loginScreen" class="login-screen">  <div class="login-container"><div class="login-brand">
+
+  <div class="login-logo">GO</div>
+
+  <div>
+    <div class="login-product">
+      SMARTTEC <span>GO™</span>
+    </div>
+
+    <div class="login-company">
+      A FORTSECURE KENYA SOLUTION
+    </div>
+  </div>
+
+</div>
+
+
+<div class="login-card">
+
+  <div class="login-heading">
+
+    <span class="login-badge">
+      DEMONSTRATION ENVIRONMENT
+    </span>
+
+    <h1>Welcome to SMARTTEC GO™</h1>
+
+    <p>
+      Select a demonstration role to explore the system.
+    </p>
+
+  </div>
+
+
+  <div class="demo-access">
+
+    <button
+      class="role-card"
+      data-role="admin"
+      type="button"
+    >
+      <span class="role-icon">👨‍💼</span>
+
+      <span class="role-info">
+        <strong>Administrator</strong>
+        <small>Full system access</small>
+      </span>
+    </button>
+
+
+    <button
+      class="role-card"
+      data-role="manager"
+      type="button"
+    >
+      <span class="role-icon">📊</span>
+
+      <span class="role-info">
+        <strong>Manager</strong>
+        <small>Management &amp; oversight</small>
+      </span>
+    </button>
+
+
+    <button
+      class="role-card"
+      data-role="worker"
+      type="button"
+    >
+      <span class="role-icon">📦</span>
+
+      <span class="role-info">
+        <strong>Inventory Worker</strong>
+        <small>Stock operations</small>
+      </span>
+    </button>
+
+
+    <button
+      class="role-card"
+      data-role="cashier"
+      type="button"
+    >
+      <span class="role-icon">🧾</span>
+
+      <span class="role-info">
+        <strong>Cashier / Sales</strong>
+        <small>Sales recording</small>
+      </span>
+    </button>
+
+
+    <button
+      class="role-card"
+      data-role="auditor"
+      type="button"
+    >
+      <span class="role-icon">🔍</span>
+
+      <span class="role-info">
+        <strong>Auditor</strong>
+        <small>Read-only oversight</small>
+      </span>
+    </button>
+
+  </div>
+
+
+  <div class="login-note">
+
+    <strong>Demo access only</strong>
+
+    <p>
+      This prototype uses simulated users and supermarket data.
+      Production deployment would use secure authentication,
+      server-side permissions and a protected database.
+    </p>
+
+  </div>
+
+</div>
+
+
+<div class="login-footer">
+
+  <strong>FortSecure Kenya</strong>
+
+  <span>•</span>
+
+  <span>Your Security, Our Mission.</span>
+
+</div>
+
+  </div></section><!-- =========================================================
+     MAIN APPLICATION
+========================================================= --><div id="appShell" class="app hidden">  <!-- =======================================================
+       SIDEBAR
+  ======================================================== -->  <aside class="sidebar"><div class="brand">
+
+  <div class="logo">GO</div>
+
+  <div class="brand-name">
+    <b>SMARTTEC</b>
+    <span>GO™</span>
+  </div>
+
+</div>
+
+
+<div class="solution-label">
+  A FORTSECURE KENYA SOLUTION
+</div>
+
+
+<div class="demo">
+  DEMONSTRATION MODE
+</div>
+
+
+<!-- Logged-in user -->
+
+<div class="user-panel">
+
+  <div class="user-avatar" id="userAvatar">
+    GO
+  </div>
+
+  <div class="user-details">
+
+    <strong id="currentUserName">
+      Demo User
+    </strong>
+
+    <span id="currentUserRole">
+      Administrator
+    </span>
+
+  </div>
+
+</div>
+
+
+<!-- Main navigation -->
+
+<nav id="mainNavigation" aria-label="SMARTTEC GO navigation">
+
+  <button
+    class="nav active"
+    data-page="dashboard"
+    type="button"
+  >
+    <span>▦</span>
+    Dashboard
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="products"
+    type="button"
+  >
+    <span>▣</span>
+    Products
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="receiving"
+    type="button"
+  >
+    <span>⇩</span>
+    Receive Stock
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="sales"
+    type="button"
+  >
+    <span>⇧</span>
+    Sales
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="stock"
+    type="button"
+  >
+    <span>◫</span>
+    Live Stock
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="count"
+    type="button"
+  >
+    <span>☷</span>
+    Stock Count
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="expiry"
+    type="button"
+  >
+    <span>◷</span>
+    Expiry
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="reorder"
+    type="button"
+  >
+    <span>↻</span>
+    Reorder
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="reports"
+    type="button"
+  >
+    <span>▤</span>
+    Reports
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="users"
+    type="button"
+  >
+    <span>♙</span>
+    User Management
+  </button>
+
+
+  <button
+    class="nav"
+    data-page="audit"
+    type="button"
+  >
+    <span>◉</span>
+    Audit Trail
+  </button>
+
+</nav>
+
+
+<!-- Sidebar bottom -->
+
+<div class="sidebar-footer">
+
+  <div class="developed-by">
+
+    <small>DEVELOPED BY</small>
+
+    <strong>
+      FortSecure Kenya
+    </strong>
+
+  </div>
+
+
+  <div class="tagline">
+    Your Security, Our Mission.
+  </div>
+
+</div>
+
+  </aside>  <!-- =======================================================
+       MAIN CONTENT
+  ======================================================== -->  <main><header>
+
+  <div class="header-left">
+
+    <div class="mobile-brand">
+
+      <div class="mobile-logo">
+        GO
+      </div>
+
+      <strong>
+        SMARTTEC GO™
+      </strong>
+
+    </div>
+
+
+    <div>
+
+      <div class="breadcrumb">
+        FortSecure Kenya / SMARTTEC GO™
+      </div>
+
+      <h1 id="pageTitle">
+        Dashboard
+      </h1>
+
+      <p>
+        Inventory Control
+        <span>•</span>
+        Visibility
+        <span>•</span>
+        Accountability
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="header-actions">
+
+    <div class="active-user">
+
+      <span id="headerUserName">
+        Demo User
+      </span>
+
+      <small id="headerUserRole">
+        Administrator
+      </small>
+
+    </div>
+
+
+    <button
+      class="switch-user"
+      id="switchUser"
+      type="button"
+    >
+      Switch User
+    </button>
+
+
+    <a
+      class="fortsecure-link"
+      href="https://fortsecurekenya.github.io/FortSecure.github.io/"
+      target="_blank"
+      rel="noopener"
+    >
+      ← FortSecure Kenya
+    </a>
+
+
+    <button
+      class="reset"
+      id="reset"
+      type="button"
+    >
+      Reset Demo
+    </button>
+
+  </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     DEMONSTRATION NOTICE
+====================================================== -->
+
+<section class="demo-notice">
+
+  <div class="notice-icon">
+    ⓘ
+  </div>
+
+  <div>
+
+    <strong>
+      Demonstration Environment
+    </strong>
+
+    <p>
+      This demonstration uses simulated supermarket data.
+      A production deployment would be configured around the
+      client's actual products, suppliers, sales records,
+      stock levels, users and operating procedures.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCT INTRO
+====================================================== -->
+
+<section class="product-intro">
+
+  <div class="intro-copy">
+
+    <div class="eyebrow">
+      FORTSECURE KENYA PRESENTS
+    </div>
+
+    <h2>
+      SMARTTEC <span>GO™</span>
+    </h2>
+
+    <p>
+      A practical inventory-control solution designed to give
+      businesses greater visibility over stock movement,
+      replenishment, expiry, stock variance and accountability.
+    </p>
+
+  </div>
+
+
+  <div class="intro-pill">
+
+    INVENTORY CONTROL
+
+    <span>•</span>
+
+    VISIBILITY
+
+    <span>•</span>
+
+    ACCOUNTABILITY
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     APPLICATION CONTENT
+====================================================== -->
+
+<section id="content"></section>
+
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+  <div>
+
+    <strong>
+      SMARTTEC GO™
+    </strong>
+
+    <span>
+      Prototype / Inventory Management Concept
+    </span>
+
+  </div>
+
+
+  <div class="footer-right">
+
+    <a
+      href="https://fortsecurekenya.github.io/FortSecure.github.io/"
+      target="_blank"
+      rel="noopener"
+    >
+      FortSecure Kenya
+    </a>
+
+    <span>•</span>
+
+    <a href="mailto:fortsecurekenya@gmail.com">
+      fortsecurekenya@gmail.com
+    </a>
+
+  </div>
+
+</footer>
+
+  </main></div><!-- =========================================================
+     JAVASCRIPT
+========================================================= --><script src="app.js"></script></body>
+</html>
