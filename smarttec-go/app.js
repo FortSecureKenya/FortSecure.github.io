@@ -2876,6 +2876,7 @@ function renderExpiry(content) {
 
         </div>
 
+
       </div>
 
     </div>
@@ -2883,4 +2884,469 @@ function renderExpiry(content) {
   `;
 
             }
-               
+
+/* =========================================================
+   REORDER
+========================================================= */
+
+function renderReorder(content) {
+
+  content.innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+          <h3>Reorder Queue</h3>
+          <p>
+            Products at or below their configured reorder level
+          </p>
+        </div>
+
+        <button
+          class="btn btn-primary"
+          onclick="createPurchaseDraft()"
+        >
+          Generate Purchase Draft
+        </button>
+
+      </div>
+
+      <div class="card-body">
+
+        ${renderReorderTable()}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderReorderTable() {
+
+  const items =
+    state.products.filter(
+      p => getCurrentStock(p.id) <= p.reorderLevel
+    );
+
+
+  if (!items.length) {
+
+    return `
+      <div class="empty-state">
+
+        <div class="empty-state-icon">
+          ✓
+        </div>
+
+        <strong>
+          No reorder items
+        </strong>
+
+        <p>
+          Current stock is above configured reorder levels.
+        </p>
+
+      </div>
+    `;
+
+  }
+
+
+  return `
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Product</th>
+            <th>Supplier</th>
+            <th>Current Stock</th>
+            <th>Reorder Level</th>
+            <th>Suggested Qty</th>
+            <th>Est. Purchase</th>
+            <th>Status</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${items.map(p => {
+
+            const current =
+              getCurrentStock(p.id);
+
+            const supplier =
+              getSupplier(p.supplierId);
+
+            const estimated =
+              p.reorderQty * p.buyingPrice;
+
+            return `
+              <tr>
+
+                <td>
+                  <strong>
+                    ${escapeHTML(p.name)}
+                  </strong>
+                </td>
+
+                <td>
+                  ${
+                    supplier
+                      ? escapeHTML(supplier.name)
+                      : "—"
+                  }
+                </td>
+
+                <td>${current}</td>
+
+                <td>${p.reorderLevel}</td>
+
+                <td>${p.reorderQty}</td>
+
+                <td>${money(estimated)}</td>
+
+                <td>
+                  <span class="status status-warning">
+                    Reorder
+                  </span>
+                </td>
+
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  `;
+
+}
+
+
+function createPurchaseDraft() {
+
+  const items =
+    state.products.filter(
+      p => getCurrentStock(p.id) <= p.reorderLevel
+    );
+
+
+  if (!items.length) {
+
+    showToast(
+      "There are no items requiring reorder.",
+      "warning"
+    );
+
+    return;
+
+  }
+
+
+  const total =
+    items.reduce(
+      (sum, p) =>
+        sum + p.reorderQty * p.buyingPrice,
+      0
+    );
+
+
+  showModal(
+    "Suggested Purchase Draft",
+    `
+      <div class="alert alert-info">
+        This is a demonstration purchase recommendation.
+        No real purchase order is being placed.
+      </div>
+
+      <div style="height:13px"></div>
+
+      ${items.map(p => {
+
+        const supplier =
+          getSupplier(p.supplierId);
+
+        return `
+          <div style="
+            padding:10px 0;
+            border-bottom:1px solid #e4e8ef;
+          ">
+
+            <strong>
+              ${escapeHTML(p.name)}
+            </strong>
+
+            <div style="
+              margin-top:4px;
+              color:#667085;
+              font-size:10px;
+            ">
+              Supplier:
+              ${
+                supplier
+                  ? escapeHTML(supplier.name)
+                  : "—"
+              }
+              • Qty:
+              ${p.reorderQty}
+              • Estimated:
+              ${money(p.reorderQty * p.buyingPrice)}
+            </div>
+
+          </div>
+        `;
+
+      }).join("")}
+
+      <div style="
+        margin-top:15px;
+        font-weight:800;
+        color:#002b5b;
+      ">
+        Estimated Purchase Value:
+        ${money(total)}
+      </div>
+    `
+  );
+
+}
+
+
+/* =========================================================
+   REPORTS
+========================================================= */
+
+function renderReports(content) {
+
+  const stockCost =
+    state.products.reduce(
+      (sum, p) => sum + getStockValue(p.id),
+      0
+    );
+
+  const retail =
+    state.products.reduce(
+      (sum, p) => sum + getRetailValue(p.id),
+      0
+    );
+
+  const totalSales =
+    state.sales.reduce(
+      (sum, s) =>
+        sum + Number(s.quantity) * Number(s.price),
+      0
+    );
+
+  const totalUnitsSold =
+    state.sales.reduce(
+      (sum, s) => sum + Number(s.quantity),
+      0
+    );
+
+  const totalReceived =
+    state.receipts.reduce(
+      (sum, r) => sum + Number(r.quantity),
+      0
+    );
+
+
+  content.innerHTML = `
+
+    <div class="kpi-grid">
+
+      ${kpi(
+        "Inventory Cost",
+        money(stockCost),
+        "Current stock valuation",
+        ""
+      )}
+
+      ${kpi(
+        "Retail Value",
+        money(retail),
+        "Potential sales value",
+        "success"
+      )}
+
+      ${kpi(
+        "Sales Value",
+        money(totalSales),
+        "All demo sales",
+        ""
+      )}
+
+      ${kpi(
+        "Units Sold",
+        formatNumber(totalUnitsSold),
+        "Across recorded transactions",
+        ""
+      )}
+
+    </div>
+
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Inventory Summary</h3>
+            <p>Current inventory position</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <tbody>
+
+                <tr>
+                  <td>Total SKUs</td>
+                  <td>
+                    <strong>${state.products.length}</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Total Units Received</td>
+                  <td>
+                    <strong>${totalReceived}</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Total Units Sold</td>
+                  <td>
+                    <strong>${totalUnitsSold}</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Reorder Items</td>
+                  <td>
+                    <strong>
+                      ${
+                        state.products.filter(
+                          p =>
+                            getCurrentStock(p.id)
+                            <= p.reorderLevel
+                        ).length
+                      }
+                    </strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Out of Stock</td>
+                  <td>
+                    <strong>
+                      ${
+                        state.products.filter(
+                          p =>
+                            getCurrentStock(p.id) <= 0
+                        ).length
+                      }
+                    </strong>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Sales Summary</h3>
+            <p>Recorded demonstration sales</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          ${renderSalesTable(10)}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div style="height:17px"></div>
+
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+          <h3>Management Note</h3>
+          <p>How SMARTTEC GO interprets inventory data</p>
+        </div>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="alert alert-info">
+
+          <strong>Core stock formula:</strong>
+
+          Current Stock =
+          Opening Stock +
+          Goods Received −
+          Sales ±
+          Adjustments.
+
+          <br><br>
+
+          <strong>Variance formula:</strong>
+
+          Physical Count −
+          System Stock.
+
+          <br><br>
+
+          <strong>Reorder trigger:</strong>
+
+          Current Stock ≤ Reorder Level.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+                  }
+       
