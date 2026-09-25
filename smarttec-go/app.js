@@ -1,1 +1,1129 @@
+/* =========================================================
+   SMARTTEC GO™
+   FortSecure Kenya
+   DEMONSTRATION INVENTORY MANAGEMENT SYSTEM
 
+   NOTE:
+   This is a browser-based demonstration prototype.
+   Production deployment would require a secure backend,
+   database, authentication, server-side authorization,
+   backups and server-side audit logging.
+========================================================= */
+
+"use strict";
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const STORAGE_KEY = "smarttec_go_demo_v1";
+
+const ROLES = {
+  admin: {
+    name: "Administrator",
+    user: "Demo Administrator",
+    avatar: "AD",
+    pages: [
+      "dashboard",
+      "products",
+      "receiving",
+      "sales",
+      "stock",
+      "count",
+      "expiry",
+      "reorder",
+      "reports",
+      "users",
+      "audit"
+    ]
+  },
+
+  manager: {
+    name: "Manager",
+    user: "Demo Manager",
+    avatar: "MG",
+    pages: [
+      "dashboard",
+      "products",
+      "receiving",
+      "sales",
+      "stock",
+      "count",
+      "expiry",
+      "reorder",
+      "reports",
+      "audit"
+    ]
+  },
+
+  worker: {
+    name: "Inventory Worker",
+    user: "Demo Inventory Worker",
+    avatar: "IW",
+    pages: [
+      "dashboard",
+      "products",
+      "receiving",
+      "stock",
+      "count",
+      "expiry",
+      "reorder"
+    ]
+  },
+
+  cashier: {
+    name: "Cashier / Sales",
+    user: "Demo Cashier",
+    avatar: "CS",
+    pages: [
+      "dashboard",
+      "sales",
+      "stock"
+    ]
+  },
+
+  auditor: {
+    name: "Auditor",
+    user: "Demo Auditor",
+    avatar: "AU",
+    pages: [
+      "dashboard",
+      "products",
+      "stock",
+      "expiry",
+      "reports",
+      "audit"
+    ]
+  }
+};
+
+
+/* =========================================================
+   PAGE TITLES
+========================================================= */
+
+const PAGE_TITLES = {
+  dashboard: "Dashboard",
+  products: "Products",
+  receiving: "Receive Stock",
+  sales: "Sales",
+  stock: "Live Stock",
+  count: "Stock Count",
+  expiry: "Expiry Monitor",
+  reorder: "Reorder",
+  reports: "Reports",
+  users: "User Management",
+  audit: "Audit Trail"
+};
+
+
+/* =========================================================
+   DEMO DATA
+========================================================= */
+
+const DEMO_PRODUCTS = [
+  {
+    id: "P001",
+    sku: "SM001",
+    name: "Unga Maize Flour 2kg",
+    category: "Flour",
+    supplierId: "SUP001",
+    unit: "Bag",
+    buyingPrice: 145,
+    sellingPrice: 175,
+    openingStock: 80,
+    reorderLevel: 30,
+    reorderQty: 80,
+    expiryDate: "2026-11-20"
+  },
+  {
+    id: "P002",
+    sku: "SM002",
+    name: "Pishori Rice 2kg",
+    category: "Grains",
+    supplierId: "SUP002",
+    unit: "Pack",
+    buyingPrice: 310,
+    sellingPrice: 370,
+    openingStock: 55,
+    reorderLevel: 20,
+    reorderQty: 50,
+    expiryDate: "2027-03-15"
+  },
+  {
+    id: "P003",
+    sku: "SM003",
+    name: "Cooking Oil 1L",
+    category: "Cooking",
+    supplierId: "SUP003",
+    unit: "Bottle",
+    buyingPrice: 220,
+    sellingPrice: 265,
+    openingStock: 70,
+    reorderLevel: 25,
+    reorderQty: 60,
+    expiryDate: "2027-01-10"
+  },
+  {
+    id: "P004",
+    sku: "SM004",
+    name: "Fresh Milk 500ml",
+    category: "Dairy",
+    supplierId: "SUP004",
+    unit: "Pack",
+    buyingPrice: 55,
+    sellingPrice: 70,
+    openingStock: 100,
+    reorderLevel: 35,
+    reorderQty: 100,
+    expiryDate: "2026-10-04"
+  },
+  {
+    id: "P005",
+    sku: "SM005",
+    name: "Bread 400g",
+    category: "Bakery",
+    supplierId: "SUP004",
+    unit: "Loaf",
+    buyingPrice: 55,
+    sellingPrice: 70,
+    openingStock: 90,
+    reorderLevel: 30,
+    reorderQty: 80,
+    expiryDate: "2026-09-29"
+  },
+  {
+    id: "P006",
+    sku: "SM006",
+    name: "Sugar 2kg",
+    category: "Groceries",
+    supplierId: "SUP001",
+    unit: "Pack",
+    buyingPrice: 275,
+    sellingPrice: 325,
+    openingStock: 65,
+    reorderLevel: 20,
+    reorderQty: 50,
+    expiryDate: ""
+  },
+  {
+    id: "P007",
+    sku: "SM007",
+    name: "Tea Leaves 250g",
+    category: "Beverages",
+    supplierId: "SUP002",
+    unit: "Pack",
+    buyingPrice: 115,
+    sellingPrice: 145,
+    openingStock: 45,
+    reorderLevel: 15,
+    reorderQty: 40,
+    expiryDate: "2027-05-01"
+  },
+  {
+    id: "P008",
+    sku: "SM008",
+    name: "Bottled Water 1L",
+    category: "Beverages",
+    supplierId: "SUP005",
+    unit: "Bottle",
+    buyingPrice: 45,
+    sellingPrice: 60,
+    openingStock: 120,
+    reorderLevel: 40,
+    reorderQty: 120,
+    expiryDate: "2028-01-12"
+  },
+  {
+    id: "P009",
+    sku: "SM009",
+    name: "Bathing Soap 175g",
+    category: "Personal Care",
+    supplierId: "SUP003",
+    unit: "Bar",
+    buyingPrice: 65,
+    sellingPrice: 85,
+    openingStock: 50,
+    reorderLevel: 15,
+    reorderQty: 40,
+    expiryDate: ""
+  },
+  {
+    id: "P010",
+    sku: "SM010",
+    name: "Washing Powder 1kg",
+    category: "Household",
+    supplierId: "SUP003",
+    unit: "Pack",
+    buyingPrice: 180,
+    sellingPrice: 225,
+    openingStock: 40,
+    reorderLevel: 15,
+    reorderQty: 40,
+    expiryDate: ""
+  },
+  {
+    id: "P011",
+    sku: "SM011",
+    name: "Biscuits 100g",
+    category: "Snacks",
+    supplierId: "SUP002",
+    unit: "Pack",
+    buyingPrice: 30,
+    sellingPrice: 45,
+    openingStock: 85,
+    reorderLevel: 25,
+    reorderQty: 70,
+    expiryDate: "2026-12-15"
+  },
+  {
+    id: "P012",
+    sku: "SM012",
+    name: "Soda 500ml",
+    category: "Beverages",
+    supplierId: "SUP005",
+    unit: "Bottle",
+    buyingPrice: 45,
+    sellingPrice: 60,
+    openingStock: 75,
+    reorderLevel: 25,
+    reorderQty: 80,
+    expiryDate: "2027-02-20"
+  }
+];
+
+
+const DEMO_SUPPLIERS = [
+  {
+    id: "SUP001",
+    name: "Metro Distributors",
+    phone: "0712 345 678",
+    category: "Groceries"
+  },
+  {
+    id: "SUP002",
+    name: "Prime Wholesale Ltd",
+    phone: "0722 456 789",
+    category: "Food & Beverages"
+  },
+  {
+    id: "SUP003",
+    name: "Nairobi Consumer Supplies",
+    phone: "0733 567 890",
+    category: "Household"
+  },
+  {
+    id: "SUP004",
+    name: "FreshLine Distributors",
+    phone: "0701 678 901",
+    category: "Fresh Products"
+  },
+  {
+    id: "SUP005",
+    name: "Aqua & Beverage Supplies",
+    phone: "0744 789 012",
+    category: "Beverages"
+  }
+];
+
+
+const DEMO_USERS = [
+  {
+    id: "U001",
+    name: "Demo Administrator",
+    username: "admin",
+    role: "admin",
+    active: true
+  },
+  {
+    id: "U002",
+    name: "Demo Manager",
+    username: "manager",
+    role: "manager",
+    active: true
+  },
+  {
+    id: "U003",
+    name: "Demo Inventory Worker",
+    username: "worker",
+    role: "worker",
+    active: true
+  },
+  {
+    id: "U004",
+    name: "Demo Cashier",
+    username: "cashier",
+    role: "cashier",
+    active: true
+  },
+  {
+    id: "U005",
+    name: "Demo Auditor",
+    username: "auditor",
+    role: "auditor",
+    active: true
+  }
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let state = loadState();
+
+let currentRole = null;
+let currentUser = null;
+let currentPage = "dashboard";
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  setupLogin();
+
+  setupNavigation();
+
+  setupGlobalButtons();
+
+  setupToastContainer();
+
+  /*
+   * Keep the demo in login mode when the browser is opened.
+   * The simulated data remains saved unless Reset Demo is used.
+   */
+
+  showLogin();
+
+});
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function createInitialState() {
+
+  return {
+    products: DEMO_PRODUCTS.map(p => ({ ...p })),
+
+    suppliers: DEMO_SUPPLIERS.map(s => ({ ...s })),
+
+    users: DEMO_USERS.map(u => ({ ...u })),
+
+    receipts: [
+      {
+        id: "GR001",
+        productId: "P001",
+        quantity: 50,
+        buyingPrice: 145,
+        supplierId: "SUP001",
+        batch: "MAZ-0926",
+        date: "2026-09-20",
+        user: "Demo Inventory Worker"
+      },
+      {
+        id: "GR002",
+        productId: "P003",
+        quantity: 30,
+        buyingPrice: 220,
+        supplierId: "SUP003",
+        batch: "OIL-0926",
+        date: "2026-09-21",
+        user: "Demo Inventory Worker"
+      },
+      {
+        id: "GR003",
+        productId: "P008",
+        quantity: 80,
+        buyingPrice: 45,
+        supplierId: "SUP005",
+        batch: "WTR-0926",
+        date: "2026-09-22",
+        user: "Demo Inventory Worker"
+      }
+    ],
+
+    sales: [
+      {
+        id: "SL001",
+        productId: "P001",
+        quantity: 35,
+        price: 175,
+        date: "2026-09-24",
+        user: "Demo Cashier"
+      },
+      {
+        id: "SL002",
+        productId: "P004",
+        quantity: 62,
+        price: 70,
+        date: "2026-09-24",
+        user: "Demo Cashier"
+      },
+      {
+        id: "SL003",
+        productId: "P005",
+        quantity: 50,
+        price: 70,
+        date: "2026-09-24",
+        user: "Demo Cashier"
+      },
+      {
+        id: "SL004",
+        productId: "P008",
+        quantity: 75,
+        price: 60,
+        date: "2026-09-24",
+        user: "Demo Cashier"
+      },
+      {
+        id: "SL005",
+        productId: "P006",
+        quantity: 25,
+        price: 325,
+        date: "2026-09-25",
+        user: "Demo Cashier"
+      },
+      {
+        id: "SL006",
+        productId: "P011",
+        quantity: 58,
+        price: 45,
+        date: "2026-09-25",
+        user: "Demo Cashier"
+      }
+    ],
+
+    adjustments: [
+      {
+        id: "ADJ001",
+        productId: "P010",
+        quantity: -2,
+        reason: "Damaged stock",
+        date: "2026-09-24",
+        user: "Demo Inventory Worker"
+      }
+    ],
+
+    counts: [
+      {
+        id: "CNT001",
+        productId: "P001",
+        systemStock: 95,
+        physicalCount: 93,
+        variance: -2,
+        date: "2026-09-24",
+        user: "Demo Inventory Worker"
+      },
+      {
+        id: "CNT002",
+        productId: "P006",
+        systemStock: 40,
+        physicalCount: 40,
+        variance: 0,
+        date: "2026-09-24",
+        user: "Demo Inventory Worker"
+      }
+    ],
+
+    audit: [
+      {
+        id: "AUD001",
+        date: "2026-09-20 09:14",
+        user: "Demo Inventory Worker",
+        role: "Inventory Worker",
+        action: "Received stock",
+        reference: "GR001",
+        details: "Received 50 Unga Maize Flour 2kg"
+      },
+      {
+        id: "AUD002",
+        date: "2026-09-21 10:32",
+        user: "Demo Inventory Worker",
+        role: "Inventory Worker",
+        action: "Received stock",
+        reference: "GR002",
+        details: "Received 30 Cooking Oil 1L"
+      },
+      {
+        id: "AUD003",
+        date: "2026-09-24 16:10",
+        user: "Demo Cashier",
+        role: "Cashier / Sales",
+        action: "Recorded sale",
+        reference: "SL003",
+        details: "Sold 50 Bread 400g"
+      }
+    ]
+  };
+
+}
+
+
+function loadState() {
+
+  try {
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+      return JSON.parse(saved);
+    }
+
+  } catch (error) {
+
+    console.warn("Could not load saved demo data.", error);
+
+  }
+
+  const fresh = createInitialState();
+
+  saveState(fresh);
+
+  return fresh;
+
+}
+
+
+function saveState(data = state) {
+
+  try {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(data)
+    );
+
+  } catch (error) {
+
+    console.warn("Could not save demo data.", error);
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function setupLogin() {
+
+  document.querySelectorAll(".role-card").forEach(card => {
+
+    card.addEventListener("click", () => {
+
+      const role = card.dataset.role;
+
+      loginAs(role);
+
+    });
+
+  });
+
+}
+
+
+function loginAs(role) {
+
+  if (!ROLES[role]) return;
+
+  currentRole = role;
+
+  currentUser = {
+    name: ROLES[role].user,
+    role: role
+  };
+
+  currentPage = "dashboard";
+
+  hideLogin();
+
+  updateUserInterface();
+
+  filterNavigation();
+
+  renderPage("dashboard");
+
+  addAudit(
+    "Login",
+    "SESSION",
+    `Signed in as ${ROLES[role].name}`
+  );
+
+  showToast(
+    `Welcome, ${ROLES[role].name}.`,
+    "success"
+  );
+
+}
+
+
+function showLogin() {
+
+  const login = document.getElementById("loginScreen");
+  const app = document.getElementById("appShell");
+
+  if (login) login.classList.remove("hidden");
+  if (app) app.classList.add("hidden");
+
+}
+
+
+function hideLogin() {
+
+  const login = document.getElementById("loginScreen");
+  const app = document.getElementById("appShell");
+
+  if (login) login.classList.add("hidden");
+  if (app) app.classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   USER INTERFACE
+========================================================= */
+
+function updateUserInterface() {
+
+  if (!currentUser) return;
+
+  const role = ROLES[currentRole];
+
+  const avatar = document.getElementById("userAvatar");
+  const name = document.getElementById("currentUserName");
+  const roleName = document.getElementById("currentUserRole");
+
+  const headerName = document.getElementById("headerUserName");
+  const headerRole = document.getElementById("headerUserRole");
+
+  if (avatar) avatar.textContent = role.avatar;
+
+  if (name) name.textContent = currentUser.name;
+
+  if (roleName) roleName.textContent = role.name;
+
+  if (headerName) headerName.textContent = currentUser.name;
+
+  if (headerRole) headerRole.textContent = role.name;
+
+}
+
+
+function filterNavigation() {
+
+  if (!currentRole) return;
+
+  const allowed = ROLES[currentRole].pages;
+
+  document.querySelectorAll(".nav").forEach(button => {
+
+    const page = button.dataset.page;
+
+    if (allowed.includes(page)) {
+
+      button.style.display = "flex";
+
+    } else {
+
+      button.style.display = "none";
+
+    }
+
+  });
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function setupNavigation() {
+
+  document.querySelectorAll(".nav").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const page = button.dataset.page;
+
+      navigate(page);
+
+    });
+
+  });
+
+}
+
+
+function navigate(page) {
+
+  if (!currentRole) return;
+
+  const allowed = ROLES[currentRole].pages;
+
+  if (!allowed.includes(page)) {
+
+    showToast(
+      "You do not have permission to access this section.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  currentPage = page;
+
+  document.querySelectorAll(".nav").forEach(button => {
+
+    button.classList.toggle(
+      "active",
+      button.dataset.page === page
+    );
+
+  });
+
+  renderPage(page);
+
+}
+
+
+function renderPage(page) {
+
+  const content = document.getElementById("content");
+  const title = document.getElementById("pageTitle");
+
+  if (!content) return;
+
+  if (title) {
+    title.textContent =
+      PAGE_TITLES[page] || "SMARTTEC GO™";
+  }
+
+  switch (page) {
+
+    case "dashboard":
+      renderDashboard(content);
+      break;
+
+    case "products":
+      renderProducts(content);
+      break;
+
+    case "receiving":
+      renderReceiving(content);
+      break;
+
+    case "sales":
+      renderSales(content);
+      break;
+
+    case "stock":
+      renderStock(content);
+      break;
+
+    case "count":
+      renderCount(content);
+      break;
+
+    case "expiry":
+      renderExpiry(content);
+      break;
+
+    case "reorder":
+      renderReorder(content);
+      break;
+
+    case "reports":
+      renderReports(content);
+      break;
+
+    case "users":
+      renderUsers(content);
+      break;
+
+    case "audit":
+      renderAudit(content);
+      break;
+
+    default:
+      renderDashboard(content);
+
+  }
+
+}
+
+
+/* =========================================================
+   GLOBAL BUTTONS
+========================================================= */
+
+function setupGlobalButtons() {
+
+  const reset = document.getElementById("reset");
+
+  if (reset) {
+
+    reset.addEventListener("click", resetDemo);
+
+  }
+
+
+  const switchUser =
+    document.getElementById("switchUser");
+
+  if (switchUser) {
+
+    switchUser.addEventListener("click", () => {
+
+      addAudit(
+        "Logout",
+        "SESSION",
+        "Switched demonstration user"
+      );
+
+      currentRole = null;
+      currentUser = null;
+
+      showLogin();
+
+    });
+
+  }
+
+}
+
+
+function resetDemo() {
+
+  const confirmed = confirm(
+    "Reset the SMARTTEC GO demonstration data?\n\n" +
+    "All demo transactions, counts and user changes will return " +
+    "to the original demonstration state."
+  );
+
+  if (!confirmed) return;
+
+  state = createInitialState();
+
+  saveState();
+
+  currentPage = "dashboard";
+
+  renderPage("dashboard");
+
+  showToast(
+    "Demo data has been reset.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   INVENTORY CALCULATIONS
+========================================================= */
+
+function getReceivedQty(productId) {
+
+  return state.receipts
+    .filter(r => r.productId === productId)
+    .reduce((sum, r) => sum + Number(r.quantity), 0);
+
+}
+
+
+function getSoldQty(productId) {
+
+  return state.sales
+    .filter(s => s.productId === productId)
+    .reduce((sum, s) => sum + Number(s.quantity), 0);
+
+}
+
+
+function getAdjustmentQty(productId) {
+
+  return state.adjustments
+    .filter(a => a.productId === productId)
+    .reduce((sum, a) => sum + Number(a.quantity), 0);
+
+}
+
+
+function getCurrentStock(productId) {
+
+  const product = getProduct(productId);
+
+  if (!product) return 0;
+
+  return (
+    Number(product.openingStock || 0) +
+    getReceivedQty(productId) -
+    getSoldQty(productId) +
+    getAdjustmentQty(productId)
+  );
+
+}
+
+
+function getStockValue(productId) {
+
+  const product = getProduct(productId);
+
+  if (!product) return 0;
+
+  return getCurrentStock(productId) *
+    Number(product.buyingPrice || 0);
+
+}
+
+
+function getRetailValue(productId) {
+
+  const product = getProduct(productId);
+
+  if (!product) return 0;
+
+  return getCurrentStock(productId) *
+    Number(product.sellingPrice || 0);
+
+}
+
+
+function getProduct(productId) {
+
+  return state.products.find(
+    p => p.id === productId
+  );
+
+}
+
+
+function getSupplier(supplierId) {
+
+  return state.suppliers.find(
+    s => s.id === supplierId
+  );
+
+}
+
+
+function getStockStatus(product) {
+
+  const qty = getCurrentStock(product.id);
+
+  if (qty <= 0) {
+    return {
+      label: "Out of Stock",
+      className: "status-danger"
+    };
+  }
+
+  if (qty <= product.reorderLevel) {
+    return {
+      label: "Reorder",
+      className: "status-warning"
+    };
+  }
+
+  return {
+    label: "In Stock",
+    className: "status-ok"
+  };
+
+}
+
+
+function getExpiryInfo(product) {
+
+  if (!product.expiryDate) {
+
+    return {
+      label: "No Expiry",
+      className: "status-info",
+      days: null
+    };
+
+  }
+
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+
+  const expiry = new Date(
+    product.expiryDate + "T00:00:00"
+  );
+
+  const days =
+    Math.ceil(
+      (expiry - today) /
+      (1000 * 60 * 60 * 24)
+    );
+
+  if (days < 0) {
+
+    return {
+      label: "Expired",
+      className: "status-danger",
+      days
+    };
+
+  }
+
+  if (days <= 3) {
+
+    return {
+      label: "Urgent",
+      className: "status-danger",
+      days
+    };
+
+  }
+
+  if (days <= 14) {
+
+    return {
+      label: "Expiring Soon",
+      className: "status-warning",
+      days
+    };
+
+  }
+
+  return {
+    label: "OK",
+    className: "status-ok",
+    days
+  };
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard(content) {
+
+  const totalSKUs = state.products.length;
+
+  const stockCost = state.products.reduce(
+    (sum, p) => sum + getStockValue(p.id),
+    0
+  );
+
+  const retailValue = state.products.reduce(
+    (sum, p) => sum + getRetailValue(p.id),
+    0
+  );
+
+  const today = todayISO();
+
+  con
