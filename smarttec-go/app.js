@@ -3349,4 +3349,664 @@ function renderReports(content) {
   `;
 
                   }
+/* =========================================================
+   USER MANAGEMENT
+========================================================= */
+
+function renderUsers(content) {
+
+  if (currentRole !== "admin") {
+
+    renderNoAccess(content);
+
+    return;
+
+  }
+
+
+  content.innerHTML = `
+
+    <div class="toolbar">
+
+      <div>
+        <strong>
+          System Users
+        </strong>
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="showAddUserModal()"
+      >
+        + Add User
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+          <h3>User Management</h3>
+          <p>Manage demonstration users and roles</p>
+        </div>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>User</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${state.users.map(u => `
+
+                <tr>
+
+                  <td>
+                    <strong>
+                      ${escapeHTML(u.name)}
+                    </strong>
+                  </td>
+
+                  <td>
+                    ${escapeHTML(u.username)}
+                  </td>
+
+                  <td>
+                    ${escapeHTML(
+                      ROLES[u.role]
+                        ? ROLES[u.role].name
+                        : u.role
+                    )}
+                  </td>
+
+                  <td>
+
+                    <span class="status ${
+                      u.active
+                        ? "status-ok"
+                        : "status-danger"
+                    }">
+
+                      ${u.active
+                        ? "Active"
+                        : "Inactive"}
+
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <button
+                      class="btn btn-secondary"
+                      onclick="toggleUser('${u.id}')"
+                    >
+                      ${
+                        u.active
+                          ? "Deactivate"
+                          : "Activate"
+                      }
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function showAddUserModal() {
+
+  showModal(
+    "Add Demonstration User",
+    `
+
+      <form id="addUserForm">
+
+        <div class="form-group">
+
+          <label>Full Name</label>
+
+          <input
+            id="newUserName"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group" style="margin-top:12px">
+
+          <label>Username</label>
+
+          <input
+            id="newUsername"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group" style="margin-top:12px">
+
+          <label>Role</label>
+
+          <select id="newUserRole" required>
+
+            <option value="admin">
+              Administrator
+            </option>
+
+            <option value="manager">
+              Manager
+            </option>
+
+            <option value="worker">
+              Inventory Worker
+            </option>
+
+            <option value="cashier">
+              Cashier / Sales
+            </option>
+
+            <option value="auditor">
+              Auditor
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            class="btn btn-primary"
+            type="submit"
+          >
+            Add User
+          </button>
+
+        </div>
+
+      </form>
+
+    `
+  );
+
+
+  document
+    .getElementById("addUserForm")
+    .addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+        const name =
+          document.getElementById("newUserName")
+            .value.trim();
+
+        const username =
+          document.getElementById("newUsername")
+            .value.trim();
+
+        const role =
+          document.getElementById("newUserRole")
+            .value;
+
+
+        if (!name || !username) return;
+
+
+        if (
+          state.users.some(
+            u =>
+              u.username.toLowerCase()
+              === username.toLowerCase()
+          )
+        ) {
+
+          showToast(
+            "Username already exists.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        state.users.push({
+
+          id: nextId("U", state.users),
+
+          name,
+          username,
+          role,
+          active: true
+
+        });
+
+
+        addAudit(
+          "Created user",
+          username,
+          `${name} added as ${ROLES[role].name}`
+        );
+
+
+        saveState();
+
+        closeModal();
+
+        showToast(
+          `${name} added successfully.`,
+          "success"
+        );
+
+
+        renderUsers(
+          document.getElementById("content")
+        );
+
+      }
+    );
+
+}
+
+
+function toggleUser(id) {
+
+  const user =
+    state.users.find(
+      u => u.id === id
+    );
+
+  if (!user) return;
+
+
+  user.active =
+    !user.active;
+
+
+  addAudit(
+    user.active
+      ? "Activated user"
+      : "Deactivated user",
+    user.username,
+    user.name
+  );
+
+
+  saveState();
+
+
+  showToast(
+    `${user.name} is now ${
+      user.active
+        ? "active"
+        : "inactive"
+    }.`,
+    "success"
+  );
+
+
+  renderUsers(
+    document.getElementById("content")
+  );
+
+}
+
+
+/* =========================================================
+   AUDIT TRAIL
+========================================================= */
+
+function renderAudit(content) {
+
+  content.innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+          <h3>Audit Trail</h3>
+          <p>
+            Recorded demonstration activity and accountability
+          </p>
+        </div>
+
+      </div>
+
+      <div class="card-body">
+
+        ${renderAuditTable()}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderAuditTable() {
+
+  if (!state.audit.length) {
+
+    return `
+      <div class="empty-state">
+        <strong>No audit activity</strong>
+      </div>
+    `;
+
+  }
+
+
+  return `
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Date / Time</th>
+            <th>User</th>
+            <th>Role</th>
+            <th>Action</th>
+            <th>Reference</th>
+            <th>Details</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${state.audit.map(a => `
+
+            <tr>
+
+              <td>
+                ${escapeHTML(a.date)}
+              </td>
+
+              <td>
+                ${escapeHTML(a.user)}
+              </td>
+
+              <td>
+                ${escapeHTML(a.role)}
+              </td>
+
+              <td>
+                <strong>
+                  ${escapeHTML(a.action)}
+                </strong>
+              </td>
+
+              <td>
+                ${escapeHTML(a.reference)}
+              </td>
+
+              <td>
+                ${escapeHTML(a.details)}
+              </td>
+
+            </tr>
+
+          `).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  `;
+
+}
+
+
+function renderRecentAudit(limit) {
+
+  const records =
+    state.audit.slice(0, limit);
+
+
+  if (!records.length) {
+
+    return `
+      <div class="empty-state">
+        <strong>No activity recorded</strong>
+      </div>
+    `;
+
+  }
+
+
+  return `
+    <div>
+
+      ${records.map(a => `
+
+        <div style="
+          padding:10px 0;
+          border-bottom:1px solid #edf0f4;
+        ">
+
+          <strong style="
+            display:block;
+            color:#002b5b;
+            font-size:10px;
+          ">
+            ${escapeHTML(a.action)}
+          </strong>
+
+          <span style="
+            display:block;
+            margin-top:3px;
+            color:#667085;
+            font-size:9px;
+          ">
+            ${escapeHTML(a.details)}
+          </span>
+
+          <span style="
+            display:block;
+            margin-top:3px;
+            color:#98a2b3;
+            font-size:8px;
+          ">
+            ${escapeHTML(a.user)}
+            •
+            ${escapeHTML(a.date)}
+          </span>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+  `;
+
+}
+
+
+function addAudit(action, reference, details) {
+
+  const now =
+    new Date();
+
+
+  const date =
+    now.toLocaleDateString("en-KE") +
+    " " +
+    now.toLocaleTimeString(
+      "en-KE",
+      {
+        hour: "2-digit",
+        minute: "2-digit"
+      }
+    );
+
+
+  state.audit.unshift({
+
+    id: nextId("AUD", state.audit),
+
+    date,
+
+    user:
+      currentUser
+        ? currentUser.name
+        : "System",
+
+    role:
+      currentUser && ROLES[currentRole]
+        ? ROLES[currentRole].name
+        : "System",
+
+    action,
+
+    reference,
+
+    details
+
+  });
+
+
+  /*
+   * Keep the demo manageable.
+   */
+
+  if (state.audit.length > 200) {
+
+    state.audit =
+      state.audit.slice(0, 200);
+
+  }
+
+}
+
+
+/* =========================================================
+   RECEIPTS TABLE
+========================================================= */
+
+function renderReceiptsTable(limit = 10) {
+
+  const receipts =
+    state.receipts.slice(0, limit);
+
+
+  if (!receipts.length) {
+
+    return `
+      <div class="empty-state">
+        <strong>No receipts recorded</strong>
+      </div>
+    `;
+
+  }
+
+
+  return `
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Supplier</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${receipts.map(r => {
+
+            const p =
+              getProduct(r.productId);
+
+            const s =
+              getSupplier(r.supplierId);
+
+            return `
+              <tr>
+
+                <td>${formatDate(r.date)}</td>
+
+                <td>
+                  ${
+                    p
+                      ? escapeHTML(p.name)
+                      : "Unknown"
+                  }
+                </td>
+
+                <td>${r.quantity}</td>
+
+                <td>
+                  ${
+                    s
+                      ? escapeHTML(s.name)
+                      : "—"
+                  }
+                </td>
+
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  `;
+
+}
+
+         
        
