@@ -1524,10 +1524,974 @@ function renderExpiryMini() {
             `;
 
           }).join("")}
-
+          
         </tbody>
       </table>
     </div>
   `;
 
 }
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+function renderProducts(content) {
+
+  content.innerHTML = `
+
+    <div class="toolbar">
+
+      <div class="toolbar-left">
+
+        <input
+          class="search-box"
+          id="productSearch"
+          type="search"
+          placeholder="Search products..."
+        >
+
+        <select id="categoryFilter">
+          <option value="">All Categories</option>
+          ${getCategories().map(
+            c => `<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`
+          ).join("")}
+        </select>
+
+      </div>
+
+
+      <div class="toolbar-right">
+
+        ${
+          canModifyProducts()
+            ? `
+              <button
+                class="btn btn-primary"
+                id="addProductBtn"
+              >
+                + Add Product
+              </button>
+            `
+            : ""
+        }
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+          <h3>Product Master</h3>
+          <p>Products, pricing, suppliers and reorder settings</p>
+        </div>
+
+      </div>
+
+      <div class="card-body">
+
+        <div id="productsTable"></div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  const search =
+    document.getElementById("productSearch");
+
+  const category =
+    document.getElementById("categoryFilter");
+
+
+  function refresh() {
+
+    const query =
+      search.value.trim().toLowerCase();
+
+    const cat = category.value;
+
+    const products =
+      state.products.filter(p => {
+
+        const matchesQuery =
+          !query ||
+          p.name.toLowerCase().includes(query) ||
+          p.sku.toLowerCase().includes(query);
+
+        const matchesCategory =
+          !cat || p.category === cat;
+
+        return matchesQuery && matchesCategory;
+
+      });
+
+    renderProductsTable(
+      document.getElementById("productsTable"),
+      products
+    );
+
+  }
+
+
+  search.addEventListener("input", refresh);
+
+  category.addEventListener("change", refresh);
+
+  const addBtn =
+    document.getElementById("addProductBtn");
+
+  if (addBtn) {
+
+    addBtn.addEventListener(
+      "click",
+      showAddProductModal
+    );
+
+  }
+
+  refresh();
+
+}
+
+
+function renderProductsTable(container, products) {
+
+  if (!products.length) {
+
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">⌕</div>
+        <strong>No products found</strong>
+        <p>Try a different search or category.</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Supplier</th>
+            <th>Buy Price</th>
+            <th>Sell Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          ${products.map(p => {
+
+            const supplier =
+              getSupplier(p.supplierId);
+
+            const status =
+              getStockStatus(p);
+
+            return `
+              <tr>
+
+                <td>${escapeHTML(p.sku)}</td>
+
+                <td>
+                  <strong>${escapeHTML(p.name)}</strong>
+                </td>
+
+                <td>${escapeHTML(p.category)}</td>
+
+                <td>
+                  ${supplier
+                    ? escapeHTML(supplier.name)
+                    : "—"}
+                </td>
+
+                <td>${money(p.buyingPrice)}</td>
+
+                <td>${money(p.sellingPrice)}</td>
+
+                <td>
+                  <strong>${getCurrentStock(p.id)}</strong>
+                </td>
+
+                <td>
+                  <span class="status ${status.className}">
+                    ${status.label}
+                  </span>
+                </td>
+
+                <td>
+
+                  ${
+                    canModifyProducts()
+                      ? `
+                        <button
+                          class="btn btn-secondary"
+                          onclick="showEditProductModal('${p.id}')"
+                        >
+                          Edit
+                        </button>
+                      `
+                      : `
+                        <button
+                          class="btn btn-secondary"
+                          onclick="showProductDetails('${p.id}')"
+                        >
+                          View
+                        </button>
+                      `
+                  }
+
+                </td>
+
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+
+function getCategories() {
+
+  return [
+    ...new Set(
+      state.products.map(p => p.category)
+    )
+  ].sort();
+
+}
+
+
+/* =========================================================
+   RECEIVE STOCK
+========================================================= */
+
+function renderReceiving(content) {
+
+  if (!canAccess("receiving")) {
+
+    renderNoAccess(content);
+
+    return;
+
+  }
+
+  content.innerHTML = `
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Receive Stock</h3>
+            <p>Record goods received from suppliers</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          <form id="receiveForm">
+
+            <div class="form-grid">
+
+              <div class="form-group full">
+                <label>Product</label>
+
+                <select id="receiveProduct" required>
+                  <option value="">Select product</option>
+
+                  ${state.products.map(p =>
+                    `<option value="${p.id}">
+                      ${escapeHTML(p.name)}
+                    </option>`
+                  ).join("")}
+
+                </select>
+              </div>
+
+
+              <div class="form-group">
+                <label>Quantity Received</label>
+
+                <input
+                  id="receiveQuantity"
+                  type="number"
+                  min="1"
+                  required
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label>Buying Price / Unit</label>
+
+                <input
+                  id="receivePrice"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label>Supplier</label>
+
+                <select id="receiveSupplier" required>
+
+                  <option value="">
+                    Select supplier
+                  </option>
+
+                  ${state.suppliers.map(s =>
+                    `<option value="${s.id}">
+                      ${escapeHTML(s.name)}
+                    </option>`
+                  ).join("")}
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+                <label>Batch / Reference</label>
+
+                <input
+                  id="receiveBatch"
+                  type="text"
+                  placeholder="e.g. GRN-0926"
+                >
+              </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+              >
+                Record Goods Received
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Recent Receipts</h3>
+            <p>Latest goods received</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          ${renderReceiptsTable(8)}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById("receiveForm")
+    .addEventListener(
+      "submit",
+      recordReceipt
+    );
+
+}
+
+
+/* =========================================================
+   RECORD RECEIPT
+========================================================= */
+
+function recordReceipt(event) {
+
+  event.preventDefault();
+
+  const productId =
+    document.getElementById("receiveProduct").value;
+
+  const quantity =
+    Number(
+      document.getElementById("receiveQuantity").value
+    );
+
+  const price =
+    Number(
+      document.getElementById("receivePrice").value
+    );
+
+  const supplierId =
+    document.getElementById("receiveSupplier").value;
+
+  const batch =
+    document.getElementById("receiveBatch").value.trim();
+
+
+  if (!productId || quantity <= 0 || price < 0) {
+
+    showToast(
+      "Please enter valid receiving details.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const product =
+    getProduct(productId);
+
+  const id =
+    nextId("GR", state.receipts);
+
+
+  state.receipts.unshift({
+
+    id,
+    productId,
+    quantity,
+    buyingPrice: price,
+    supplierId,
+    batch,
+    date: todayISO(),
+    user: currentUser.name
+
+  });
+
+
+  /*
+   * Keep the product's current buying price updated
+   * for future valuation.
+   */
+
+  product.buyingPrice = price;
+
+
+  addAudit(
+    "Received stock",
+    id,
+    `Received ${quantity} ${product.name}`
+  );
+
+
+  saveState();
+
+  showToast(
+    `${quantity} units of ${product.name} received.`,
+    "success"
+  );
+
+
+  renderReceiving(
+    document.getElementById("content")
+  );
+
+}
+
+
+/* =========================================================
+   SALES
+========================================================= */
+
+function renderSales(content) {
+
+  if (!canAccess("sales")) {
+
+    renderNoAccess(content);
+
+    return;
+
+  }
+
+  content.innerHTML = `
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Record Sale</h3>
+            <p>Reduce inventory through a recorded sale</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          <form id="saleForm">
+
+            <div class="form-grid">
+
+              <div class="form-group full">
+
+                <label>Product</label>
+
+                <select id="saleProduct" required>
+
+                  <option value="">
+                    Select product
+                  </option>
+
+                  ${state.products.map(p => `
+                    <option value="${p.id}">
+                      ${escapeHTML(p.name)}
+                      — Stock: ${getCurrentStock(p.id)}
+                    </option>
+                  `).join("")}
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>Quantity Sold</label>
+
+                <input
+                  id="saleQuantity"
+                  type="number"
+                  min="1"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label>Selling Price / Unit</label>
+
+                <input
+                  id="salePrice"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                >
+
+              </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+              <button
+                class="btn btn-gold"
+                type="submit"
+              >
+                Record Sale
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Recent Sales</h3>
+            <p>Latest recorded transactions</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          ${renderSalesTable(8)}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  const productSelect =
+    document.getElementById("saleProduct");
+
+  const priceInput =
+    document.getElementById("salePrice");
+
+
+  productSelect.addEventListener(
+    "change",
+    () => {
+
+      const product =
+        getProduct(productSelect.value);
+
+      if (product) {
+
+        priceInput.value =
+          product.sellingPrice;
+
+      }
+
+    }
+  );
+
+
+  document
+    .getElementById("saleForm")
+    .addEventListener(
+      "submit",
+      recordSale
+    );
+
+}
+
+
+/* =========================================================
+   RECORD SALE
+========================================================= */
+
+function recordSale(event) {
+
+  event.preventDefault();
+
+  const productId =
+    document.getElementById("saleProduct").value;
+
+  const quantity =
+    Number(
+      document.getElementById("saleQuantity").value
+    );
+
+  const price =
+    Number(
+      document.getElementById("salePrice").value
+    );
+
+
+  const product =
+    getProduct(productId);
+
+  if (!product || quantity <= 0 || price < 0) {
+
+    showToast(
+      "Please enter valid sale details.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const available =
+    getCurrentStock(productId);
+
+
+  if (quantity > available) {
+
+    showToast(
+      `Insufficient stock. Available: ${available}.`,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const id =
+    nextId("SL", state.sales);
+
+
+  state.sales.unshift({
+
+    id,
+    productId,
+    quantity,
+    price,
+    date: todayISO(),
+    user: currentUser.name
+
+  });
+
+
+  addAudit(
+    "Recorded sale",
+    id,
+    `Sold ${quantity} ${product.name}`
+  );
+
+
+  saveState();
+
+  showToast(
+    `Sale recorded. ${product.name} stock reduced by ${quantity}.`,
+    "success"
+  );
+
+
+  renderSales(
+    document.getElementById("content")
+  );
+
+}
+
+
+/* =========================================================
+   LIVE STOCK
+========================================================= */
+
+function renderStock(content) {
+
+  content.innerHTML = `
+
+    <div class="toolbar">
+
+      <div class="toolbar-left">
+
+        <input
+          class="search-box"
+          id="stockSearch"
+          type="search"
+          placeholder="Search stock..."
+        >
+
+        <select id="stockStatusFilter">
+          <option value="">All Status</option>
+          <option value="In Stock">In Stock</option>
+          <option value="Reorder">Reorder</option>
+          <option value="Out of Stock">Out of Stock</option>
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+          <h3>Live Stock Position</h3>
+          <p>
+            Opening + Received − Sales ± Adjustments
+          </p>
+        </div>
+
+      </div>
+
+      <div class="card-body">
+
+        <div id="stockTable"></div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  const search =
+    document.getElementById("stockSearch");
+
+  const filter =
+    document.getElementById("stockStatusFilter");
+
+
+  function refresh() {
+
+    const q =
+      search.value.trim().toLowerCase();
+
+    const statusFilter =
+      filter.value;
+
+
+    const products =
+      state.products.filter(p => {
+
+        const status =
+          getStockStatus(p).label;
+
+        const matchSearch =
+          !q ||
+          p.name.toLowerCase().includes(q) ||
+          p.sku.toLowerCase().includes(q);
+
+        const matchStatus =
+          !statusFilter ||
+          status === statusFilter;
+
+        return matchSearch && matchStatus;
+
+      });
+
+
+    renderStockTable(
+      document.getElementById("stockTable"),
+      products
+    );
+
+  }
+
+
+  search.addEventListener("input", refresh);
+
+  filter.addEventListener("change", refresh);
+
+  refresh();
+
+}
+
+
+function renderStockTable(container, products) {
+
+  container.innerHTML = `
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>SKU</th>
+            <th>Product</th>
+            <th>Opening</th>
+            <th>Received</th>
+            <th>Sold</th>
+            <th>Adjustments</th>
+            <th>Current</th>
+            <th>Reorder</th>
+            <th>Value</th>
+            <th>Status</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${products.map(p => {
+
+            const received =
+              getReceivedQty(p.id);
+
+            const sold =
+              getSoldQty(p.id);
+
+            const adjustment =
+              getAdjustmentQty(p.id);
+
+            const current =
+              getCurrentStock(p.id);
+
+            const status =
+              getStockStatus(p);
+
+            return `
+              <tr>
+
+                <td>${escapeHTML(p.sku)}</td>
+
+                <td>
+                  <strong>${escapeHTML(p.name)}</strong>
+                </td>
+
+                <td>${p.openingStock}</td>
+
+                <td>${received}</td>
+
+                <td>${sold}</td>
+
+                <td>${adjustment}</td>
+
+                <td>
+                  <strong>${current}</strong>
+                </td>
+
+                <td>${p.reorderLevel}</td>
+
+                <td>${money(getStockValue(p.id))}</td>
+
+                <td>
+                  <span class="status ${status.className}">
+                    ${status.label}
+                  </span>
+                </td>
+
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  `;
+
+}
+
+           
