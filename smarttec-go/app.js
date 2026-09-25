@@ -2494,4 +2494,393 @@ function renderStockTable(container, products) {
 
 }
 
-           
+/* =========================================================
+   STOCK COUNT
+========================================================= */
+
+function renderCount(content) {
+
+  if (!canAccess("count")) {
+
+    renderNoAccess(content);
+
+    return;
+
+  }
+
+
+  content.innerHTML = `
+
+    <div class="grid-2">
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Physical Stock Count</h3>
+            <p>Compare physical quantity with system stock</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          <form id="countForm">
+
+            <div class="form-group">
+
+              <label>Product</label>
+
+              <select id="countProduct" required>
+
+                <option value="">
+                  Select product
+                </option>
+
+                ${state.products.map(p => `
+                  <option value="${p.id}">
+                    ${escapeHTML(p.name)}
+                    — System: ${getCurrentStock(p.id)}
+                  </option>
+                `).join("")}
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group" style="margin-top:13px">
+
+              <label>Physical Count</label>
+
+              <input
+                id="physicalCount"
+                type="number"
+                min="0"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-actions">
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+              >
+                Record Count
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="card-header">
+
+          <div>
+            <h3>Recent Counts</h3>
+            <p>Physical versus system stock</p>
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          ${renderCountsTable()}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById("countForm")
+    .addEventListener(
+      "submit",
+      recordCount
+    );
+
+}
+
+
+function recordCount(event) {
+
+  event.preventDefault();
+
+  const productId =
+    document.getElementById("countProduct").value;
+
+  const physical =
+    Number(
+      document.getElementById("physicalCount").value
+    );
+
+
+  const product =
+    getProduct(productId);
+
+
+  if (!product || physical < 0) {
+
+    showToast(
+      "Please enter a valid physical count.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const system =
+    getCurrentStock(productId);
+
+  const variance =
+    physical - system;
+
+
+  const id =
+    nextId("CNT", state.counts);
+
+
+  state.counts.unshift({
+
+    id,
+    productId,
+    systemStock: system,
+    physicalCount: physical,
+    variance,
+    date: todayISO(),
+    user: currentUser.name
+
+  });
+
+
+  addAudit(
+    "Stock count",
+    id,
+    `${product.name}: system ${system}, physical ${physical}, variance ${variance}`
+  );
+
+
+  saveState();
+
+
+  showToast(
+    variance === 0
+      ? "Count recorded. No variance."
+      : `Count recorded. Variance: ${variance}.`,
+    variance === 0 ? "success" : "warning"
+  );
+
+
+  renderCount(
+    document.getElementById("content")
+  );
+
+}
+
+
+function renderCountsTable() {
+
+  if (!state.counts.length) {
+
+    return `
+      <div class="empty-state">
+        <strong>No counts recorded</strong>
+      </div>
+    `;
+
+  }
+
+
+  return `
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>System</th>
+            <th>Physical</th>
+            <th>Variance</th>
+            <th>User</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${state.counts.slice(0, 12).map(c => {
+
+            const product =
+              getProduct(c.productId);
+
+            const variance =
+              Number(c.variance);
+
+            return `
+              <tr>
+
+                <td>${formatDate(c.date)}</td>
+
+                <td>
+                  ${product
+                    ? escapeHTML(product.name)
+                    : "Unknown"}
+                </td>
+
+                <td>${c.systemStock}</td>
+
+                <td>${c.physicalCount}</td>
+
+                <td>
+                  <span class="status ${
+                    variance === 0
+                      ? "status-ok"
+                      : "status-danger"
+                  }">
+                    ${variance > 0 ? "+" : ""}
+                    ${variance}
+                  </span>
+                </td>
+
+                <td>${escapeHTML(c.user)}</td>
+
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
+
+      </table>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   EXPIRY
+========================================================= */
+
+function renderExpiry(content) {
+
+  content.innerHTML = `
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <div>
+          <h3>Expiry Monitor</h3>
+          <p>FEFO-focused visibility of products approaching expiry</p>
+        </div>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Current Stock</th>
+                <th>Expiry Date</th>
+                <th>Days Remaining</th>
+                <th>Status</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${state.products
+                .filter(p => p.expiryDate)
+                .sort((a, b) =>
+                  a.expiryDate.localeCompare(
+                    b.expiryDate
+                  )
+                )
+                .map(p => {
+
+                  const e =
+                    getExpiryInfo(p);
+
+                  return `
+                    <tr>
+
+                      <td>
+                        <strong>
+                          ${escapeHTML(p.name)}
+                        </strong>
+                      </td>
+
+                      <td>
+                        ${escapeHTML(p.category)}
+                      </td>
+
+                      <td>
+                        ${getCurrentStock(p.id)}
+                      </td>
+
+                      <td>
+                        ${formatDate(p.expiryDate)}
+                      </td>
+
+                      <td>
+                        ${
+                          e.days === null
+                            ? "—"
+                            : e.days
+                        }
+                      </td>
+
+                      <td>
+                        <span class="status ${e.className}">
+                          ${e.label}
+                        </span>
+                      </td>
+
+                    </tr>
+                  `;
+
+                }).join("")}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+            }
+               
