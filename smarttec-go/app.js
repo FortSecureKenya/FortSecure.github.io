@@ -4000,6 +4000,89 @@ function renderReceiptsTable(limit = 10) {
           }).join("")}
 
         </tbody>
+      </table>
+
+    </div>
+  `;
+
+}
+/* =========================================================
+   SALES TABLE
+========================================================= */
+
+function renderSalesTable(limit = 10) {
+
+  const sales =
+    state.sales.slice(0, limit);
+
+
+  if (!sales.length) {
+
+    return `
+      <div class="empty-state">
+        <strong>No sales recorded</strong>
+      </div>
+    `;
+
+  }
+
+
+  return `
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+            <th>Date</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Value</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${sales.map(s => {
+
+            const p =
+              getProduct(s.productId);
+
+            const value =
+              Number(s.quantity) *
+              Number(s.price);
+
+            return `
+              <tr>
+
+                <td>
+                  ${formatDate(s.date)}
+                </td>
+
+                <td>
+                  ${
+                    p
+                      ? escapeHTML(p.name)
+                      : "Unknown"
+                  }
+                </td>
+
+                <td>
+                  ${s.quantity}
+                </td>
+
+                <td>
+                  ${money(value)}
+                </td>
+
+              </tr>
+            `;
+
+          }).join("")}
+
+        </tbody>
 
       </table>
 
@@ -4008,5 +4091,917 @@ function renderReceiptsTable(limit = 10) {
 
 }
 
+
+/* =========================================================
+   PRODUCT MODALS
+========================================================= */
+
+function showAddProductModal() {
+
+  showProductFormModal(
+    "Add Product",
+    null
+  );
+
+}
+
+
+function showEditProductModal(id) {
+
+  const product =
+    getProduct(id);
+
+  if (!product) return;
+
+  showProductFormModal(
+    "Edit Product",
+    product
+  );
+
+}
+
+
+function showProductFormModal(title, product) {
+
+  const editing =
+    Boolean(product);
+
+
+  showModal(
+    title,
+    `
+
+      <form id="productForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label>SKU</label>
+
+            <input
+              id="productSKU"
+              value="${
+                product
+                  ? escapeAttribute(product.sku)
+                  : ""
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Product Name</label>
+
+            <input
+              id="productName"
+              value="${
+                product
+                  ? escapeAttribute(product.name)
+                  : ""
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Category</label>
+
+            <input
+              id="productCategory"
+              value="${
+                product
+                  ? escapeAttribute(product.category)
+                  : ""
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Unit</label>
+
+            <input
+              id="productUnit"
+              value="${
+                product
+                  ? escapeAttribute(product.unit)
+                  : ""
+              }"
+              placeholder="Pack / Bottle / Box"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Buying Price</label>
+
+            <input
+              id="productBuy"
+              type="number"
+              min="0"
+              step="0.01"
+              value="${
+                product
+                  ? product.buyingPrice
+                  : ""
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Selling Price</label>
+
+            <input
+              id="productSell"
+              type="number"
+              min="0"
+              step="0.01"
+              value="${
+                product
+                  ? product.sellingPrice
+                  : ""
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Opening Stock</label>
+
+            <input
+              id="productOpening"
+              type="number"
+              min="0"
+              value="${
+                product
+                  ? product.openingStock
+                  : 0
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Reorder Level</label>
+
+            <input
+              id="productReorder"
+              type="number"
+              min="0"
+              value="${
+                product
+                  ? product.reorderLevel
+                  : 10
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Reorder Quantity</label>
+
+            <input
+              id="productReorderQty"
+              type="number"
+              min="1"
+              value="${
+                product
+                  ? product.reorderQty
+                  : 20
+              }"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Expiry Date</label>
+
+            <input
+              id="productExpiry"
+              type="date"
+              value="${
+                product
+                  ? product.expiryDate
+                  : ""
+              }"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            class="btn btn-primary"
+            type="submit"
+          >
+            ${
+              editing
+                ? "Save Changes"
+                : "Add Product"
+            }
+          </button>
+
+        </div>
+
+      </form>
+
+    `
+  );
+
+
+  document
+    .getElementById("productForm")
+    .addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+
+        const data = {
+
+          sku:
+            document
+              .getElementById("productSKU")
+              .value.trim(),
+
+          name:
+            document
+              .getElementById("productName")
+              .value.trim(),
+
+          category:
+            document
+              .getElementById("productCategory")
+              .value.trim(),
+
+          unit:
+            document
+              .getElementById("productUnit")
+              .value.trim(),
+
+          buyingPrice:
+            Number(
+              document
+                .getElementById("productBuy")
+                .value
+            ),
+
+          sellingPrice:
+            Number(
+              document
+                .getElementById("productSell")
+                .value
+            ),
+
+          openingStock:
+            Number(
+              document
+                .getElementById("productOpening")
+                .value
+            ),
+
+          reorderLevel:
+            Number(
+              document
+                .getElementById("productReorder")
+                .value
+            ),
+
+          reorderQty:
+            Number(
+              document
+                .getElementById("productReorderQty")
+                .value
+            ),
+
+          expiryDate:
+            document
+              .getElementById("productExpiry")
+              .value
+
+        };
+
+
+        if (
+          !data.sku ||
+          !data.name ||
+          !data.category
+        ) {
+
+          showToast(
+            "Please complete the required fields.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (editing) {
+
+          Object.assign(
+            product,
+            data
+          );
+
+          addAudit(
+            "Updated product",
+            product.id,
+            product.name
+          );
+
+          showToast(
+            "Product updated.",
+            "success"
+          );
+
+        } else {
+
+          const newProduct = {
+
+            id:
+              nextId(
+                "P",
+                state.products
+              ),
+
+            supplierId:
+              state.suppliers[0]?.id || "",
+
+            ...data
+
+          };
+
+
+          state.products.push(
+            newProduct
+          );
+
+
+          addAudit(
+            "Created product",
+            newProduct.id,
+            newProduct.name
+          );
+
+
+          showToast(
+            "Product added.",
+            "success"
+          );
+
+        }
+
+
+        saveState();
+
+        closeModal();
+
+        renderProducts(
+          document.getElementById("content")
+        );
+
+      }
+    );
+
+}
+
+
+function showProductDetails(id) {
+
+  const p =
+    getProduct(id);
+
+  if (!p) return;
+
+  const supplier =
+    getSupplier(p.supplierId);
+
+  const stock =
+    getCurrentStock(id);
+
+  const expiry =
+    getExpiryInfo(p);
+
+
+  showModal(
+    "Product Details",
+    `
+
+      <div class="grid-2">
+
+        <div>
+
+          <strong>Product</strong>
+
+          <p>
+            ${escapeHTML(p.name)}
+          </p>
+
+        </div>
+
+        <div>
+
+          <strong>SKU</strong>
+
+          <p>
+            ${escapeHTML(p.sku)}
+          </p>
+
+        </div>
+
+        <div>
+
+          <strong>Current Stock</strong>
+
+          <p>
+            ${stock}
+          </p>
+
+        </div>
+
+        <div>
+
+          <strong>Supplier</strong>
+
+          <p>
+            ${
+              supplier
+                ? escapeHTML(supplier.name)
+                : "—"
+            }
+          </p>
+
+        </div>
+
+        <div>
+
+          <strong>Buying Price</strong>
+
+          <p>
+            ${money(p.buyingPrice)}
+          </p>
+
+        </div>
+
+        <div>
+
+          <strong>Selling Price</strong>
+
+          <p>
+            ${money(p.sellingPrice)}
+          </p>
+
+        </div>
+
+        <div>
+
+          <strong>Expiry</strong>
+
+          <p>
+            ${
+              p.expiryDate
+                ? formatDate(p.expiryDate)
+                : "No expiry"
+            }
+          </p>
+
+        </div>
+
+        <div>
+
+          <strong>Expiry Status</strong>
+
+          <p>
+            <span class="status ${expiry.className}">
+              ${expiry.label}
+            </span>
+          </p>
+
+        </div>
+
+      </div>
+
+    `
+  );
+
+}
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function showModal(title, body) {
+
+  closeModal();
+
+
+  const overlay =
+    document.createElement("div");
+
+  overlay.className =
+    "modal-overlay";
+
+  overlay.id =
+    "activeModal";
+
+
+  overlay.innerHTML = `
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <h3>
+          ${escapeHTML(title)}
+        </h3>
+
+        <button
+          class="modal-close"
+          type="button"
+          onclick="closeModal()"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        ${body}
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  overlay.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target === overlay
+      ) {
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+  document.body.appendChild(
+    overlay
+  );
+
+}
+
+
+function closeModal() {
+
+  const modal =
+    document.getElementById(
+      "activeModal"
+    );
+
+  if (modal) {
+
+    modal.remove();
+
+  }
+
+}
+
+
+/* =========================================================
+   TOASTS
+========================================================= */
+
+function setupToastContainer() {
+
+  if (
+    document.getElementById(
+      "toastContainer"
+    )
+  ) return;
+
+
+  const container =
+    document.createElement("div");
+
+  container.id =
+    "toastContainer";
+
+  container.className =
+    "toast-container";
+
+
+  document.body.appendChild(
+    container
+  );
+
+}
+
+
+function showToast(message, type = "success") {
+
+  let container =
+    document.getElementById(
+      "toastContainer"
+    );
+
+
+  if (!container) {
+
+    setupToastContainer();
+
+    container =
+      document.getElementById(
+        "toastContainer"
+      );
+
+  }
+
+
+  const toast =
+    document.createElement("div");
+
+  toast.className =
+    `toast ${type}`;
+
+  toast.textContent =
+    message;
+
+
+  container.appendChild(
+    toast
+  );
+
+
+  setTimeout(() => {
+
+    toast.remove();
+
+  }, 3500);
+
+}
+
+
+/* =========================================================
+   ACCESS CONTROL
+========================================================= */
+
+function canAccess(page) {
+
+  if (!currentRole) return false;
+
+  return ROLES[currentRole]
+    .pages
+    .includes(page);
+
+}
+
+
+function canModifyProducts() {
+
+  return (
+    currentRole === "admin" ||
+    currentRole === "manager"
+  );
+
+}
+
+
+function renderNoAccess(content) {
+
+  content.innerHTML = `
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <div class="empty-state">
+
+          <div class="empty-state-icon">
+            🔒
+          </div>
+
+          <strong>
+            Access Restricted
+          </strong>
+
+          <p>
+            Your demonstration role does not have
+            permission to access this section.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function todayISO() {
+
+  const d =
+    new Date();
+
+  return (
+    d.getFullYear() +
+    "-" +
+    String(
+      d.getMonth() + 1
+    ).padStart(2, "0") +
+    "-" +
+    String(
+      d.getDate()
+    ).padStart(2, "0")
+  );
+
+}
+
+
+function formatDate(value) {
+
+  if (!value) return "—";
+
+  const d =
+    new Date(
+      value + "T00:00:00"
+    );
+
+  if (
+    Number.isNaN(
+      d.getTime()
+    )
+  ) return value;
+
+  return d.toLocaleDateString(
+    "en-KE",
+    {
+      day: "2-digit",
+      month: "short",
+      year: "numeric"
+    }
+  );
+
+}
+
+
+function money(value) {
+
+  return (
+    "KES " +
+    Number(value || 0)
+      .toLocaleString(
+        "en-KE",
+        {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 2
+        }
+      )
+  );
+
+}
+
+
+function formatNumber(value) {
+
+  return Number(value || 0)
+    .toLocaleString("en-KE");
+
+}
+
+
+function nextId(prefix, collection) {
+
+  let max = 0;
+
+  collection.forEach(item => {
+
+    const match =
+      String(item.id || "")
+        .match(
+          new RegExp(
+            "^" + prefix + "(\\d+)$"
+          )
+        );
+
+    if (match) {
+
+      max =
+        Math.max(
+          max,
+          Number(match[1])
+        );
+
+    }
+
+  });
+
+
+  return (
+    prefix +
+    String(max + 1).padStart(3, "0")
+  );
+
+}
+
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+  return escapeHTML(value);
+
+}
+
+
+/* =========================================================
+   EXPOSE FUNCTIONS USED BY INLINE BUTTONS
+========================================================= */
+
+window.navigate =
+  navigate;
+
+window.showEditProductModal =
+  showEditProductModal;
+
+window.showProductDetails =
+  showProductDetails;
+
+window.showAddUserModal =
+  showAddUserModal;
+
+window.toggleUser =
+  toggleUser;
+
+window.createPurchaseDraft =
+  createPurchaseDraft;
+
+window.closeModal =
+  closeModal;
+
+
+/* =========================================================
+   END SMARTTEC GO™
+========================================================= */
          
        
